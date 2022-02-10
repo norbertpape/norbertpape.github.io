@@ -52,7 +52,7 @@ function performer(alpha, radius, dalpha, dradius){
   this.draw = function(){
     xy = arcToxy(this.alpha,this.radius);
     c.beginPath();
-    c.arc(xy[0], xy[1], 8, 0, 2 * Math.PI, false);
+    c.arc(xy[0], xy[1], 12, 0, 2 * Math.PI, false);
     c.strokeStyle = this.color;
     c.stroke();
     c.fillStyle = this.color;
