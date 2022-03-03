@@ -102,7 +102,7 @@ function updatePositions() {
 		for ( let j = 0, l = GRID_WIDTH; j < l; j ++ ) {
 			positions[ index ++ ] = i*2;
 			positions[ index ++ ] = j*2;
-			positions[ index ++ ] = Math.sin(i/GRID_WIDTH*2*Math.PI)* Math.sin(j/GRID_WIDTH*2*Math.PI)*Math.sin(t)*80;
+			positions[ index ++ ] = Math.sin(i/GRID_WIDTH*2*Math.PI)* Math.sin(j/GRID_WIDTH*2*Math.PI)*Math.sin(2*t)*80;
 		}
 	}
 }
