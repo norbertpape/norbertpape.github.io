@@ -80,7 +80,7 @@
 				//scene.add( new THREE.AxesHelper( 1 ) );
 
 				const loader = new PCDLoader();
-				loader.load( '/Zaghetto.pcd', function ( points ) {
+				loader.load( 'Zaghetto.pcd', function ( points ) {
 
 					points.geometry.center();
 					points.geometry.rotateX( Math.PI );
@@ -198,7 +198,7 @@
 
 					case 'a':
 						const loader = new PCDLoader();
-						loader.load( 'models/Zaghetto.pcd', function ( points ) {
+						loader.load( 'Zaghetto.pcd', function ( points ) {
 						points.geometry.center();
 						points.geometry.rotateX( Math.PI );
 						scene.add( points );
