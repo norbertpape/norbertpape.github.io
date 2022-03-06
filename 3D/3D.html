@@ -29,7 +29,7 @@
 			import * as THREE from 'three';
 
 			import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/controls/OrbitControls.js';
-      import { PCDLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PCDLoader.js';//const scene = new THREE.Scene();
+		        import { PCDLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PCDLoader.js';//const scene = new THREE.Scene();
 			import { PLYLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PLYLoader.js';//const scene = new THREE.Scene();
 
 			function getVerticesFromPCD(filename){
@@ -124,6 +124,22 @@
 				grid = new THREE.Points( geometry,  material );
 				scene.add( grid );
 				//updatePositions(-0.2);
+				
+				//add sound
+				const listener = new THREE.AudioListener();
+				camera.add( listener );
+
+				// create the PositionalAudio object (passing in the listener)
+				const sound = new THREE.Audio( listener );
+
+				// load a sound and set it as the PositionalAudio object's buffer
+				const audioLoader = new THREE.AudioLoader();
+				audioLoader.load( 'song.ogg', function( buffer ) {
+				sound.setBuffer( buffer );
+				sound.setLoop( true );
+				sound.setVolume( 0.5 );//sound.setRefDistance( 20 );
+				sound.play();
+				});
 
 				window.addEventListener( 'resize', onWindowResize );
 
