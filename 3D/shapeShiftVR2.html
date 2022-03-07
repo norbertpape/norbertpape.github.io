@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - PCD</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+    <base href=".">
+	</head>
+	<body>
+
+    <div id="info">
+			<div>Shapeshifting Pointclouds - first technical try-out </div>
+		</div>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.module.js"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+
+			import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/controls/OrbitControls.js';
+		  import { PCDLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PCDLoader.js';//const scene = new THREE.Scene();
+			import { PLYLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PLYLoader.js';//const scene = new THREE.Scene();
+			import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/VRButton.js';
+			function getVerticesFromPCD(filename){
+				const loader = new PCDLoader();
+				loader.load( filename , function ( points ) {
+
+					let arrayV = points.geometry.attributes.position.array;
+					for (let i = 0; i < MAX_POINTS; i++){
+						originalGrid[i] = arrayV[i];
+					}
+					for (let i = 0; i < MAX_POINTS; i++){
+						if ((i+1)%3 == 0) {originalGrid[i] = 0;}
+						else {originalGrid[i] = arrayV[i];}
+					}
+					console.log(arrayV.length);
+					return arrayV;
+				} );
+			}
+
+			let camera, scene, renderer, grid, p, vertices, positions;
+			let t= 0;
+			const MAX_POINTS = 179250;
+			const GRID_WIDTH = 250;
+			const GRID_LENGTH = 239;
+			const originalGrid = new Float32Array(MAX_POINTS);
+			for (let i = 0; i < MAX_POINTS; i++){
+				originalGrid[i] = Math.random()*2;
+			}
+
+			init();
+			animate();
+
+
+			function init() {
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				document.body.appendChild( renderer.domElement );
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
+
+				scene = new THREE.Scene();
+
+				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.01, 40 );
+				camera.position.set( 1, 0.2, 1 );
+				scene.add( camera );
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render ); // use if there is no animation loop
+				controls.minDistance = -10;
+				controls.maxDistance = 20;
+
+				//scene.add( new THREE.AxesHelper( 1 ) );
+
+				const loader = new PCDLoader();
+				loader.load( 'Zaghetto.pcd', function ( points ) {
+
+					points.geometry.center();
+					points.geometry.rotateX( Math.PI );
+					points.visible = false;
+					scene.add( points );
+					render();
+				} );
+
+
+				const materialStone = new THREE.PointsMaterial( { size:0.002, color: 0xFFB30D } );
+
+
+				const loaderPLY = new PLYLoader()
+				loaderPLY.load(
+				    '02Stone50KCloud.ply',
+				    function (geometry) {
+				        geometry.computeVertexNormals();
+				        const stone = new THREE.Points(geometry, materialStone);
+				        stone.rotateX(-Math.PI / 2);
+								stone.scale.set(0.01,0.01,0.01 );
+				        stone.position.set(-2,0,-1);
+								stone.name = 'stone';
+								scene.add(stone);
+								render();
+				});
+
+				const geometry = new THREE.BufferGeometry();
+				const material = new THREE.PointsMaterial( { size:0.005, color: 0x72F2EB } );
+				// attributes
+				const positions = new Float32Array( MAX_POINTS); // 3 vertices per point
+				geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+
+				// material
+
+				// grid
+				grid = new THREE.Points( geometry,  material );
+				scene.add( grid );
+				//updatePositions(-0.2);
+
+				//add sound
+				const listener = new THREE.AudioListener();
+				camera.add( listener );
+
+				// create the PositionalAudio object (passing in the listener)
+				const sound = new THREE.Audio( listener );
+
+				// load a sound and set it as the PositionalAudio object's buffer
+				const audioLoader = new THREE.AudioLoader();
+				audioLoader.load( 'song.ogg', function( buffer ) {
+				sound.setBuffer( buffer );
+				sound.setLoop( true );
+				sound.setVolume( 0.5 );//sound.setRefDistance( 20 );
+				sound.play();
+				});
+
+				window.addEventListener( 'resize', onWindowResize );
+
+				window.addEventListener( 'keypress', keyboard );
+
+
+			}
+
+
+			function getVertices(name) {
+				const object = scene.getObjectByName( name );
+				let arrayVertices = object.geometry.attributes.position.array;
+				return arrayVertices;
+			}
+
+			function updatePositions(z) {
+
+				const positions = grid.geometry.attributes.position.array;
+				//const arrayObject = array; //getVertices('Zaghetto.pcd');
+				let index = 0;
+				for ( let i = 0; i < GRID_WIDTH; i ++ ) {
+					for ( let j = 0; j < GRID_LENGTH; j ++ ) {
+						positions[ index ++ ] = i/(GRID_WIDTH * 2)-0.2;
+						positions[ index ++ ] = j/(GRID_LENGTH * 2)-0.2;
+						positions[ index ++ ] =  z; //Math.sin(i/GRID_WIDTH*2*Math.PI)* Math.sin(j/GRID_LENGTH*2*Math.PI);
+					}
+				}
+			}
+
+			function updateMergePositions(arrayVert, offset) {
+
+				const positions = grid.geometry.attributes.position.array;
+				for (let i = 0; i < MAX_POINTS; i++){
+					positions[i] = arrayVert[i] - offset;
+				}
+			}
+
+			function updateMorph(arrayFromVertices, arrayToVertices, t){
+				const positions = grid.geometry.attributes.position.array;
+				for (let i = 0; i < MAX_POINTS; i++){
+					positions[i] = (1-t)*arrayFromVertices[i] + t*arrayToVertices[i];
+				}
+			}
+
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function keyboard( ev ) {
+
+				const points = scene.getObjectByName( 'Zaghetto.pcd' );
+
+				switch ( ev.key || String.fromCharCode( ev.keyCode || ev.charCode ) ) {
+
+					case '+':
+						points.material.size *= 1.2;
+						break;
+
+					case '-':
+						points.material.size /= 1.2;
+						break;
+
+					case 'c':
+						points.material.color.setHex( Math.random() * 0xffffff );
+						break;
+
+					case 'd':
+						scene.remove(points);
+						break;
+
+					case 'a':
+						const loader = new PCDLoader();
+						loader.load( 'Zaghetto.pcd', function ( points ) {
+						points.geometry.center();
+						points.geometry.rotateX( Math.PI );
+						scene.add( points );
+					});
+						break;
+
+					case 'b':
+						updatePositions(-1);
+						const arry = getVertices('Zaghetto.pcd');
+						updateMergePositions(arry, Math.random());
+						break;
+
+					case 'g':
+						console.log(scene.getObjectByName( 'stone' ));
+						break;
+				}
+
+				render();
+
+			}
+			function moveObject(objectName, t){
+				const obj = scene.getObjectByName( objectName );
+				obj.position.set(-1* Math.sin(2*t), 0, -1 * Math.cos(2*t));
+				obj.rotation.y = Math.sin(4*t);
+				obj.rotation.z = Math.sin(2*t);
+			}
+			// function render() {
+			//
+			// 	renderer.render( scene, camera );
+			// 	grid.geometry.attributes.position.needsUpdate = true;
+			//
+			// }
+			//
+			// function animate() {
+			//
+			// 	requestAnimationFrame( animate );
+			//
+			// 	t = (t + 0.001) % Math.PI;
+			//
+			// 	//updatePositions(t);
+			//
+			// 	updateMorph(originalGrid, getVertices('Zaghetto.pcd'),Math.sin(2*t));
+			// 	moveObject('stone',t);
+			// 	render();
+			//
+			// }
+			function animate() {
+				renderer.setAnimationLoop( render );
+			}
+
+			function render() {
+			// 	requestAnimationFrame( animate );
+		//   //
+			 t = (t + 0.01) % Math.PI;
+		//
+				updateMorph(originalGrid, getVertices('Zaghetto.pcd'),Math.sin(2*t));
+				moveObject('stone',t);
+				renderer.render( scene, camera );
+				grid.geometry.attributes.position.needsUpdate = true;
+
+			};
+		</script>
+	</body>
+</html>
