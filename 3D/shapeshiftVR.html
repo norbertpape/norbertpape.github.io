@@ -9,32 +9,92 @@
 	</head>
 	<body>
 		<script type="module">
+		import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.module.js";
+    import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/VRButton.js';
+//    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/controls/OrbitControls.js';
 
-		import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-    import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
-      const clock = new THREE.Clock();
-      const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-      document.body.appendChild( VRButton.createButton( renderer ) );
-      renderer.xr.enabled = true;
-			const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
-      camera.position.z = 5;
+    let renderer, scene, camera;
+
+    let grid;
+
+    const GRID_WIDTH = 200;
+    const GRID_LENGTH = 200;
+    const MAX_POINTS = GRID_WIDTH*GRID_LENGTH*3;
+
+    let t = 1;
+
+    init();
+    animate();
+
+    function init() {
+        // renderer
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.xr.enabled = true;
+        document.body.appendChild( renderer.domElement );
+        document.body.appendChild( VRButton.createButton( renderer ) );
+
+        // scene
+        scene = new THREE.Scene();
+
+        // camera
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+        camera.position.set(5,0,5); // Set position like this
+        camera.lookAt(new THREE.Vector3(1,1,0));
+        // const controls = new OrbitControls(camera, renderer.domElement)
+        // controls.enableDamping = true
+
+        // geometry
+        const geometry = new THREE.BufferGeometry();
+
+        // attributes
+        const positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
+        geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+
+        // material
+        const material = new THREE.PointsMaterial( { size: 0.01, color: 0xffffff } );
+
+        // grid
+        grid = new THREE.Points( geometry,  material );
+        updatePositions(t);
+        scene.add( grid );
+    }
+
+    // update positions
+    function updatePositions(t) {
+
+    	const positions = grid.geometry.attributes.position.array;
+
+    	let index = 0;
+
+    	for ( let i = 0, l = GRID_WIDTH; i < l; i ++ ) {
+    		for ( let j = 0, l = GRID_WIDTH; j < l; j ++ ) {
+    			positions[ index ++ ] = i/100;
+    			positions[ index ++ ] = j/100;
+    			positions[ index ++ ] = Math.sin(i/100*2*Math.PI)* Math.sin(j/100*2*Math.PI)*Math.sin(2*t);
+    		}
+    	}
+    }
+
+    // animate
+    function animate() {
       renderer.setAnimationLoop( render );
-			function render() {
-			// 	requestAnimationFrame( animate );
-      //
-			 	cube.rotation.x += 0.01;
-			 	cube.rotation.y += 0.01;
-      //
-			 	renderer.render( scene, camera );
-			};
+    }
+
+		function render() {
+		// 	requestAnimationFrame( animate );
+  //   //
+     t = (t + 0.01) % Math.PI;
+     console.log(t);
+  //
+   	updatePositions(t);
+  //
+    grid.geometry.attributes.position.needsUpdate = true; // required after the first render
+  // //
+		 	renderer.render( scene, camera );
+		};
 		</script>
 	</body>
 </html>
