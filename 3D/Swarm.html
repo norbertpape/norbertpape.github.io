@@ -257,7 +257,7 @@
 			import { GPUComputationRenderer } from 'https://unpkg.com/three/examples/jsm/misc/GPUComputationRenderer.js';
 			import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 
-			const WIDTH = 70;
+			const WIDTH = 50;
 			const POINTS = WIDTH * WIDTH;
 			const BOUNDS = 200;
 			const BOUNDS_HALF = BOUNDS / 2;
@@ -355,19 +355,47 @@
 			function init() {
 				scene = new THREE.Scene();
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-				camera.position.z = 0.;
-				camera.position.y = 500.;
+				camera.position.set(100.,300.,-200.);
 				var point = new THREE.Vector3( 0.,0.,0. );
 
 				camera.lookAt( point );
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				document.body.appendChild( renderer.domElement );
 
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.update();
+				const geometry = new THREE.SphereGeometry( 20, 32, 16 );
+				const material = new THREE.MeshStandardMaterial( { color: 0x808080 } );
+				const sphere = new THREE.Mesh( geometry, material );
+				sphere.position.set(0, 100, 0);
+				sphere.castShadow = true;
+				scene.add( sphere );
 
+				const plane = new THREE.Mesh( new THREE.PlaneGeometry( 5000, 5000, 10 , 10), new THREE.MeshStandardMaterial({ color: 0x808080, } ));
+				plane.castShadow = false;
+				plane.receiveShadow = true;
+				plane.rotation.x = -Math.PI / 2;
+				plane.position.set(0, -200, -2000);
+				scene.add( plane );
+
+				let Light = new THREE.SpotLight( 0xffffff, 1.0 );
+				Light.position.set( 0, 150, 50 );
+				Light.target = sphere;
+				Light.castShadow = true;
+				Light.shadow.focus = 1;
+				Light.shadow.mapSize.width = 512; // default
+				Light.shadow.mapSize.height = 512; // default
+				Light.shadow.camera.near = 0.5; // default
+				Light.shadow.camera.far = 5000; // default
+				scene.add( Light );
+				scene.add(Light.target);
+				// const helper = new THREE.CameraHelper( Light.shadow.camera );
+				// scene.add( helper );
+//				scene.add(Light.shadow.camera);
 				initComputeRenderer();
 				initCloud();
 			}
@@ -479,6 +507,7 @@
 				pointMesh.rotation.y = Math.PI / 2;
 				pointMesh.matrixAutoUpdate = false;
 				pointMesh.updateMatrix();
+				pointMesh.castShadow = true;
 
 				scene.add( pointMesh );
 
