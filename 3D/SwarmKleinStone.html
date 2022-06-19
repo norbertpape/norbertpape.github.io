@@ -458,8 +458,8 @@
 
 				 for (var u = 0.; u < 2* Math.PI; u+= 1/RESOLUTION) {
 					 for (var v = 0.; v < 2* Math.PI; v+= 1/RESOLUTION) {
-						const w = (r * Math.cos(v) + a)*Math.cos(u);
-						const x = (r * Math.cos(v) + a)*Math.sin(u);
+						const w = (a + r * Math.cos(v))*Math.cos(u);
+						const x = (a - r * Math.cos(v))*Math.sin(u);
 						const y = r * Math.sin(v)*Math.cos(u/2);
 						const z = r * Math.sin(v)*Math.sin(u/2);
 						klein.push(w,x,y,z);
@@ -477,7 +477,7 @@
 			}
 			function updateKleinBottle() {
 				T += Tdelta;
-				if (T > Math.PI) {T = - Math.PI;}
+				if (T > 2 + Math.PI) {T = - Math.PI;}
 				kleinBottle.geometry.attributes.position = new THREE.BufferAttribute( kleinInit(), 3 );
 				kleinBottle.geometry.scale(50,50,50);
 			}
