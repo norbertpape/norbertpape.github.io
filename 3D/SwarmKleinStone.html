@@ -101,19 +101,19 @@
 					float limit = SPEED_LIMIT;
 
 					//keep them in the frame
-					vec3 central = vec3( -100., 200., 100. );
+					vec3 central = vec3( -200., 100., 200. );
 					dir = selfPosition - central;
 					dist = length( dir );
 					dir.y *= 2.5;
 					velocity -= normalize( dir ) * delta * 5.;
 
-					dir = vec3(50,50,50)  - selfPosition;
+					dir = vec3(135.,30.,0.)  - selfPosition;
 					dir.z = 0.;
 					// dir.z *= 0.6;
 					dist = length( dir );
 					distSquared = dist * dist;
 
-					float preyRadius = 150.0;
+					float preyRadius = 200.0;
 					float preyRadiusSq = preyRadius * preyRadius;
 
 
@@ -273,7 +273,7 @@
 			const BOUNDS_HALF = BOUNDS / 2;
 
 			const RESOLUTION = 80;
-			let T = 1.;
+			let T = - 3.;
 			const Tdelta = 0.01; //time delta
 			const delta = 0.2;  //slice delta
 
@@ -375,7 +375,7 @@
 				scene = new THREE.Scene();
 				scene.name = "main";
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-				camera.position.set(100.,300.,-200.);
+				camera.position.set(-250.,50., -250.);
 				camera.name = "camera";
 				var point = new THREE.Vector3( 0.,0.,0. );
 				camera.lookAt( point );
@@ -389,6 +389,20 @@
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.update();
 
+				//add sound
+				const listener = new THREE.AudioListener();
+				camera.add( listener );
+
+				// create the PositionalAudio object (passing in the listener)
+				const sound = new THREE.Audio( listener );
+
+				const audioLoader = new THREE.AudioLoader();
+				audioLoader.load( 'sounds/underwater.mp3', function( buffer ) {
+				sound.setBuffer( buffer );
+				sound.setLoop( true );
+				sound.setVolume( 2 );//sound.setRefDistance( 20 );
+				sound.play();
+				});
 				loaderPLY.load(
 				    '02Stone50KCloud.ply',
 				    function (geometry) {
@@ -398,7 +412,7 @@
 								//const material = new THREE.MeshStandardMaterial({color: 0xffffff } );
 				        //const mesh = new THREE.Mesh(geometry, material);
 								mesh.castShadow = true;
-								mesh.geometry.position = new THREE.Vector3(0,600,0);
+								//mesh.geometry.position = new THREE.Vector3(0,600,0);
 								mesh.geometry.scale(5,5,5);
 								mesh.name = "stone";
 								scene.add(mesh);
@@ -414,7 +428,7 @@
         kleinBottle = new THREE.Points( kleinBottleGeom,  material );
 				kleinBottle.name = "kleinBottle";
 				kleinBottle.geometry.scale(50,50,50);
-				kleinBottle.geometry.position = new THREE.Vector3(0,50,0);
+				kleinBottle.position.set(150,0,-50);
 				kleinBottle.geometry.attributes.position.needsUpdate = true;
 				kleinBottle.castShadow = true;
 				scene.add(kleinBottle);
@@ -458,8 +472,8 @@
 
 				 for (var u = 0.; u < 2* Math.PI; u+= 1/RESOLUTION) {
 					 for (var v = 0.; v < 2* Math.PI; v+= 1/RESOLUTION) {
-						const w = (a + r * Math.cos(v))*Math.cos(u);
-						const x = (a - r * Math.cos(v))*Math.sin(u);
+						const w = (r * Math.cos(v) + a)*Math.cos(u);
+						const x = (r * Math.cos(v) + a)*Math.sin(u);
 						const y = r * Math.sin(v)*Math.cos(u/2);
 						const z = r * Math.sin(v)*Math.sin(u/2);
 						klein.push(w,x,y,z);
@@ -477,7 +491,7 @@
 			}
 			function updateKleinBottle() {
 				T += Tdelta;
-				if (T > 2 + Math.PI) {T = - Math.PI;}
+				if (T > Math.PI) {T = - Math.PI;}
 				kleinBottle.geometry.attributes.position = new THREE.BufferAttribute( kleinInit(), 3 );
 				kleinBottle.geometry.scale(50,50,50);
 			}
@@ -584,9 +598,9 @@
 
 					for ( let k = 0, kl = theArray.length; k < kl; k += 4 ) {
 
-						const x = Math.random() * BOUNDS - BOUNDS_HALF;
-						const y = Math.random() * BOUNDS - BOUNDS_HALF;
-						const z = Math.random() * BOUNDS - BOUNDS_HALF;
+						const x = Math.random() * BOUNDS - BOUNDS_HALF + 200;
+						const y = Math.random() * BOUNDS - BOUNDS_HALF + 100;
+						const z = Math.random() * BOUNDS - BOUNDS_HALF + -200;
 
 						theArray[ k + 0 ] = x;
 						theArray[ k + 1 ] = y;
@@ -622,7 +636,7 @@
 
 				// For Vertex and Fragment
 				cloudUniforms = {
-					'color': { value: new THREE.Color( 0xff2200 ) },
+					'color': { value: new THREE.Color( 0x9f0733 ) },
 					'texturePosition': { value: null },
 					'textureVelocity': { value: null },
 					'pointcloud' : {value: null},
