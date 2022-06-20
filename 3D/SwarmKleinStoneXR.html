@@ -635,11 +635,7 @@
 			}
 
 			function animate() {
-
-				requestAnimationFrame( animate );
-				//controls.update();
-				updateKleinBottle();
-				render();
+				renderer.setAnimationLoop( render );
 			}
 
 			function updateUniforms() {
@@ -648,6 +644,7 @@
 			}
 
 			function render() {
+				updateKleinBottle();
 				const now = performance.now();
 				let delta = ( now - last ) / 1000;
 
