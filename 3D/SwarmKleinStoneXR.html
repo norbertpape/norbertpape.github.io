@@ -436,8 +436,8 @@
 				kleinBottle.castShadow = true;
 				scene.add(kleinBottle);
 
-				window.addEventListener( 'resize', onWindowResize );
-				window.addEventListener( 'keypress', keyboard );
+				//window.addEventListener( 'resize', onWindowResize );
+				//window.addEventListener( 'keypress', keyboard );
 
 				let plane = new THREE.Mesh( new THREE.PlaneGeometry( 5000, 5000, 10 , 10), new THREE.MeshStandardMaterial({ color: 0x808080, } ));
 				plane.castShadow = false;
@@ -542,14 +542,6 @@
 					console.error( error );
 
 				}
-
-			}
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
 
