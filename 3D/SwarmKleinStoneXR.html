@@ -354,7 +354,7 @@
 
 			}
 
-			let camera, scene, renderer, controls;
+			let camera, scene, renderer;//, controls;
 
 			let last = performance.now();
 
@@ -570,31 +570,7 @@
 					);
 			}
 
-			function keyboard( ev ) {
-
-				const points = scene.getObjectByName( 'stone' );
-
-				switch ( ev.key || String.fromCharCode( ev.keyCode || ev.charCode ) ) {
-
-					case '+':
-						points.material.size *= 1.2;
-						break;
-
-					case '-':
-						points.material.size /= 1.2;
-						break;
-
-					case 'c':
-						points.material.color.setHex( Math.random() * 0xffffff );
-						cloudUniforms[ 'color' ].value = new THREE.Color(Math.random() * 0xffffff);
-						break;
-
-					case 'd':
-						scene.remove(points);
-						break;
-
-				}
-			}
+	
 			function fillPositionTexture( texture ) {
 
 					const theArray = texture.image.data;
@@ -669,7 +645,7 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
-				controls.update();
+				//controls.update();
 				updateKleinBottle();
 				render();
 			}
