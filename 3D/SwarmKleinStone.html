@@ -397,7 +397,7 @@
 				const sound = new THREE.Audio( listener );
 
 				const audioLoader = new THREE.AudioLoader();
-				audioLoader.load( 'sounds/underwater.mp3', function( buffer ) {
+				audioLoader.load( '../sounds/underwater.mp3', function( buffer ) {
 				sound.setBuffer( buffer );
 				sound.setLoop( true );
 				sound.setVolume( 2 );//sound.setRefDistance( 20 );
