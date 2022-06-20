@@ -365,7 +365,7 @@
 			let cloudUniforms;
 			let faceCloud = new Float32Array;
 			let loaderPLY = new PLYLoader();
-			let kleinBottle;
+			let kleinBottle, Light;
 
 			init();
 
@@ -444,7 +444,7 @@
 				plane.name="plane";
 				scene.add( plane );
 
-				let Light = new THREE.SpotLight( 0xffffff, 1.0 );
+				Light = new THREE.SpotLight( 0xffffff, 1.0 );
 				Light.position.set( 0, 150, 50 );
 				Light.castShadow = true;
 				Light.shadow.focus = 1;
@@ -682,7 +682,7 @@
 
 				if ( delta > 1 ) delta = 1; // safety cap on large deltas
 				last = now;
-
+				if (Math.random() < 0.1) {Light.intensity = Math.sin(now);}
 				positionUniforms[ 'time' ].value = now;
 				positionUniforms[ 'delta' ].value = delta;
 				velocityUniforms[ 'time' ].value = now;
