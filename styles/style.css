@@ -10,7 +10,7 @@ html {
     margin-left: 10px;
     margin-right: 2.5%;
     margin-top: 2%;
-    /*padding: 5px;*/
+    /* padding: 5px; */
     vertical-align: top;
     font-size: 1vw;
 }
@@ -35,7 +35,7 @@ html {
     float: right;
     width: 100%;
     height: 0;
-    padding-top: 60.25%;
+    padding-top: 70%;
 }
 .box-zine iframe {
   position: absolute;
@@ -49,4 +49,35 @@ html {
   flex-direction: column;
   flex-wrap: wrap;
   width: 76%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #dddddd;
+}
+li {
+  font-size: 12pt;
+ display: inline;
+ float: left;
+}
+a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
+li a:hover {
+  background-color: #111;
+}
+.descr {
+  font-size: 12pt;
+  width: 50%;
+  float: center;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
+.logo {
+  width: 100%;
+  margin: auto;
 }
