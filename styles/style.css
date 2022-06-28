@@ -55,19 +55,23 @@ ul {
   margin: 0;
   padding: 0;
   background-color: #dddddd;
+  text-decoration: none;
 }
 li {
   font-size: 12pt;
  display: inline;
  float: left;
+ text-decoration: none;
 }
 a {
   display: block;
   padding: 8px;
   background-color: #dddddd;
+  text-decoration: none;
 }
 li a:hover {
   background-color: #111;
+  text-decoration: none;
 }
 .descr {
   font-size: 12pt;
