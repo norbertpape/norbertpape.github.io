@@ -1,9 +1,12 @@
 html {
-  font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high  */
+  font-size: 20px; /* px means "pixels": the base font size is now 10 pixels high  */
   font-family: "Open Sans", sans-serif; /* this should be the rest of the output you got from Google fonts */
-  background-color: #ffffff;
 }
-
+body {
+  background-image: 'images/sky0.jpeg';
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .box-description {
     float: left;
     width: 20%;
@@ -67,21 +70,25 @@ a {
   background-color: #dddddd;
   text-decoration: none;
   color: black;
+  font-size: 20px;
 }
 li a:hover {
   background-color: #111;
   text-decoration: none;
   color: white;
+  font-size: 20px;
 }
-.descr {
+div.descr {
   font-size: 12pt;
   width: 50%;
   float: center;
   text-align: center;
   align-items: center;
   margin: auto;
+  font-size: 20px;
 }
 .logo {
   width: 100%;
+  float: center;
   margin: auto;
 }
