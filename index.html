@@ -4,14 +4,36 @@
     <meta charset="utf-8">
     <title>IASA</title>
     <link rel="stylesheet" href="styles/style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body background="images/sky0.jpeg">
-    <ul>
-        <li><a href="IASA-O.html">Archive</a></li>
-        <li><a href="workspace.html">VR experiments</a></li>
-        <li style="float:right"><a class="active" href="#about">About</a></li>
-    </ul>
-    <div class="descr"><img class="logo" src="images/IASA_logo.svg"></div>
-    <div class="descr">The International Agency for Space Affairs (IASA) claims space for life. It recruits experts to support the development and dissemination of knowledge, cultural practices and technologies that will enable further exploration and benefit life on Earth. To ensure future success for the agency and the world, IASA also supports education efforts with an emphasis on increasing diversity in modes of inhabiting the planet.</div>
+    <div class="topnav" id="myTopnav">
+  <a href="IASA-O.html">Archive</a>
+  <a href="workspace.html" class="active">VR experiments</a>
+  <a href="#contact">Contact</a>
+  <a href="index.html">About</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+    </script>
+
+    <div class="main">
+      <div> <img src="images/IASA_logo.svg" width="100%"></div>
+      <div>
+        <h2 id="about"></h2>
+          The International Agency for Space Affairs (IASA) claims space for life. It recruits experts in space exploration to support the development and dissemination of knowledge, cultural practices and technologies that benefit life on Earth. IASA also supports educational projects with an emphasis on increasing diversity in modes of inhabiting the planet.
+      </div>
+    </div>
   </body>
 </html>
