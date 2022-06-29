@@ -56,7 +56,7 @@ body {
   display: flex;
   text-align: center;
   flex-direction: column;
-  font-size: 1vw;
+  /*font-size: 1vw;*/
 }
 
 .topnav {
