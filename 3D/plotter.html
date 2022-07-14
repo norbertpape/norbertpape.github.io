@@ -77,7 +77,7 @@ const geometry = new THREE.BufferGeometry();
 
 // attributes
 const positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
-geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 
 // material
 const material = new THREE.PointsMaterial( { color: 0xffffff } );
