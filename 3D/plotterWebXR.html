@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<div id="info">
+	<script type="module">
+
+		import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.module.js';
+		//import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/controls/OrbitControls.js';
+    import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/VRButton.js';
+
+
+    let renderer, scene, camera;
+
+    let grid;
+
+    const GRID_WIDTH = 200;
+    const GRID_LENGTH = 200;
+    const MAX_POINTS = GRID_WIDTH*GRID_LENGTH*3;
+
+    let t = 1;
+
+    init();
+    animate();
+
+    function init() {
+        // renderer
+				const container = document.createElement( 'div' );
+				document.body.appendChild( container );
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.xr.enabled = true;
+				container.appendChild( renderer.domElement );
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
+
+
+        // scene
+        scene = new THREE.Scene();
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.01, 50 );
+				camera.position.set( -3, 2, 2 );
+				camera.lookAt(1,1,0);
+
+				// controls = new OrbitControls( camera, container );
+				// controls.target.set( 1,1,0 );
+				// controls.update();
+
+        // // camera
+        // camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+        // camera.position.set(5,0,5); // Set position like this
+        // camera.lookAt(new THREE.Vector3(1,1,0));
+        // const controls = new OrbitControls(camera, renderer.domElement)
+        // controls.enableDamping = true
+
+        // geometry
+        const geometry = new THREE.BufferGeometry();
+
+        // attributes
+        const positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
+        geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+
+        // material
+        const material = new THREE.PointsMaterial( { size: 0.01, color: 0xffffff } );
+
+        // grid
+        grid = new THREE.Points( geometry,  material );
+        updatePositions(t);
+        scene.add( grid );
+    }
+
+    // update positions
+    function updatePositions(t) {
+
+    	const positions = grid.geometry.attributes.position.array;
+
+    	let index = 0;
+
+    	for ( let i = 0, l = GRID_WIDTH; i < l; i ++ ) {
+    		for ( let j = 0, l = GRID_WIDTH; j < l; j ++ ) {
+    			positions[ index ++ ] = i/100;
+    			positions[ index ++ ] = j/100;
+    			positions[ index ++ ] = Math.sin(i/100*2*Math.PI)* Math.sin(j/100*2*Math.PI)*Math.sin(2*t)/3;
+    		}
+    	}
+    }
+
+    // animate
+    function animate() {
+      renderer.setAnimationLoop( render );
+    }
+
+		function render() {
+		// 	requestAnimationFrame( animate );
+  //   //
+     t = (t + 0.01) % Math.PI;
+  //
+   	updatePositions(t);
+  //
+    grid.geometry.attributes.position.needsUpdate = true; // required after the first render
+  // //
+		 	renderer.render( scene, camera );
+		};
+		</script>
+	</body>
+</html>
