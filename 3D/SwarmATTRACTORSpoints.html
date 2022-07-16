@@ -376,22 +376,7 @@
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.update();
 
-				loaderPLY.load(
-				    '02Stone50KCloud.ply',
-				    function (geometry) {
-				        //geometry.computeVertexNormals()
-								const material = new THREE.PointsMaterial( { size:0.1, color: 0xffffff } );
-				        const mesh = new THREE.Points(geometry, material);
-								//const material = new THREE.MeshStandardMaterial({color: 0xffffff } );
-				        //const mesh = new THREE.Mesh(geometry, material);
-								mesh.castShadow = true;
-								mesh.geometry.position = new THREE.Vector3(0,50,0);
-								mesh.geometry.scale(5,5,5);
-								mesh.name = "stone";
-								scene.add(mesh);
-								//updateUniforms();
-				    }
-				)
+		
 
 				window.addEventListener( 'resize', onWindowResize );
 				window.addEventListener( 'keypress', keyboard );
@@ -425,28 +410,6 @@
 				gui.add( effectController, 'cohesion', 0.0, 100, 0.025 ).onChange( valuesChanger );
 				gui.add( effectController, 'alpha', 0.0, 100, 0.025 ).onChange( valuesChanger );
 				gui.close();
-
-				// let plane = new THREE.Mesh( new THREE.PlaneGeometry( 5000, 5000, 10 , 10), new THREE.MeshStandardMaterial({ color: 0x808080, } ));
-				// plane.castShadow = false;
-				// plane.receiveShadow = true;
-				// plane.rotation.x = -Math.PI / 2;
-				// plane.position.set(0, -200, -2000);
-				// plane.name="plane";
-				// plane.addEventListener("mouseover", onDocumentMouseDown, false);
-				// scene.add( plane );
-				//
-				// let Light = new THREE.SpotLight( 0xffffff, 1.0 );
-				// Light.position.set( 0, 150, 50 );
-				// Light.castShadow = true;
-				// Light.shadow.focus = 1;
-				// Light.shadow.mapSize.width = 512; // default
-				// Light.shadow.mapSize.height = 512; // default
-				// Light.shadow.camera.near = 0.5; // default
-				// Light.shadow.camera.far = 5000; // default
-				// Light.name = "spot";
-				// scene.add( Light );
-
-
 
 				initCloud();
 
