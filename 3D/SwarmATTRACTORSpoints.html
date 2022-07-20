@@ -274,7 +274,7 @@
 			import { GPUComputationRenderer } from 'https://unpkg.com/three/examples/jsm/misc/GPUComputationRenderer.js';
 			import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 			import { PLYLoader } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/loaders/PLYLoader.js';//const scene = new THREE.Scene();
-			import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/VRButton.js';
+			//import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.138.0/examples/jsm/webxr/VRButton.js';
 
 			const WIDTH = 100;
 			const POINTS = WIDTH * WIDTH;
@@ -383,8 +383,8 @@
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.xr.enabled = true;
-				document.body.appendChild( VRButton.createButton( renderer ) );
+				//renderer.xr.enabled = true;
+				//document.body.appendChild( VRButton.createButton( renderer ) );
 				document.body.appendChild( renderer.domElement );
 
 				controls = new OrbitControls( camera, renderer.domElement );
