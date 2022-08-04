@@ -181,6 +181,19 @@ img.logo {
   margin-left: auto;
   margin-right: auto;
 }
+H2 { text-align: center }
+.news {
+  /* background-image: url("/images/IASA_logo.svg");
+  background-repeat: no-repeat;
+  background-size: fill; */
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  /* padding: 2%; */
+  /* align-items: center; */
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .logo-banner {
   width: 100%;
@@ -207,7 +220,11 @@ img.logo {
     width: 80%;
     padding: 0;
   }
-    .home {
+  .home {
+    width: 100%;
+  }
+  
+  .news {
     width: 100%;
   }
 
