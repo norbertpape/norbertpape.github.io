@@ -250,46 +250,4 @@ img.logo {
     text-align: left;
   }
 }
-@media only screen and (max-width:500px) {
-  /* For mobile phones: */
-  /* body {
-    background-image: url("/images/sky1.png");
-    background-repeat: no-repeat;
-    background-size: fill;
-  } */
 
-  .box-description, .main-archive, .main {
-    width: 100%;
-  }
-
-  .box-main {
-      flex-direction: column; /*-reverse;*/
-  }
-  .logo-banner {
-    flex-direction: column;
-  }
-  img.logo {
-    float: center;
-    width: 80%;
-  }
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-    .home {
-    width: 100%;
-  }
-}
