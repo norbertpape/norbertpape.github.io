@@ -207,6 +207,9 @@ img.logo {
     width: 80%;
     padding: 0;
   }
+    .home {
+    width: 100%;
+  }
 
   .logo-banner {
     flex-direction: row;
@@ -285,5 +288,8 @@ img.logo {
     float: none;
     display: block;
     text-align: left;
+  }
+    .home {
+    width: 100%;
   }
 }
