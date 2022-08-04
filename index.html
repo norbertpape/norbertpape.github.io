@@ -9,31 +9,136 @@
   </head>
   <body>
     <div class="topnav" id="myTopnav">
-      <a href="index.html">About</a>
-      <a href="IASA-O.html">Archive</a>
-      <a href="workspace.html" class="active">VR experiments</a>
-      <a href="#contact">Contact</a>
+      <a onclick="openPage('Home', this)" id="defaultOpen">Home</a>
+      <a onclick="openPage('News', this)" >News</a>
+      <a onclick="openPage('About', this)">Archive</a>
+      <a onclick="openPage('Contact', this)">Contact</a>
       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i> 
+        </div>
       </a>
     </div>
-    <script>
-      function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-          x.className += " responsive";
-        } else {
-          x.className = "topnav";
-        }
-      }
-    </script>
-
-    <div class="main">
-      <div> <img src="images/IASA_logo.svg" width="100%"></div>
-      <div>
+    
+    <div id="Home" class="tabcontent">
+      <div class="home"> 
+        <img src="images/IASA_logo.svg" width="80%">
         <h2 id="about"></h2>
           The International Agency for Space Affairs (IASA) claims space for life. It recruits experts in space exploration to support the development and dissemination of knowledge, cultural practices and technologies that benefit life on Earth. IASA also supports educational projects with an emphasis on increasing diversity in modes of inhabiting the planet.
       </div>
     </div>
+    
+    <div id="News" class="tabcontent">
+      <h3> It worked! </h3>
+      The effect of <a style="color:Blue; text-decoration:underline" onclick="openPage('About', this)"> O </a> did not go unnoticed:
+      <p>      "On 29 June this year, Earth racked up an unusual record: its shortest day since the 1960s, when scientists began measuring the planet’s rotation with high-precision atomic clocks.
+
+      Broadly speaking, Earth completes one full turn on its axis every 24 hours. That single spin marks out a day and drives the cycle of sunrise and sunset that has shaped patterns of life for billions of years. But the curtains fell early on 29 June, with midnight arriving 1.59 milliseconds sooner than expected." (The Guardian, 01.08.2022)</p>
+
+      <a href="https://www.theguardian.com/science/2022/aug/01/midnight-sooner-earth-spins-faster-shortest-day?fbclid=IwAR1RnIXj5PJaYXnG9KD3qESeXpKfatPfYiI6stIjCV3xGKTG3WTp5OEGV0Q"> Full article here</a>
+     <br>
+     <br>
+     <br>
+      <h2> Current work </h2>
+      
+      <h3>Defying Gravity</h3>
+      
+      <p>In the month of Juli, the incredible <a href="https://neuenachbarschaft.de/2022/06/15/sommerschule-2022-im-strandbad-tegelseezentrum-fuer-kultur-und-erholung/">Sommer Schule 2022</a> gave us another opportunity to shape the future. The resulting footage is currently being worked on and will be released here.</p>
+
+      <p>The Sommer Schule is a project of of the <a href="https://neuenachbarschaft.de">Neue Nachbarschaft</a> at the <a href="https://seeee.de/">Strandbad Tegelsee/Zentrum für Kultur und Erholung</a>.</p>
+
+      
+      <h3>Shapeshifting Pointclouds</h3>
+
+      We showcase here some of the ideas we are playing with in the frame of the upcoming project Shapeshifting Pointclouds. All of them are work-in-progress:
+    
+      <ul>
+          <li><a href="3D/3D.html">3D</a></li>
+          <li><a href="3D/plotter.html">Plotter</a></li>
+          <li><a href="3D/shapeshiftVR.html">ShapeshiftVR</a></li>
+          <li><a href="3D/shapeShiftVR2.html">ShapeshiftVR2</a></li>
+          <li><a href="3D/birds.html">Birds</a></li>
+          <li><a href="3D/Swarm.html">Swarm</a></li>
+          <li><a href="3D/KleinBottle.html">Klein bottle</a></li>
+          <!-- <li><a href="3D/SwarmKleinStone.html">Klein bottle, swarm and stone</a></li>
+          <li><a href="3D/SwarmKleinStoneXR.html">Klein bottle, swarm and stone (XR)</a></li> -->
+      </ul>
+  
+    </div>
+    
+    <div id="Contact" class="tabcontent">
+      <h3>Contact</h3>
+      <p>norbertpape111(at)gmail.com</p>
+    </div>
+    
+    <div id="About" class="tabcontent">
+      <div class="box-main" width="100%">
+        <div class="box-description">
+          <h2>O</h2>
+          Hamburger Bahnhof, 04.09.2021
+          <br>11:00 - 18:00
+          <h4>Choreography:</h4>
+          <p>Norbert Pape, Yuri Shimaoka, Pêdra Costa, Göksu Kunak, Elena Polzer
+          <h4>Participating artists:</h4>
+          <p>Franziska Aigner, Ardot Aslan, Kelley Becker, Marly Borges, Zinzi Buchanan, Helen Burghardt, Yara Colón, Emese Csornai, Leman Sevda Darıcıoğlu, Emeka Ene, Christian Filips, Chris Gylee, Gil Guimarães, Alexander Hahne, Michael Kaddu, Dongkyu Leo Kim, Linards Kulles, Ariel Nil Levy, Cami Malenchini, Sheena McGrandles, Magdalena Meindl, Lyla Palmer, Sunny Pfalzer, Rain Rose, Lotte Ramínez Speiser, Simon Speiser, Vera Varlamova, Rude Vianna, Cristina Viegas.
+          <h4>Video documentation:</h4>
+          Andrea Keiz
+          <h4> Music (intro):</h4>
+          Yara Colón
+          <h4>Logistics:</h4>
+          Simone Graf
+          <h4>Thanks to:</h4>
+          Marina Naprushkina, Kolja Kohlhoff, Claudia Ehgartner, Barbara Campaner
+          <h4>With support of</h4>
+          <p>NATIONAL PERFORMANCE NETWORK - STEPPING OUT, funded by the Federal Government Commissioner for Culture and Media NEUSTART KULTUR. Assistance Program for Dance.
+        </div>
+        <div class="main-archive">
+          <div class="box-video">
+            <iframe src="https://drive.google.com/file/d/1UjDArhIVO1LjP9LH_3ElOxoB_LGc10jy/preview" width="100%" autoplay allowfullscreen="true" alt="Video documentation of the performance"></iframe>
+          </div>
+          <div class="box-zine">
+            <iframe src="https://drive.google.com/file/d/1FqDfOhmjoaC7bCQulk1UNniFuIkyJYFk/preview" width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="logo-banner">
+        <img class="logo" src="images/BKM_Neustart_Logo.JPG" onclick="location.href='https://www.bundesregierung.de/breg-de/bundesregierung/staatsministerin-fuer-kultur-und­medien/neustart-kultur-startet-1767056';">
+        <img class="logo" src="images/NPN_schwarz.jpg" onclick="location.href='https://www.jointadventures.net/nationales-performance-netz/';"></a>
+        <img class="logo" src="images/BKM_2017_Office_Farbe_de.png" onclick="location.href='https://www.kulturstaatsministerin.de';">
+        <img class="logo" src="images/SMB_Logo_Black.jpg">
+        <img class="logo" src="images/extended.jpg">
+        <img class="logo" src="images/ea_logo_10x13 Kopie.jpeg">
+      </div>
+    </div>
+
+
+    
+    <script>
+    function openPage(pageName,elmnt) {
+      var tabcontent;//, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      document.getElementById(pageName).style.display = "block";
+      elmnt.style.backgroundColor = '';
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+       
+       <script>
+        function myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
+        }
+      </script>
+  
+    
   </body>
 </html>
