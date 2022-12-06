@@ -1,7 +1,6 @@
 html {
-  font-size: 1vw; /* px means "pixels": the base font size is now 10 pixels high  */
+  font-size: 1em; /* px means "pixels": the base font size is now 10 pixels high  */
   font-family: "Open Sans", sans-serif; /* this should be the rest of the output you got from Google fonts */
-  font-color: white;
 }
 
 body {
@@ -11,6 +10,7 @@ body {
   background-size: cover;
   */
   background-color: #000000;
+  font-color: #FFFFFF;
 }
 
 /* * {box-sizing: border-box} */
