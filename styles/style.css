@@ -96,6 +96,7 @@ body {
   text-align: center;
   flex-direction: column;
   font-size: 1vw;
+  font-color: #FFFFFF;
 }
 
 .topnav {
@@ -115,6 +116,7 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  font-color: #FFFFFF;
 }
 
 .topnav a:hover {
@@ -186,6 +188,7 @@ img.logo {
   /* align-items: center; */
   margin-left: auto;
   margin-right: auto;
+  font-color: #FFFFFF;
 }
 H2 { text-align: center }
 .news {
@@ -199,6 +202,7 @@ H2 { text-align: center }
   /* align-items: center; */
   margin-left: auto;
   margin-right: auto;
+  font-color: #FFFFFF;
 }
 
 .logo-banner {
