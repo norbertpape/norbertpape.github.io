@@ -13,6 +13,30 @@ body {
   color: #FFFFFF;
 }
 
+ /* unvisited link */
+a:link {
+  color:  #f0f3f4;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color:  #bdc3c7;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color:  #FFFFFF;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color:  #bdc3c7;
+  text-decoration: none;
+} 
+
 /* * {box-sizing: border-box} */
 
 /* Style tab links */
