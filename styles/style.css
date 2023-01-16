@@ -10,12 +10,12 @@ body {
   background-size: cover;
   */
   background: #000000;
-  color: #FFFFFF;
+  color: #f1f1f1;
 }
 
  /* unvisited link */
 a:link {
-  color:  #f0f3f4;
+  color:  #818181;
   text-decoration: none;
 }
 
@@ -40,31 +40,49 @@ a:active {
 /* side navigation menu */
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 20px;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
 .sidenav a {
-  padding: 6px 6px 6px 32px;
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
+  transition: 0.3s;
 }
 
 .sidenav a:hover {
   color: #f1f1f1;
 }
 
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
 }
+
+#box-main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/* end side navigation menu */
+
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
@@ -227,18 +245,27 @@ img.logo {
 }
 H2 { text-align: center }
 .news {
-  /* background-image: url("/images/IASA_logo.svg");
-  background-repeat: no-repeat;
-  background-size: fill; */
   width: 50%;
   height: auto;
   object-fit: contain;
-  /* padding: 2%; */
-  /* align-items: center; */
   margin-left: auto;
   margin-right: auto;
   font-color: #FFFFFF;
 }
+
+.pieceDescription {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  padding: 10%;
+  align-items: left;
+  margin-left: auto;
+  margin-right: auto;
+  font-color: #FFFFFF;
+}
+
+
+
 
 .logo-banner {
   width: 100%;
