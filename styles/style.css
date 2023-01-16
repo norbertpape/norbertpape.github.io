@@ -62,6 +62,10 @@ a:active {
   color: #f1f1f1;
 }
 
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
   /* color: white; */
