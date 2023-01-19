@@ -1,340 +1,105 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Norbert Pape</title>
-    <link rel="stylesheet" href="styles/style.css" >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website of Norbert Pape">
-    <meta name="keywords" content="dance, art, choreography, VR, performance, augmented reality, contemporary art, virtual reality, unity, quest, oculus, pedagogy, self-organisation" />
-  </head>
+  <script src="header.js"></script>
+
   <body>
-    
-    <div class="topnav" id="myTopnav">
-      <a onclick="openPage('Home', this)" id="defaultOpen">Home</a>
-      <a onclick="openPage('News', this)">News</a>
-      <a onclick="openNav()">Archive</a>
-      <a onclick="openPage('SelfOrganization', this)">Self-organization</a>
-      <a onclick="openPage('Math', this)">Math</a>
-      <a onclick="openPage('About', this)">About</a>
-      <a onclick="openPage('Contact', this)">Contact</a>
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-      <i class="fa fa-bars" style="color:#FFFFFF"></i> 
-    </div>
-    
-    <div id="Home" class="tabcontent">
-        <div class="home"> 
-        <a href="#Contact">click here for contact</a>
-        -- Website under construction --
-            <h3>Current creation: Shapeshifting Pointclouds</h3>
 
-            We are currently working on an AR piece (augmented reality). We showcase here some tryouts we wrote in threejs, an open source library for browser-based 3D graphics. In order to accomodate headsets, we have now turned to Unity. Stay tuned for updates on the work!
-            <p> Commissioned by IASA
-            <p> Team: Franziska Aigner, P&ecirc;dra Costa, Austin Gross, Hanako Hayakawa, G&ouml;ksu Kunak, Norbert Pape, Simon Speiser
-            <p> Dates: Spring - Hamburger Bahnhof (tbc), End of May - Museum Ludwig, November - Theater im Depot
-            <p>We are thankful for the funding from the NATIONAL PERFORMANCE NETWORK - STEPPING OUT, funded by the Federal Government Commissioner for Culture and Media NEUSTART KULTUR. Assistance Program for Dance. </p>
-        </div>
-    </div>
-    <div id="SelfOrganization" class="tabcontent">
-        <div class="home"> 
-            -- Website under construction --
-            <h3>Performing Arts Forum</h3>
-            <a href="https://www.pa-f.net/"> PA-F </a>
-            <h3>ID Frankfurt</h3>
-            <a href="https://id-frankfurt.com/"> ID Frankfurt </a>
-        </div>
-    </div>
-    <div id="Math" class="tabcontent">
-        <div class="home"> 
-            -- Website under construction --
-            <h3>Thesis</h3>
-            Parametric models of Dependent Type Theory
-            <h3>Experimenting with math pedagogy</h3>
-            Stiftung Kunst und Natur
-        </div>
-    </div>
-        <div id="News" class="tabcontent">
-      <div class="news">
-       
-        <p> 05.12.22 New rendering tools enable scenes containing pointclouds with a total of nearly 10 million points for an Oculus Quest standalone presentation. Further, we developed new modalities of interaction with the pointclouds, as well as differentiated render effects. In the demo video, for example, the back side of the objects is occluded. 
-     
-        
-        <p> 26.11.22 We (Simon Speiser and Norbert Pape) are happy to have succeeded in developing a very intuitive mode of interaction with pointclouds, along with a tool that allows us to install objects in space. The demo video above is a few weeks old. By now we have developped fruther effects and managed to optimize our point cloud renderer such that it can handle up to nearly 10 million points!!! The renderer is built on the fantastic <a href="https://github.com/keijiro/Pcx"> point cloud importer / renderer</a> by Keijiro Takahashi. A new demo video will be posted soon.        
-        
-        
-        
-                
-        <h3>Defying Gravity</h3>
-        
-            <p>In the month of Juli, the incredible <a href="https://neuenachbarschaft.de/2022/06/15/sommerschule-2022-im-strandbad-tegelseezentrum-fuer-kultur-und-erholung/">Sommer Schule 2022</a> gave us another opportunity to shape the future.</p>
+    <script src="menu.js"></script>
 
-            <p>The Sommer Schule is a project of of the <a href="https://neuenachbarschaft.de">Neue Nachbarschaft</a> at the <a href="https://seeee.de/">Strandbad Tegelsee/Zentrum für Kultur und Erholung</a>.</p>
-            <div class="box-video">
-            <iframe src="https://www.youtube.com/embed/dCtX4S0qi4Q" frameborder="0" allowfullscreenstyle="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-            </div>
-            Summer school organization and video trailer by Tanja Marshanskich.
-        </div>
-    </div>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+	<script type="importmap">
+			{
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.module.js"
+				}
+			}
+	</script>
+	<script type="module">
 
-    
-    <div id="Contact" class="tabcontent">
-      <h3 id="taggg">Contact</h3>
-      <p>norbertpape111(at)gmail.com</p>
-    </div>
-  
-    <div id="About" class="tabcontent">
+		import * as THREE from 'https://unpkg.com/three/build/three.module.js'
+		import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
 
-    <h2>Norbert Pape</h2>
-    <p>Norbert Pape is a dancer, choreographer, mathematician and pedagogue based in Berlin. He collaborated and toured internationally with artists such as Mette Ingvartsen, Antje Pfundtner, Christine Cuipke, Noé Soulier, Richard Siegal, William Forsythe, Nancy Stark Smith, Jan Ritsema, Bojana Cvejic, Dieter Heitkamp. His work has been presented in museums and venues such as Hamburger Bahnhof Berlin (2021), Mousonturm Frankfurt, Frankfurt LAB, Schwankhalle Bremen, PACT Zollverein, Festspielhaus Sankt Poelten, Theater Altenburg-Gera, Elizabeth-Kirche Berlin.</p>
 
-    <p>He studied classical and contemporary dance at the Hochschule für Musik und Darstellende Kunst Frankfurt am Main, obtained an M.A. in Choreography and Performance at the Institute for Applied Theater Sciences in Gießen under the direction of Prof. Bojana Kunst. 
-    Further, he recently obtained a B.Sc. (FU Berlin) and M.Sc. (KU Leuven) in Mathematics with research focus on Category Theory and Type Theory.</p>
-    
-    <p>As a co-founder of <a href="https://id-frankfurt.com/">ID Frankfurt</a> and active member of the <a href="http://pa-f.net/">Performing Arts Forum</a>, he has been committed to matters of self-organisation and creation of infrastructure that makes space for experimental and critical modes of production, exchange and research.</p>
-    <p>Fall 2021, he co-founded the International Agency for Space Affairs (<a href="https://spaceaffairs.github.io/">IASA</a>) together with Pêdra Costa, Göksu Kunak, Yuri Shimaoka and Elena Polzer.</p>
-    
-    </div>
- 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <p> Own creations
-        <br>
-        <a href="digital.html">Digital</a>
-        <a onclick="openPage('O', this); closeNav()">O</a>
-        <a onclick="openPage('Schwerelos', this); closeNav()">Schwerelos</a>    
-        <a onclick="openPage('Maus', this); closeNav()">Die tolle Maus</a>
-        <a onclick="openPage('DavidUndJonathan', this); closeNav()">David et Jonathas</a>
-        <a onclick="openPage('21Century', this); closeNav()">The 21st Century</a>
-        <a onclick="openPage('IAmYours', this); closeNav()">I am Yours</a>
-        <p> Collaborations
-        <br>
-        <a onclick="openPage('MiC', this); closeNav()">Moving in Concert</a>
-        <a onclick="openPage('TCE', this); closeNav()">To Come: extended</a>
-        <a onclick="openPage('7Pleasures', this); closeNav()">7 Pleasures</a>
-        <a onclick="openPage('FuerMich', this); closeNav()">Für mich</a>
-        <a onclick="openPage('FG', this); closeNav()">Faits et Gestes</a>
-        <a onclick="openPage('Removing', this); closeNav()">Removing</a>
-        <a onclick="openPage('MovementMaterials', this); closeNav()">Movement Materials</a>
-        <p> Articles
-        <br>
-        <a onclick="openPage('InterviewJeanLouisGeorget', this); closeNav()">Interview by Jean‑Louis Georget</a>
-        <a onclick="openPage('DearColleaguesAndFriends', this); closeNav()">Dear colleagues and friends</a>
-        <a onclick="openPage('UsingAudioVisual', this); closeNav()">The Future of Education</a>
-    </div>
+        let renderer, scene, camera;
 
-<div id="O" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
-            <h2>O</h2>
-            Hamburger Bahnhof, 04.09.2021
-            <br>11:00 - 18:00
-            <h4>Choreography:</h4>
-            <p>Norbert Pape, Yuri Shimaoka, Pêdra Costa, Göksu Kunak, Elena Polzer
-            <h4>Participating artists:</h4>
-            <p>Franziska Aigner, Ardot Aslan, Kelley Becker, Marly Borges, Zinzi Buchanan, Helen Burghardt, Yara Colón, Emese Csornai, Leman Sevda Darıcıoğlu, Emeka Ene, Christian Filips, Chris Gylee, Gil Guimarães, Alexander Hahne, Michael Kaddu, Dongkyu Leo Kim, Linards Kulles, Ariel Nil Levy, Cami Malenchini, Sheena McGrandles, Magdalena Meindl, Lyla Palmer, Sunny Pfalzer, Rain Rose, Lotte Ramínez Speiser, Simon Speiser, Vera Varlamova, Rude Vianna, Cristina Viegas.
-            <h4>Video documentation:</h4>
-            Andrea Keiz
-            <h4> Music (intro):</h4>
-            Yara Colón
-            <h4>Logistics:</h4>
-            Simone Graf
-            <h4>Thanks to:</h4>
-            Marina Naprushkina, Kolja Kohlhoff, Claudia Ehgartner, Barbara Campaner
-            <h4>With support of</h4>
-            <p>NATIONAL PERFORMANCE NETWORK - STEPPING OUT, funded by the Federal Government Commissioner for Culture and Media NEUSTART KULTUR. Assistance Program for Dance.
-        </div>
-        <div class="main-archive">
-            <div class="pieceDescription">
-                <p> "O" is a speculative Sci-Fi re-take of Steve Paxton's "Satisfying Lover", the iconic piece from 1967 in which 40 people did ‘nothing more’ than walk across stage. His intention was one of democratisation of dance, but also of analysing habitual movement, and often in relation to the laws of physics. We want to take the act of walking a step further: each step is not only a falling, a dance with gravity, but also a pushing back of the planet Earth with one’s feet (Newton's third law of motion). Consequently, if enough of us walk in the same direction in a circular manner long enough, we can alter the rotation of the planet, deviating its course ever so slightly, but hopefully significantly.
-            </div>
-            <div class="box-video">
-                <iframe src="https://www.youtube.com/embed/LLbDaEsLwb0" frameborder="0" allowfullscreenstyle="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-            </div>
-            <div class="box-zine">
-                <iframe src="https://drive.google.com/file/d/1FqDfOhmjoaC7bCQulk1UNniFuIkyJYFk/preview" width="100%"></iframe>
-            </div>
-        </div>
-    </div>
-    <div class="logo-banner">
-        <img class="logo" src="images/BKM_Neustart_Logo.JPG" onclick="location.href='https://www.bundesregierung.de/breg-de/bundesregierung/staatsministerin-fuer-kultur-und­medien/neustart-kultur-startet-1767056';">
-        <img class="logo" src="images/NPN_schwarz.jpg" onclick="location.href='https://www.jointadventures.net/nationales-performance-netz/';"></a>
-        <img class="logo" src="images/BKM_2017_Office_Farbe_de.png" onclick="location.href='https://www.kulturstaatsministerin.de';">
-        <img class="logo" src="images/SMB_Logo_Black.jpg">
-        <img class="logo" src="images/extended.jpg">
-        <img class="logo" src="images/ea_logo_10x13 Kopie.jpeg">
-    </div>
-</div>
+        let line;
 
-<div id="Digital" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
+        const GRID_WIDTH = 200;
+        const GRID_LENGTH = 200;
+        const UNIT = 0.1;
+        const MAX_POINTS = GRID_WIDTH*GRID_LENGTH*3;
 
-            <h2> Digital - on touching digital objects </h2>
-            Theater im Depot Dortmund, 18.-19.12.22
-            <br>17:00 - 22:00
-            <h4> Coding: </h4>
-            <p> Norbert Pape, Simon Speiser
-            <h4> Code based on work by: </h4>
-            <p> <a href="https://github.com/keijiro/"> Keijiro Takahashi</a>
-            <h4> 3D Modelling: </h4>
-            <p> Simon Speiser
-            <h4> Sound: </h4>
-            <p> Hanako Hayakawa
-            <h4>Text and voice: </h4>
-            <p> Göksu Kunak
-            <h4> Demo videos: </h4>
-            <p> Simon Speiser
-            <h4>With support of</h4>
-            <p> VR-residency  <a href="https://www.theaterimdepot.de/de/programm/kalender/beyond-gravity"> "Beyond Gravity" </a>, <a href="https://www.theaterimdepot.de"> Theater im Depot Dortmund </a>
-        </div>
-        <div class="main-archive">
-            <div class="pieceDescription">
-                <p> Digitus (lat. “fingerbreadth“, “number“) stems from the Proto-Indo-European *deyǵ- (“to show, point out”). New technologies enable us to, quite literally, touch and handle digital objects. This folding back of touch onto abstraction provides a fertile setting to explore their materiality.        
-            </div>
-            <div class="box-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/6iBnLT-45zo?controls=0" title="XR Demo Video II" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="box-video">
-                <iframe width="341" height="605" src="https://www.youtube.com/embed/5S4yxFsYdqA?controls=0" title="Documentation of 'Digital - on touching digital objects'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <img src="/images/221217DigitalDortund/IMG_20221218_143543_124.jpg" alt="Showing at the Theater im Depot Dortmund" width = "100%">
-            <div class="box-video">
-                <iframe src="https://www.youtube.com/embed/tOJLnZHjsrA?controls=0" frameborder="0" allowfullscreenstyle="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
+        let t = 0;
 
-<div id="Maus" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
-            <h2> Die tolle Maus aus Marzahn, die alles reparieren kann</h2>
-            24.12.2019
-            <h4>Hauptmaus, Buch: </h4>
-            <p> Umar Gadziev
-            <h4> Regie, Schnitt: </h4>
-            <p> Christian Filips
-            <h4> Musik: </h4>
-            <p> Edoardo Micheli
-            <h4> Choreographie: </h4>
-            <p> Norbert Pape
-            <h4> Kamera: </h4>
-            <p> Sorina Gajewski
-            <h4> Produktion: </h4>
-            <p> <a href="https://neuenachbarschaft.de/"> Neue Nachbarschaft / Moabit</a>
-            <a href="https://www.moabit-mountain-college.com/"> Moabit Mountain College</a>
-            <h4>With support of</h4>
-            <p> Berliner Projektfonds Kulturelle Bildung
-        </div>
-        <div class="main-archive">
-            <div class="pieceDescription">
-                    <h2> So eine tolle Maus aus Marzahn, die alles reparieren kann! </h2>
-                    <p> nach dem Buch von Umar Gadziev.        
-            </div>
-            <div class="box-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/oMZ9uqbuQcs?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
+        init();
+        animate();
 
-<div id="DavidUndJonathan" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
-            <h2> David et Jonathas</h2>
-            St. Elizabeth Kirche (Berlin)
-            <br>06.-07.10.2018
-            <h4>Musikalische Leitung:</h4>
-            <p> Kai-Uwe Jirka
-            <h4> Regie: </h4>
-            <p> Christian Filips
-            <h4> Choreographie: </h4>
-            <p> Norbert Pape
-            <h4> Mit: </h4>
-            <p> Benedikt Kristjannson (Tenor), Solisten und Choristen des Staats- und Domchors Berlin, dem Barockensemble Charpentier M 9445 u.a.
-            <h4> Produktion: </h4>
-            <p> <a href="https://www.udk-berlin.de/universitaet/fakultaet-musik/staats-und-domchor-berlin/"> Staats- und Domchor Berlin</a>
-        </div>
-        <div class="main-archive">
-            <div class="pieceDescription">
-                Eine französische Barockoper von Marc-Antoine Charpentier (1688)
-                <p> Konzertante Aufführung des Staats- und Domchors Berlin mit Tanz- und Sporteinlagen
-                <p> Paris 1688: Der Sonnenkönig regiert in Frankreich und macht aus seinem Staat eine große Bühne. Derweil stehen die Türken vor Belgrad, Europa fürchtet sich vor seiner Islamisierung. Das hat Auswirkungen auf die Erziehung der Jugend. Das Collège Louis-le-Grand gibt bei dem hochberühmtem Komponisten Marc-Antoine Charpentier eine biblische Oper in Auftrag, die von seinen Schülern interpretiert werden soll, um die Werte der Grande Nation hochzuhalten: David et Jonathas! Dafür sollen die Jungen Fechten, Operngesang und französischen Barocktanz lernen. Aber die Jungs wollen lieber einer unbekannten Sportart aus der Zukunft nachgehen: Le Foot… Der Schuldirektor Saul, ein paranoider Jesuitenpater, sucht Nacht für Nacht die Hexe von Ensor auf, um mit ihrer Hilfe das Abendland zu retten. Dabei wissen die Jungs längst, was Europa retten wird: die Freundschaft, der Fußball und die Europa-Hymne von Marc-Antoine Charpentier!
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="Schwerelos" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
-            <h2> Schwerelos</h2>            
-            <h4> Choreographie: </h4>
-            <p> Norbert Pape, Kristina Veit
-            <h4> Mit: </h4>
-            <p> SchülerInnen der Charles Hallgarten Schule
-            <h4> Produktion: </h4>
-            <p> ALTANA Kulturstiftung
-        </div>
-        <div class="main-archive">
-            <div class="box-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/UfBNdSeMpA0?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="InterviewJeanLouisGeorget" class="tabcontent">
-    <div class="box-main" width="100%">
-        <div class="box-description">
-            
-        </div>
-        <div class="main-archive">
-            "Une autoréflexivité qui suscite le questionnement"
-            <p> Interview with Norbert Pape by Jean-Louis Georget
-            <p>In Allemagne d'aujourd'hui 2017/2 (N° 220), pages 165-172
-            <p> retrievable <a href="https://www.cairn.info/revue-allemagne-d-aujourd-hui-2017-2-page-165.htm"> here </a>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openPage(pageName,elmnt) {
-        var tabcontent;//, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (var i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+        function init() {
+            // info
+            const info = document.createElement( 'div' );
+            info.style.position = 'absolute';
+            info.style.top = '30px';
+            info.style.width = '100%';
+            info.style.textAlign = 'center';
+            info.style.color = '#fff';
+            info.style.fontWeight = 'bold';
+            info.style.backgroundColor = 'transparent';
+            info.style.zIndex = '1';
+            info.style.fontFamily = 'Monospace';
+            //info.innerHTML = "three.js plotting 3D functions";
+            document.body.appendChild( info );
+            // renderer
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+            // scene
+            scene = new THREE.Scene();
+            // camera
+            camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+            camera.position.set( 150,-375,-175 );
+            const controls = new OrbitControls(camera, renderer.domElement)
+            controls.enableDamping = true
+            // geometry
+            const geometry = new THREE.BufferGeometry();
+            // attributes
+            const positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
+            geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+            // material
+            const material = new THREE.PointsMaterial( { color: 0xffffff } );
+            // line
+            line = new THREE.Points( geometry,  material );
+            scene.add( line );
+            // update positions
+            updatePositions();
         }
 
-        document.getElementById(pageName).style.display = "block";
-        elmnt.style.backgroundColor = '';
-    }
-    
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-
-    function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-        x.className += " responsive";
-        } else {
-        x.className = "topnav";
+        // update positions
+        function updatePositions() {
+	        const positions = line.geometry.attributes.position.array;
+	        let index = 0;
+	        for ( let i = 0, l = GRID_WIDTH; i < l; i ++ ) {
+		        for ( let j = 0, l = GRID_WIDTH; j < l; j ++ ) {
+			        positions[ index ++ ] = i*2 - GRID_WIDTH;
+			        positions[ index ++ ] = j*2 - GRID_WIDTH;
+			        positions[ index ++ ] = Math.sin(i/GRID_WIDTH*2*Math.PI)* Math.sin(j/GRID_WIDTH*2*Math.PI)*Math.sin(2*t)*80;
+		        }
+	        }
         }
-    }
 
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-    }
+        // render
+        function render() {
+            renderer.render( scene, camera );
+        }
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-    }
-
-    </script>
-  
-    
+        // animate
+        function animate() {
+	        requestAnimationFrame( animate );
+	        t = (t + 0.01) % Math.PI;
+	        updatePositions();
+	        line.geometry.attributes.position.needsUpdate = true; // required after the first render
+	        render();
+        }
+	</script>
   </body>
 </html>
