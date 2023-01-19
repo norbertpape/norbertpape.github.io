@@ -338,7 +338,18 @@ img.logo {
   .topnav.responsive a {
     float: none;
     display: block;
-    text-align: left;
+text-align: left;
+  }
+
+  .pieceDescription {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    padding: 10%;
+    align-items: left;
+    margin-left: auto;
+    margin-right: auto;
+    font-color: #FFFFFF;
   }
 }
 
