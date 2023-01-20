@@ -12,7 +12,7 @@
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>\
       <div class="overlay-content">\
             <h1> Selected works </h1>\
-            <h2> as choreographer </h2>\
+            <h2> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digital</a>\
             <a href="o.html">O</a>\
             <a href="schwerelos.html">Schwerelos</a>\
@@ -20,19 +20,18 @@
             <a href="davidetjonathas.html">David et Jonathas</a>\
             <a href="21stcentury.html">The 21st Century</a>\
             <a href="iamyours.html">I am Yours</a>\
-            <h2> as dancer </h2>\
-            <br>\
-            <a onclick="openPage("MiC", this); closeNav()">Moving in Concert</a>\
-            <a onclick="openPage("TCE", this); closeNav()">To Come: extended</a>\
-            <a onclick="openPage("7Pleasures", this); closeNav()">7 Pleasures</a>\
-            <a onclick="openPage("FuerMich", this); closeNav()">Für mich</a>\
-            <a onclick="openPage("FG", this); closeNav()">Faits et Gestes</a>\
-            <a onclick="openPage("Removing", this); closeNav()">Removing</a>\
-            <a onclick="openPage("MovementMaterials", this); closeNav()">Movement Materials</a>\
-            <h1> Publications </h1>\
-            <a onclick="openPage(""InterviewJeanLouisGeorget"", this); closeNav()">Interview by Jean‑Louis Georget</a>\
-            <a onclick="openPage("DearColleaguesAndFriends", this); closeNav()">Dear colleagues and friends</a>\
-            <a onclick="openPage("UsingAudioVisual", this); closeNav()">The Future of Education</a>\
+            <h2> &#8210; as dancer &#8210; </h2>\
+            <a href="https://www.metteingvartsen.net/performance/moving-in-concert/">Moving in Concert</a>\
+            <a href="https://www.metteingvartsen.net/performance/to-come-extended/">to come (extended)</a>\
+            <a href="https://www.metteingvartsen.net/performance/performance-1/">7 Pleasures</a>\
+            <a href="https://www.antjepfundtner.de/fuer-mich-2018/">Für Mich</a>\
+            <a href="https://www.numeridanse.tv/videotheque-danse/faits-et-gestes">Faits et Gestes</a>\
+            <a href="https://www.numeridanse.tv/en/dance-videotheque/removing">Removing</a>\
+            <a href="https://www.fondationlouisvuitton.fr/en/events/noe-soulier-movement-materials">Movement Materials</a>\
+            <h2> &#8210; publications &#8210; </h2>\
+            <a href="/images/interview.pdf">Interview by Jean‑Louis Georget</a>\
+            <a href="/images/colleagues.pdf">Dear colleagues and friends</a>\
+            <a href="/images/foe.pdf">The Future of Education</a>\
       </div>\
     </div>\
     <span style="font-size:30px;color:white;cursor:pointer" onclick="openNav()">&#9776; menu</span>\

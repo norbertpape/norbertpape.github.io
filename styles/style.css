@@ -46,12 +46,17 @@ a:visited {
   transition: 0.3s;
 }
 .overlay h1 {
-  text-align: center
   padding: 8px;
   text-decoration: none;
   font-size: 36px;
   color: #818181;
 }
+
+.overlay h2 {
+  font-size: 24px;
+  color: #818181;
+}
+
 .overlay a:hover, .overlay a:focus {
   color: #f1f1f1;
 }
