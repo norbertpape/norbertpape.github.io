@@ -4,6 +4,18 @@ body {
   color: #f1f1f1;
 }
 
+ /* unvisited link */
+a:link {
+  color:  #ab85ac;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color:  #eabaeb;
+  text-decoration: none;
+}
+
 .overlay {
   height: 100%;
   width: 0;
@@ -124,6 +136,44 @@ span {
     height: 100%;
 }
 
+.logo-banner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.logo-banner>* {
+    flex: 0 0 16%;
+}
+
+.logo-banner {
+    flex-direction: row;
+}
+
+img.logo {
+    width: 3cm;
+    height: auto;
+    object-fit: contain;
+    padding: 2%;
+}
+
+.box-zine {
+    position: relative;
+    /* float: right; */
+    width: 100%;
+    height: 0;
+    padding-top: 70%;
+}
+
+.box-zine iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
   .overlay .closebtn {
@@ -131,4 +181,63 @@ span {
   top: 15px;
   right: 35px;
   }
+}
+
+
+@media only screen and (max-width:800px) {
+    /* For tablets: */
+    .main {
+        width: 50%;
+        float: center;
+    }
+
+    .main-archive {
+        width: 80%;
+        padding: 0;
+    }
+
+    .home {
+        width: 100%;
+    }
+  
+    .news {
+        width: 100%;
+    }   
+
+    .logo-banner {
+        flex-direction: row;
+    }
+
+    img.logo {
+        width: 16%;
+    }
+
+    .box-description, .main-archive, .main {
+        width: 100%;
+    }
+
+    .box-main {
+        flex-direction: column-reverse;
+        transition: margin-left .5s;
+    }
+
+    .logo-banner {
+        flex-direction: column;
+    }
+
+    img.logo {
+        float: center;
+        width: 80%;
+    }
+
+    .pieceDescription {
+        width: 80%;
+        height: auto;
+        object-fit: contain;
+        padding: 10%;
+        align-items: left;
+        margin-left: auto;
+        margin-right: auto;
+        font-color: #FFFFFF;
+    }
 }

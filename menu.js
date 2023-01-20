@@ -11,7 +11,8 @@
     <div id="myNav2" class="overlay">\
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>\
       <div class="overlay-content">\
-            <h1> Own creations </h1>\
+            <h1> Selected works </h1>\
+            <h2> as choreographer </h2>\
             <a href="digital.html">Digital</a>\
             <a href="o.html">O</a>\
             <a href="schwerelos.html">Schwerelos</a>\
@@ -19,7 +20,7 @@
             <a href="davidetjonathas.html">David et Jonathas</a>\
             <a href="21stcentury.html">The 21st Century</a>\
             <a href="iamyours.html">I am Yours</a>\
-            <h1> Collaborations </h1>\
+            <h2> as dancer </h2>\
             <br>\
             <a onclick="openPage("MiC", this); closeNav()">Moving in Concert</a>\
             <a onclick="openPage("TCE", this); closeNav()">To Come: extended</a>\
