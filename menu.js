@@ -58,5 +58,4 @@
             elmnt.style.backgroundColor = "";\
         }\
         </script>\
-    <center> -- website under construction -- </center>\
 ');
