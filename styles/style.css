@@ -89,6 +89,16 @@ hr.solid {
     color: #f1f1f1;
 }
 
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+main {
+    position: absolute;
+    z-index: 99;
+}
+
 span {
   display: inline-block;
   vertical-align: middle;
@@ -102,6 +112,26 @@ span {
     flex: 1;
 }
 
+.email {
+    position: relative;
+    text-align: center;
+    height: auto;
+    object-fit: contain;
+    font-color: #f1f1f1;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .about {
         width: 70%;
@@ -118,6 +148,7 @@ span {
     flex-direction: row;
     transition: margin-left .5s;
 }
+
 .box-description {
     padding-top: 6%;
     margin-left: 1ex;
