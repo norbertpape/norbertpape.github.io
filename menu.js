@@ -6,7 +6,6 @@
         <a onclick="openNav2();closeNav()">Archive</a>\
         <a href="about.html">About</a>\
         <a href="contact.html">Contact</a>\
-        <a onclick="openNav2();closeNav()"; href="swarm.html">test</a>\
       </div>\
     </div>\
     <div id="myNav2" class="overlay">\
