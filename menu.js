@@ -14,7 +14,7 @@
             <h1> Selected works </h1>\
             <h2> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digital</a>\
-            <a href="o.html">O</a>\
+            <a href="O.html">O</a>\
             <a href="schwerelos.html">Schwerelos</a>\
             <a href="tollemaus.html">Die tolle Maus</a>\
             <a href="davidetjonathas.html">David et Jonathas</a>\
