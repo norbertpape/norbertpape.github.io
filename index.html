@@ -59,7 +59,7 @@
             camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
             camera.position.set( 150,-375,-175 );
             const controls = new OrbitControls(camera, renderer.domElement)
-            controls.enableDamping = true
+            controls.enableDamping = true;
             // geometry
             const geometry = new THREE.BufferGeometry();
             // attributes
