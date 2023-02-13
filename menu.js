@@ -13,6 +13,7 @@
       <div class="overlay-content">\
             <h1> Selected works </h1>\
             <h2> &#8210; as choreographer &#8210; </h2>\
+		<a href="O2.html">O &#35;2</a>\
             <a href="digital.html">Digital</a>\
             <a href="O.html">O</a>\
             <a href="tollemaus.html">Die tolle Maus</a>\
