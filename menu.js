@@ -13,7 +13,7 @@
       <div class="overlay-content">\
             
             <h1> Selected works </h1>\
-            <h2> &#8210; currently &#8210; </h2>\
+            <h2> &#8210; open projects &#8210; </h2>\
             <a href="jacki.html">Grasping the Jacki Liebezeit Set</a>\
             <h2> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
