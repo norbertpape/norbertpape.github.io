@@ -55,268 +55,49 @@
         </div>
         <div class="main-archive">
             <div class="pieceDescription">
+                <h1> <center>Summertime is math time!</center></h1>
+                <br />
+                <h2>Artifical life</h2>
+                What if the complexity of the world around us emerged out fo the interaction of particles following simple rules?
+                1952, Alan Turing starts off his influential speculative article <a href="https://en.wikipedia.org/wiki/The_Chemical_Basis_of_Morphogenesis"> The Chemical Basis of Morphogenesis</a> with a strong hypothesis:
+                <p style="margin-left: 30px;"> <i>It is suggested that a system of chemical substances, called morphogens, reacting together and diffusing through a tissue, is adequate to account for the main phenomena of morphogenesis. </i></pstyle="margin-left:>
 
+                
                 <p>
-                    Working with the Belgian composer Simon Halsberghe to gain a better understanding of the Jacki Liebezeit Set. The Jacki Liebezeit set $J$ is the union of its subsets $J_n$, where each $J_n$ is the set of all possible rhythmical patterns consisting of 1s and 2s of length $n$, up to cyclic permutation:
+                    These chemical reaction-diffusion processes are usually described by means of partial differential equations. However, it is usually impossible to write down explicit formulas for solutions of partial differential equations. Today's technology's computing power enables us to numerically approximate solutions and simulate the dynamic processes. One way to do so is by discretization, which means simplifying the problem by splitting smooth spaces into grid-like collections of cells and continuous time into a series of time intervals (steps).
                 </p>
                 <p>
-                    $J := \bigcup_{n \in \mathbb{N}} J_n$
+                    One then translates the partial differential equations into rules defining how cells act upon each other given a short time interval. And voilà, we can now let a computer do the work of computing the state of the cells. Fairly recent developments in GPUs greatly enhance such simulation processes through their 'parallel processing' capability: the state of the cells in the grid are not computed consecutively, but all at the same time!
+                    These developments have had an enormous impact on scientific research, but also easthetics. A-Life is ubiquitous in CGI production. Here some examples:
+                </p>
+                <img src="/images/cellular.jpg" alt="Morphogenesis" width="100%">
+                <iframe src="https://www.shadertoy.com/embed/WlVyRV?gui=true&t=10&paused=false&muted=false" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen"> </iframe>
+
+                <h2>All possible Rhythms</h2>
+                <p>
+                    Working with the Belgian composer Simon Halsberghe to gain a better understanding of the Jacki Lieberman Set. The German percussionist Jacki Liebezeit worked on the set of all possible rhythmical patterns consisting of 1s and 2s, i.e. short and long beats. To complicate the matter considerably, cyclic permutations are considered equal. Formally, this set is defined as follows:
                 </p>
                 <p>
-                    $ J_n := \left\{ a_0a_1\dots a_{k}  \mid a_j \in \{ 1, 2 \}, k \in \mathbb{N} \text{ and } \sum_{i=0}^k a_i = n \right\}_{/\sim}$
+                    $$ J := \bigcup_{n \in \mathbb{N}} J_n $$
+                </p>
+                <p>
+                    $$ J_n := \left\{ a_0a_1\dots a_{k}  \mid a_j \in \{ 1, 2 \}, k \in \mathbb{N} \text{ and } \sum_{i=0}^k a_i = n \right\}_{/ \mathord{\sim}}$$
                 </p>
                 <p>
                     where
                 </p>
                 <p>
-                    $ a_0a_1\dots a_k \sim b_0b_1 \dots b_k \iff \exists l \in \mathbb{N} \forall j \in \{0,1, \dots, k\}: a_{(j + l)\mod (k+1)} = b_j$
+                    $$ a_0a_1\dots a_k \sim b_0b_1 \dots b_k $$
+                    $$ \iff $$
+                    $$ \exists l \in \mathbb{N} \quad \forall j \in \{0,1, \dots, k\}: \qquad a_{(j + l)\mod (k+1)} = b_j$$
                 </p>
                 <p>
-                    Empirically, we have found the following progression and are still looking for a direct way of computing the cardinality of each subset $J_n$. Please contact us if you recognize the set and know more about it!
+                    Simon is looking for a constructive way to generate all the patterns of a given length. We have implemented an algorithm, the computing time however quickly exceeds reasonable limits. The follow up question is: How many patterns of a given length $n$ exist? We computed values for $n \leq 26$, but have not yet found the formula for any $n$.
                 </p>
                 <p>
-                    $n=1$, number of patterns: 1
+                    Click <a href="jacki.html">here</a> for our intermediate results.
                 </p>
-                <p>
-                    .
-                </p>
-                <p>
-                    $n=2$, number of patterns: 2
-                </p>
-                <p>
-                    -<br>
-                    ..<br>
-                </p>
-                <p>
-                    $n=3$, number of patterns: 2
-                </p>
-                <p>
-                    .-<br>
-                    ...<br>
-                </p>
-                <p>
-                    $n=4$, number of patterns: 3
-                </p>
-                <p>
-                    --<br>
-                    ..-<br>
-                    ....<br>
-                </p>
-                <p>
-                    $n=5$, number of patterns: 3
-                </p>
-                <p>
-                    .--<br>
-                    ...-<br>
-                    .....<br>
-                </p>
-                <p>
-                    $n=6$, number of patterns: 5
-                </p>
-                <p>
-                    ---<br>
-                    ..--<br>
-                    .-.-<br>
-                    ....-<br>
-                    ......<br>
-                </p>
-                <p>
-                    $n=7$, number of patterns: 5
-                </p>
-                <p>
-                    .---<br>
-                    ...--<br>
-                    ..-.-<br>
-                    .....-<br>
-                    .......<br>
-                </p>
-                <p>
-                    $n=8$, number of patterns: 8
-                </p>
-                <p>
-                    ----<br>
-                    ..---<br>
-                    .-.--<br>
-                    ....--<br>
-                    ...-.-<br>
-                    ..-..-<br>
-                    ......-<br>
-                    ........<br>
-                </p>
-                <p>
-                    $n=9$, number of patterns: 10
-                </p>
-                <p>
-                    .----<br>
-                    ...---<br>
-                    ..-.--<br>
-                    .-..--<br>
-                    .....--<br>
-                    .-.-.-<br>
-                    ....-.-<br>
-                    ...-..-<br>
-                    .......-<br>
-                    .........<br>
-                </p>
-                <p>
-                    $n=10$, number of patterns: 15
-                </p>
-                <p>
-                    -----<br>
-                    ..----<br>
-                    .-.---<br>
-                    ....---<br>
-                    .--.--<br>
-                    ...-.--<br>
-                    ..-..--<br>
-                    .-...--<br>
-                    ......--<br>
-                    ..-.-.-<br>
-                    .....-.-<br>
-                    ....-..-<br>
-                    ...-...-<br>
-                    ........-<br>
-                    ..........<br>
-                </p>
-                <p>
-                    $n=11$, number of patterns: 19
-                </p>
-                <p>
-                    .-----<br>
-                    ...----<br>
-                    ..-.---<br>
-                    .-..---<br>
-                    .....---<br>
-                    ..--.--<br>
-                    .-.-.--<br>
-                    ....-.--<br>
-                    ...-..--<br>
-                    ..-...--<br>
-                    .-....--<br>
-                    .......--<br>
-                    ...-.-.-<br>
-                    ..-..-.-<br>
-                    ......-.-<br>
-                    .....-..-<br>
-                    ....-...-<br>
-                    .........-<br>
-                    ...........<br>
-                </p>
-                <p>
-                    $n=12$, number of patterns: 31
-                </p>
-                <p>
-                    ------<br>
-                    ..-----<br>
-                    .-.----<br>
-                    ....----<br>
-                    .--.---<br>
-                    ...-.---<br>
-                    ..-..---<br>
-                    .-...---<br>
-                    ......---<br>
-                    ...--.--<br>
-                    ..-.-.--<br>
-                    .-..-.--<br>
-                    .....-.--<br>
-                    ..--..--<br>
-                    .-.-..--<br>
-                    ....-..--<br>
-                    ...-...--<br>
-                    ..-....--<br>
-                    .-.....--<br>
-                    ........--<br>
-                    .-.-.-.-<br>
-                    ....-.-.-<br>
-                    ...-..-.-<br>
-                    ..-...-.-<br>
-                    .......-.-<br>
-                    ..-..-..-<br>
-                    ......-..-<br>
-                    .....-...-<br>
-                    ....-....-<br>
-                    ..........-<br>
-                    ............<br>
-                </p>
-                <p>
-                    $n=13$, number of patterns: 41
-                </p>
-                <p>
-                    .------<br>
-                    ...-----<br>
-                    ..-.----<br>
-                    .-..----<br>
-                    .....----<br>
-                    ..--.---<br>
-                    .-.-.---<br>
-                    ....-.---<br>
-                    .--..---<br>
-                    ...-..---<br>
-                    ..-...---<br>
-                    .-....---<br>
-                    .......---<br>
-                    .-.--.--<br>
-                    ....--.--<br>
-                    ...-.-.--<br>
-                    ..-..-.--<br>
-                    .-...-.--<br>
-                    ......-.--<br>
-                    ...--..--<br>
-                    ..-.-..--<br>
-                    .-..-..--<br>
-                    .....-..--<br>
-                    .-.-...--<br>
-                    ....-...--<br>
-                    ...-....--<br>
-                    ..-.....--<br>
-                    .-......--<br>
-                    .........--<br>
-                    ..-.-.-.-<br>
-                    .....-.-.-<br>
-                    ....-..-.-<br>
-                    ...-...-.-<br>
-                    ..-....-.-<br>
-                    ........-.-<br>
-                    ...-..-..-<br>
-                    .......-..-<br>
-                    ......-...-<br>
-                    .....-....-<br>
-                    ...........-<br>
-                    .............<br>
-                </p>
-                <p>
-                    $n=14$, number of patterns: 64
-                </p>
-                <p>
-                    $n=15$, number of patterns: 94
-                </p>
-                <p>
-                    $n=16$, number of patterns: 143
-                </p>
-                <p>
-                    $n=17$, number of patterns: 211
-                </p>
-                <p>
-                    $n=18$, number of patterns: 329
-                </p>
-                <p>
-                    $n=19$, number of patterns: 493
-                </p>
-                <p>
-                    $n=20$, number of patterns: 766
-                </p>
-                <p>
-                    $n=21$, number of patterns: 1170
-                </p>
-                <p>
-                    $n=22$, number of patterns: 1811
-                </p>
-                <p>
-                    $n=23$, number of patterns: 2787
-                </p>
-                <p>
-                    $n=25$, number of patterns: 6713
-                </p>
+
             </div>
         </div>
     </div>
