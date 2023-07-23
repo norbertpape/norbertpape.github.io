@@ -57,21 +57,36 @@
             <div class="pieceDescription">
                 <h1> <center>Summertime is math time!</center></h1>
                 <br />
-                <h2>Artifical life</h2>
+                <h2>A-Life: Life is a property of form</h2>
+                For the development of <a href="digital.html">Touching Clouds</a>, I had to dive into the world of <i>shaders</i>, which are small bits of code executed directly on the GPU. It's parallel processing capability makes surprising real-time simulations of natural process such as swarms and fluid dynamics possible. I am starting to dedicate some time to read up on the
+                surprising cross-polinations of (theoretical) biology, computer science and art. The image below is snapshot of a GPU run fluid simulation based on the <a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations">incompressible Navier Stokes equations</a>.
+                <img src="/images/smoke.jpg" alt="NavierStokes" width="100%">
+                <br />
                 What if the complexity of the world around us emerged out fo the interaction of particles following simple rules?
                 1952, Alan Turing starts off his influential speculative article <a href="https://en.wikipedia.org/wiki/The_Chemical_Basis_of_Morphogenesis"> The Chemical Basis of Morphogenesis</a> with a strong hypothesis:
-                <p style="margin-left: 30px;"> <i>It is suggested that a system of chemical substances, called morphogens, reacting together and diffusing through a tissue, is adequate to account for the main phenomena of morphogenesis. </i></pstyle="margin-left:>
-
-                
+                <p style="margin-left: 30px;">
+                    <i>It is suggested that a system of chemical substances, called morphogens, reacting together and diffusing through a tissue, is adequate to account for the main phenomena of morphogenesis. </i>
+                </p>
+                <img src="/images/cellular.jpg" alt="CellularAutomata" width="100%">
                 <p>
-                    These chemical reaction-diffusion processes are usually described by means of partial differential equations. However, it is usually impossible to write down explicit formulas for solutions of partial differential equations. Today's technology's computing power enables us to numerically approximate solutions and simulate the dynamic processes. One way to do so is by discretization, which means simplifying the problem by splitting smooth spaces into grid-like collections of cells and continuous time into a series of time intervals (steps).
+                    In a similar vein but in the 1980s and coming from the now firmly establish field computer science, Christopher Langston notes in his seminal text "Artifical Life":
+                </p>
+                <p style="margin-left: 30px;">
+                    <i>The most surprising lesson we have learned from simulating complex physical systems on computers is that complex behaviour need not have complex roots.</i>
+                </p>
+                Polemically, he claims:
+                <p style="margin-left: 30px;">
+                    Life is a property of <i>form</i>, not <i>matter</i>, a result of the organization of matter rather than something that inheres in the matter itself. [...] It is effects, not things, upon which life is based &#8212; life is a kind of behaviour, not a kind of stuff [...]. <i>Behaviours themselves </i> can constitute the fundamental parts of non-linear systems &#8212; <i>virtual parts </i>, which depend on non-linear interactions between physical parts for their very existence. Isolate the physical parts and the virtual parts cease to exist.
+                </p>
+
+                <p>
+                    What he calls the virtual is often described in the language of partial differential equations. However, it is usually impossible to write down explicit formulas for solutions of partial differential equations. Today's computing power enables us to numerically approximate solutions and simulate the dynamic processes. One way to do so is by discretization, which means simplifying the problem by splitting smooth spaces into grid-like collections of cells and continuous time into a series of time intervals (steps).
                 </p>
                 <p>
                     One then translates the partial differential equations into rules defining how cells act upon each other given a short time interval. And voilà, we can now let a computer do the work of computing the state of the cells. Fairly recent developments in GPUs greatly enhance such simulation processes through their 'parallel processing' capability: the state of the cells in the grid are not computed consecutively, but all at the same time!
-                    These developments have had an enormous impact on scientific research, but also easthetics. A-Life is ubiquitous in CGI production. Here some examples:
+                    These developments have had an enormous impact on scientific research, but also easthetics. A-Life is ubiquitous in CGI production. Here is another famous example of a dynamical system which can be thought of as the simulation of some sort of bacterial culture:
                 </p>
-                <img src="/images/cellular.jpg" alt="Morphogenesis" width="100%">
-                <iframe src="https://www.shadertoy.com/embed/WlVyRV?gui=true&t=10&paused=false&muted=false" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen"> </iframe>
+                <iframe src="https://www.shadertoy.com/embed/ld3Sz7?gui=true&t=10&paused=false&muted=false" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 
                 <h2>All possible Rhythms</h2>
                 <p>
