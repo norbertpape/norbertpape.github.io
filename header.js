@@ -8,4 +8,4 @@
     <meta name="description" content="Personal website of Norbert Pape">\
     <meta name="keywords" content="dance, art, choreography, VR, performance, augmented reality, contemporary art, virtual reality, unity, quest, oculus, pedagogy, self-organisation" />\
     <script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [[\'$\', \'$\']] } }); </script >\
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> </head>');
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> </head>');
