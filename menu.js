@@ -11,10 +11,9 @@
     <div id="myNav2" class="overlay">\
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>\
       <div class="overlay-content">\
-            
-            <h1> Selected works </h1>\
-            <h2> &#8210; open projects &#8210; </h2>\
+            <h2> &#8210; open research projects &#8210; </h2>\
             <a href="jacki.html">Grasping the Jacki Liebezeit Set</a>\
+            <h1> Selected works </h1>\
             <h2> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
             <a href="O2.html">O &#35;2</a>\
