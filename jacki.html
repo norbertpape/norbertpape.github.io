@@ -13,21 +13,26 @@
         <div class="main-archive">
             <div class="pieceDescription">
                 <h2> <center> Grasping the Jacki Liebezeit Set </enter></h2>
+                <br />
                 <p>
                     Working with the Belgian composer Simon Halsberghe to gain a better understanding of the Jacki Liebezeit Set. The Jacki Liebezeit set $J$ is the union of its subsets $J_n$, where each $J_n$ is the set of all possible rhythmical patterns consisting of 1s and 2s (represented as . and - further down) of total length $n$, up to cyclic permutation:
                 </p>
                 <p>
-                    $J := \bigcup_{n \in \mathbb{N}} J_n$
+                    $$ J := \bigcup_{n \in \mathbb{N}} J_n $$
                 </p>
                 <p>
-                    $ J_n := \left\{ a_0a_1\dots a_{k}  \mid a_j \in \{ 1, 2 \}, k \in \mathbb{N} \text{ and } \sum_{i=0}^k a_i = n \right\}_{/\sim}$
+                    $$ J_n := \left\{ a_0a_1\dots a_{k}  \mid a_j \in \{ 1, 2 \}, k \in \mathbb{N} \text{ and } \sum_{i=0}^k a_i = n \right\}_{/\sim}$$
                 </p>
                 <p>
                     where
                 </p>
                 <p>
-                    $ a_0a_1\dots a_k \sim b_0b_1 \dots b_k \iff \exists l \in \mathbb{N} \forall j \in \{0,1, \dots, k\}: a_{(j + l)\mod (k+1)} = b_j$
+                    $$ a_0a_1\dots a_k \sim b_0b_1 \dots b_k $$
+                    $$ \iff $$
+                    $$ \exists l \in \mathbb{N} \quad \forall j \in \{0,1, \dots, k\}: \qquad a_{(j + l)\mod (k+1)} = b_j$$
                 </p>
+                <br />
+
                 <p>
                     Empirically, we have found the following progression and are still looking for a direct way of computing the cardinality of each subset $J_n$. Please contact us if you recognize the set and know more about it!
                 </p>
