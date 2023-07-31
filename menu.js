@@ -11,9 +11,12 @@
     <div id="myNav2" class="overlay">\
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>\
       <div class="overlay-content">\
-            <h2> &#8210; open research projects &#8210; </h2>\
-            <a href="jacki.html">Grasping the Jaki Liebezeit Set</a>\
             <h1> Selected works </h1>\
+            <h2> &#8210; Art, Tech and Science&#8210; </h2>\
+            <a href="visiondelmonte.html">Robotics: Visi&oacute;n del monte</a>\
+            <a href="digital.html">XR: Qeue (Work in Progress)</a>\
+            <a href="digital.html">XR: Digit(al) - on touching Clouds</a>\
+            <a href="jacki.html">Combinatorics: Grasping the Jaki Liebezeit Set</a>\
             <h2> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
             <a href="O2.html">O &#35;2</a>\
