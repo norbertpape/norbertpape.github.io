@@ -13,8 +13,8 @@
       <div class="overlay-content">\
             <h1> Selected works </h1>\
             <h2> &#8210; Art, Tech and Science&#8210; </h2>\
-            <a href="visiondelmonte.html">Robotics: Visi&oacute;n del monte</a>\
-            <a href="queue.html">XR: Qeue (Work in Progress)</a>\
+            <a href="visiondelmonte.html">Robotics: Visi&oacute;n del Monte</a>\
+            <a href="queue.html">XR: Queue (Work in Progress)</a>\
             <a href="digital.html">XR: Digit(al) - on touching Clouds</a>\
             <a href="jacki.html">Combinatorics: Grasping the Jaki Liebezeit Set</a>\
             <h2> &#8210; as choreographer &#8210; </h2>\
