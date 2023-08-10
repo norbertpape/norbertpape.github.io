@@ -63,7 +63,7 @@ hr.solid {
 }
 
 .overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
+  color: rgb(190,190,190);
 }
 
 .overlay .closebtn {
