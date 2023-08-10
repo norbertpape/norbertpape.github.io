@@ -4,20 +4,20 @@
         <a href="index.html">Home</a>\
         <a href="news.html">News</a>\
         <a onclick="openNav2();closeNav()">Archive</a>\
-        <a href="about.html">About</a>\
+        <a href="about.html">Biography</a>\
         <a href="contact.html">Contact</a>\
       </div>\
     </div>\
     <div id="myNav2" class="overlay">\
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>\
       <div class="overlay-content">\
-            <h1> Selected works </h1>\
-            <h2> &#8210; Art, Tech and Science&#8210; </h2>\
+            <h1 style="color:rgb(200,200,200)"> Selected works </h1>\
+            <h2 style="color:rgb(200,200,200)"> &#8210; Art, Tech and Science&#8210; </h2>\
             <a href="visiondelmonte.html">Robotics: Visi&oacute;n del Monte</a>\
             <a href="queue.html">XR: Queue (Work in Progress)</a>\
             <a href="digital.html">XR: Digit(al) - on touching Clouds</a>\
             <a href="jacki.html">Combinatorics: Grasping the Jaki Liebezeit Set</a>\
-            <h2> &#8210; as choreographer &#8210; </h2>\
+            <h2 style="color:rgb(200,200,200)"> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
             <a href="O2.html">O &#35;2</a>\
             <a href="O.html">O</a>\
@@ -25,7 +25,7 @@
             <a href="davidetjonathas.html">David et Jonathas</a>\
             <a href="21stcentury.html">The 21st Century</a>\
             <a href="iamyours.html">I am Yours</a>\
-            <h2> &#8210; as dancer &#8210; </h2>\
+            <h2 style="color:rgb(200,200,200)"> &#8210; as dancer &#8210; </h2>\
             <a href="https://www.metteingvartsen.net/performance/moving-in-concert/">Moving in Concert</a>\
             <a href="https://www.metteingvartsen.net/performance/to-come-extended/">to come (extended)</a>\
             <a href="https://www.metteingvartsen.net/performance/performance-1/">7 Pleasures</a>\
@@ -33,7 +33,7 @@
             <a href="https://www.numeridanse.tv/videotheque-danse/faits-et-gestes">Faits et Gestes</a>\
             <a href="https://www.numeridanse.tv/en/dance-videotheque/removing">Removing</a>\
             <a href="https://www.fondationlouisvuitton.fr/en/events/noe-soulier-movement-materials">Movement Materials</a>\
-            <h2> &#8210; publications &#8210; </h2>\
+            <h2 style="color:rgb(200,200,200)"> &#8210; publications &#8210; </h2>\
             <a href="/images/interview.pdf">Interview by Jean‑Louis Georget</a>\
             <a href="/images/colleagues.pdf">Dear colleagues and friends</a>\
             <a href="/images/foe.pdf">The Future of Education</a>\
