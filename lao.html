@@ -25,13 +25,14 @@
         import * as THREE from 'https://unpkg.com/three/build/three.module.js'
         import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
         import { OBJLoader } from 'https://unpkg.com/three/examples/jsm/loaders/OBJLoader';
+        import { MTLLoader } from 'https://unpkg.com/three/examples/jsm/loaders/MTLLoader';
         import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module';
 
 
 
 
-        //const scene = new THREE.Scene()
-        //scene.add(new THREE.AxesHelper(5))
+        const scene = new THREE.Scene()
+        scene.add(new THREE.AxesHelper(5))
 
         const light = new THREE.PointLight(0xffffff, 1000)
         light.position.set(2.5, 7.5, 15)
@@ -52,27 +53,48 @@
         const controls = new OrbitControls(camera, renderer.domElement)
         controls.enableDamping = true
 
-        const material = new THREE.MeshBasicMaterial({ color: 0xdb85d6, wireframe: true })
+        //const material = new THREE.MeshBasicMaterial({ color: 0xdb85d6, wireframe: true })
 
-        const objLoader = new OBJLoader()
-        objLoader.load(
-            '3D/models/lao/kirby.obj',
-            (object) => {
-                (object.children[0] as three.mesh).material = material
-                object.traverse(function (child) {
-                    if ((child as three.mesh).ismesh) {
-                        (child as three.mesh).material = material
-                    }
-                })
-                scene.add(object)
-            },
-            (xhr) => {
-                console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
+        //const objLoader = new OBJLoader()
+        //objLoader.load(
+        //    '3D/models/lao/kirby.obj',
+        //    (object) => {
+        //        (object.children[0] as three.mesh).material = material
+        //        object.traverse(function (child) {
+        //            if ((child as three.mesh).ismesh) {
+        //                (child as three.mesh).material = material
+        //            }
+        //        })
+        //        scene.add(object)
+        //    },
+        //    (xhr) => {
+        //        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        //    },
+        //    (error) => {
+        //        console.log(error)
+        //    }
+        //)
+        var OBJFile = '3D/models/lao/kirby.obj';
+        var MTLFile = '3D/models/lao/kirby.mtl';
+        var JPGFile = '3D/models/lao/kirby.png';
+
+        new THREE.MTLLoader()
+            .load(MTLFile, function (materials) {
+                materials.preload();
+                new THREE.OBJLoader()
+                    .setMaterials(materials)
+                    .load(OBJFile, function (object) {
+                        object.position.y = - 95;
+                        var texture = new THREE.TextureLoader().load(JPGFile);
+
+                        object.traverse(function (child) {   // aka setTexture
+                            if (child instanceof THREE.Mesh) {
+                                child.material.map = texture;
+                            }
+                        });
+                        scene.add(object);
+                    });
+            });
 
         window.addEventListener('resize', onWindowResize, false)
         function onWindowResize() {
