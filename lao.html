@@ -24,9 +24,7 @@
 
         import * as THREE from 'https://unpkg.com/three/build/three.module.js'
         import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
-        import { OBJLoader } from 'https://unpkg.com/three/examples/jsm/loaders/OBJLoader';
-        import { MTLLoader } from 'https://unpkg.com/three/examples/jsm/loaders/MTLLoader';
-        import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module';
+        import { GLTFLoader } from 'https://unpkg.com/three/examples/jsm/loaders/GLTFLoader.js';
 
 
 
@@ -55,6 +53,36 @@
 
         //const material = new THREE.MeshBasicMaterial({ color: 0xdb85d6, wireframe: true })
 
+        const loader = new GLTFLoader();
+        loader.load(
+            // resource URL
+            '3D/models/lao/kirby.glb',
+            // called when the resource is loaded
+            function (gltf) {
+
+                scene.add(gltf.scene);
+
+                gltf.animations; // Array<THREE.AnimationClip>
+                gltf.scene; // THREE.Group
+                gltf.scenes; // Array<THREE.Group>
+                gltf.cameras; // Array<THREE.Camera>
+                gltf.asset; // Object
+
+            },
+            // called while loading is progressing
+            function (xhr) {
+
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+            },
+            // called when loading has errors
+            function (error) {
+
+                console.log('An error happened');
+
+            }
+        );
+
         //const objLoader = new OBJLoader()
         //objLoader.load(
         //    '3D/models/lao/kirby.obj',
@@ -74,27 +102,27 @@
         //        console.log(error)
         //    }
         //)
-        var OBJFile = '3D/models/lao/kirby.obj';
-        var MTLFile = '3D/models/lao/kirby.mtl';
-        var JPGFile = '3D/models/lao/kirby.png';
+        //var OBJFile = '3D/models/lao/kirby.obj';
+        //var MTLFile = '3D/models/lao/kirby.mtl';
+        //var JPGFile = '3D/models/lao/kirby.png';
 
-        new THREE.MTLLoader()
-            .load(MTLFile, function (materials) {
-                materials.preload();
-                new THREE.OBJLoader()
-                    .setMaterials(materials)
-                    .load(OBJFile, function (object) {
-                        object.position.y = - 95;
-                        var texture = new THREE.TextureLoader().load(JPGFile);
+        //new THREE.MTLLoader()
+        //    .load(MTLFile, function (materials) {
+        //        materials.preload();
+        //        new THREE.OBJLoader()
+        //            .setMaterials(materials)
+        //            .load(OBJFile, function (object) {
+        //                object.position.y = - 95;
+        //                var texture = new THREE.TextureLoader().load(JPGFile);
 
-                        object.traverse(function (child) {   // aka setTexture
-                            if (child instanceof THREE.Mesh) {
-                                child.material.map = texture;
-                            }
-                        });
-                        scene.add(object);
-                    });
-            });
+        //                object.traverse(function (child) {   // aka setTexture
+        //                    if (child instanceof THREE.Mesh) {
+        //                        child.material.map = texture;
+        //                    }
+        //                });
+        //                scene.add(object);
+        //            });
+        //    });
 
         window.addEventListener('resize', onWindowResize, false)
         function onWindowResize() {
