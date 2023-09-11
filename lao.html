@@ -117,7 +117,7 @@
             scene.add(dirLight1);
 
             const geometry = new THREE.PlaneGeometry(50 , 50);
-            const material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+            const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
             const plane = new THREE.Mesh(geometry, material);
             plane.translateZ(-30);
             scene.add(plane);
@@ -225,7 +225,7 @@
 
             const loader = new GLTFLoader();
 
-            loader.load('3D/models/Canoe.glb', function (gltf) {
+            loader.load('3D/models/lao/kirby.glb', function (gltf) { //Canoe.glb
 
                 mesh = gltf.scene.children[0];
                 mesh.material = new THREE.MeshPhongMaterial({
