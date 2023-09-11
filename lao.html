@@ -236,7 +236,7 @@
 
             const loader = new GLTFLoader();
 
-            loader.load('3D/models/Canoe.glb', function (gltf) { //lao/kirby.glb
+            loader.load('3D/models/lao/kirby.glb', function (gltf) { //Canoe.glb
 
                 mesh = gltf.scene.children[0];
                 mesh.material = new THREE.MeshLambertMaterial({ color:  0xa0a0a0 });
@@ -249,7 +249,7 @@
                 //});
 
                 scene.add(mesh);
-                mesh.scale.set(0.01, 0.01, 0.01);
+                mesh.scale.set(1, 1, 1);
 
             });
 
