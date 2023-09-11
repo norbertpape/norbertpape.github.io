@@ -112,14 +112,25 @@
 
             scene.add(new THREE.AmbientLight(0x666666));
 
-            const dirLight1 = new THREE.DirectionalLight(0xffddcc, 3);
-            dirLight1.position.set(1, 0.75, 0.5);
-            scene.add(dirLight1);
+            const light = new THREE.SpotLight(0xffffff, 4.5);
+            light.position.set(0, 1500, 200);
+            light.angle = Math.PI * 0.2;
+            light.decay = 0;
+            light.castShadow = true;
+            light.shadow.camera.near = 200;
+            light.shadow.camera.far = 2000;
+            light.shadow.bias = - 0.000222;
+            light.shadow.mapSize.width = 1024;
+            light.shadow.mapSize.height = 1024;
+            scene.add(light);
 
-            const geometry = new THREE.PlaneGeometry(50 , 50);
-            const material = new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide });
-            const plane = new THREE.Mesh(geometry, material);
-            plane.translateZ(-30);
+            const planeGeometry = new THREE.PlaneGeometry(2000, 2000);
+            planeGeometry.rotateX(- Math.PI / 2);
+            const planeMaterial = new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.2 });
+
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            plane.position.y = - 200;
+            plane.receiveShadow = true;
             scene.add(plane);
 
             //const dirLight2 = new THREE.DirectionalLight(0xccccff, 3);
