@@ -28,15 +28,6 @@
         }
     </script>
 
-    <!--<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.module.js"
-            }
-        }
-    </script>-->
-
     <script type="module">
 
         import * as THREE from 'https://unpkg.com/three/build/three.module.js'
@@ -71,14 +62,14 @@
         const intersects = [];
 
         const textureLoader = new THREE.TextureLoader();
-        const decalDiffuse = textureLoader.load('textures/decal/decal-diffuse.png');
+        //const decalDiffuse = textureLoader.load('textures/decal/decal-diffuse.png');
         //decalDiffuse.colorSpace = THREE.SRGBColorSpace;
-        const decalNormal = textureLoader.load('textures/decal/decal-normal.jpg');
+        //const decalNormal = textureLoader.load('textures/decal/decal-normal.jpg');
 
         const decalMaterial = new THREE.MeshPhongMaterial({
             specular: 0x444444,
-            map: decalDiffuse,
-            normalMap: decalNormal,
+            //map: decalDiffuse,
+            //normalMap: decalNormal,
             normalScale: new THREE.Vector2(1, 1),
             shininess: 30,
             transparent: true,
@@ -168,17 +159,6 @@
 
             });
 
-            window.addEventListener('pointerup', function (event) {
-
-                if (moved === false) {
-
-                    checkIntersection(event.clientX, event.clientY);
-
-                    if (intersection.intersects) shoot();
-
-                }
-
-            });
 
             window.addEventListener('pointermove', onPointerMove);
 
@@ -238,7 +218,7 @@
             gui.add(params, 'minScale', 1, 30);
             gui.add(params, 'maxScale', 1, 30);
             gui.add(params, 'rotate');
-            gui.add(params, 'clear');
+            //gui.add(params, 'clear');
             gui.open();
 
         }
@@ -270,26 +250,6 @@
 
         }
 
-        function shoot() {
-
-            position.copy(intersection.point);
-            orientation.copy(mouseHelper.rotation);
-
-            if (params.rotate) orientation.z = Math.random() * 2 * Math.PI;
-
-            const scale = params.minScale + Math.random() * (params.maxScale - params.minScale);
-            size.set(scale, scale, scale);
-
-            const material = decalMaterial.clone();
-            material.color.setHex(Math.random() * 0xffffff);
-
-            const m = new THREE.Mesh(new DecalGeometry(mesh, position, orientation, size), material);
-            m.renderOrder = decals.length; // give decals a fixed render order
-
-            decals.push(m);
-            scene.add(m);
-
-        }
 
         function removeDecals() {
 
