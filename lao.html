@@ -236,19 +236,20 @@
 
             const loader = new GLTFLoader();
 
-            loader.load('3D/models/lao/kirby.glb', function (gltf) { //Canoe.glb
+            loader.load('3D/models/Canoe.glb', function (gltf) { //lao/kirby.glb
 
                 mesh = gltf.scene.children[0];
-                mesh.material = new THREE.MeshPhongMaterial({
-                    specular: 0x111111,
-                    map: map,
-                    //specularMap: specularMap,
-                    //normalMap: normalMap,
-                    shininess: 25
-                });
+                mesh.material = new THREE.MeshLambertMaterial({ color:  0xa0a0a0 });
+                //new THREE.MeshPhongMaterial({
+                //    specular: 0x111111,
+                //    map: map,
+                //    //specularMap: specularMap,
+                //    //normalMap: normalMap,
+                //    shininess: 25
+                //});
 
                 scene.add(mesh);
-                mesh.scale.set(10, 10, 10);
+                mesh.scale.set(0.01, 0.01, 0.01);
 
             });
 
