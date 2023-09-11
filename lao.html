@@ -9,8 +9,6 @@
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <meta name="description" content="Personal website of Norbert Pape">
     <meta name="keywords" content="Norbert Pape, dance, art, choreography, VR, performance, augmented reality, contemporary art, virtual reality, unity, quest, oculus, pedagogy, self-organisation" />
-    <script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$']] } }); </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config =TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
     <main>
@@ -42,7 +40,7 @@
         let renderer, scene, camera, stats;
         let mesh;
         let raycaster;
-        let line;
+        //let line;
 
         const intersection = {
             intersects: false,
@@ -128,11 +126,7 @@
             //dirLight2.position.set(- 1, 0.75, - 0.5);
             //scene.add(dirLight2);
 
-            const geometry = new THREE.BufferGeometry();
-            geometry.setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
-
-            line = new THREE.Line(geometry, new THREE.LineBasicMaterial());
-            scene.add(line);
+            
 
             loadLeePerrySmith();
 
@@ -195,10 +189,10 @@
                     intersection.normal.copy(intersects[0].face.normal);
                     mouseHelper.lookAt(n);
 
-                    const positions = line.geometry.attributes.position;
-                    positions.setXYZ(0, p.x, p.y, p.z);
-                    positions.setXYZ(1, n.x, n.y, n.z);
-                    positions.needsUpdate = true;
+                    //const positions = line.geometry.attributes.position;
+                    //positions.setXYZ(0, p.x, p.y, p.z);
+                    //positions.setXYZ(1, n.x, n.y, n.z);
+                    //positions.needsUpdate = true;
 
                     intersection.intersects = true;
 
