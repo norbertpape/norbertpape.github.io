@@ -60,7 +60,7 @@
 
             const textureLoader = new THREE.TextureLoader();
             const decalDiffuse = textureLoader.load('textures/decal/decal-diffuse.png');
-            decalDiffuse.colorSpace = THREE.SRGBColorSpace;
+            //decalDiffuse.colorSpace = THREE.SRGBColorSpace;
             const decalNormal = textureLoader.load('textures/decal/decal-normal.jpg');
 
             const decalMaterial = new THREE.MeshPhongMaterial({
@@ -234,7 +234,7 @@
             function loadLeePerrySmith() {
 
                 const map = textureLoader.load('3D/models/lao/kirby.png');
-                map.colorSpace = THREE.SRGBColorSpace;
+                //map.colorSpace = THREE.SRGBColorSpace;
                 //const specularMap = textureLoader.load('models/gltf/LeePerrySmith/Map-SPEC.jpg');
                 //const normalMap = textureLoader.load('models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg');
 
