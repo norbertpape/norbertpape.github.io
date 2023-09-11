@@ -27,12 +27,13 @@
         import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module.js'
         import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
         import { GLTFLoader } from 'https://unpkg.com/three/examples/jsm/loaders/GLTFLoader.js';
-        import { GUI } from 'https://unpkg.com/three/examples/jsm/libs/lil-gui.module.min.js';
-        import { DecalGeometry } from 'https://unpkg.com/three/examples/jsm/geometries/DecalGeometry.js';
+        import { RenderPass } from 'https://unpkg.com/three/examples/jsm/postprocessing/RenderPass.js';
+        import { EffectComposer } from 'https://unpkg.com/three/examples/jsm/postprocessing/EffectComposer.js';
+        import { UnrealBloomPass } from 'https://unpkg.com/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
         const container = document.getElementById('container');
 
-        let renderer, scene, camera, stats;
+        let renderer, scene, camera, stats, composer, renderScene, bloomPass;
         let mesh;
         let raycaster;
 
@@ -69,33 +70,118 @@
             //container.appendChild(stats.dom);
 
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xf0f0f0);
+            scene.background = new THREE.Color(0x000000);
 
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
             camera.position.z = 30;
 
+            renderScene = new RenderPass(scene, camera);
+            composer = new EffectComposer(renderer);
+            composer.addPass(renderScene);
+
+            bloomPass = new UnrealBloomPass(
+                new THREE.Vector2(window.innerWidth, window.innerHeight),
+                0.9,
+                0.1,
+                0.1
+            );
+            composer.addPass(bloomPass);
             const controls = new OrbitControls(camera, renderer.domElement);
             controls.minDistance = 10;
             controls.maxDistance = 30;
 
             scene.add(new THREE.AmbientLight(0x666666));
 
-            const light = new THREE.DirectionalLight(0xffffff, 1);
-            light.position.set(0, 20, 0); //default; light shining from top
-            light.castShadow = true; // default false
-            scene.add(light);
+
+            const bulbGeometry = new THREE.SphereGeometry(0.22, 16, 8);
+            let bulbLight = new THREE.PointLight(0xffee88, 100, 100, 2);
+
+            let bulbMat = new THREE.MeshStandardMaterial({
+                emissive: 0xffffff,
+                emissiveIntensity: 1,
+                color: 0x000000
+            });
+
+            bulbLight.add(new THREE.Mesh(bulbGeometry, bulbMat));
+            bulbLight.position.set(0, 3, 0);
+            bulbLight.castShadow = true;
+            scene.add(bulbLight);
+
+
+            //const spotLight = new THREE.SpotLight(0xffffff, 60);
+            //spotLight.angle = Math.PI / 5;
+            //spotLight.penumbra = 0.2;
+            //spotLight.position.set(0, 3, 0);
+            //spotLight.castShadow = true;
+            //spotLight.shadow.camera.near = 0.5;
+            //spotLight.shadow.camera.far = 50;
+            //spotLight.shadow.camera.right = 50 // default
+            //spotLight.shadow.camera.left = -50 // default
+            //spotLight.shadow.camera.top = -50 // default
+            //spotLight.shadow.camera.bottom = 200 // default
+            //spotLight.shadow.mapSize.width = 1024;
+            //spotLight.shadow.mapSize.height = 1024;
+            //scene.add(spotLight);
+
+
+            //const light = new THREE.DirectionalLight(0xffffff, 1);
+            //light.position.set(0, 20, 0); //default; light shining from top
+            //light.castShadow = true; // default false
+            //scene.add(light);
 
             //Create a plane that receives shadows (but does not cast them)
+
+            let floorMat = new THREE.MeshStandardMaterial({
+                roughness: 0.8,
+                color: 0xffffff,
+                metalness: 0.2,
+                bumpScale: 0.0005
+            });
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load('textures/hardwood2_diffuse.jpg', function (map) {
+
+                map.wrapS = THREE.RepeatWrapping;
+                map.wrapT = THREE.RepeatWrapping;
+                map.anisotropy = 4;
+                map.repeat.set(10, 24);
+                map.colorSpace = THREE.SRGBColorSpace;
+                floorMat.map = map;
+                floorMat.needsUpdate = true;
+
+            });
+            textureLoader.load('textures/hardwood2_bump.jpg', function (map) {
+
+                map.wrapS = THREE.RepeatWrapping;
+                map.wrapT = THREE.RepeatWrapping;
+                map.anisotropy = 4;
+                map.repeat.set(10, 24);
+                floorMat.bumpMap = map;
+                floorMat.needsUpdate = true;
+
+            });
+            textureLoader.load('textures/hardwood2_roughness.jpg', function (map) {
+
+                map.wrapS = THREE.RepeatWrapping;
+                map.wrapT = THREE.RepeatWrapping;
+                map.anisotropy = 4;
+                map.repeat.set(10, 24);
+                floorMat.roughnessMap = map;
+                floorMat.needsUpdate = true;
+
+            });
+
+
+
             const planeGeometry = new THREE.PlaneGeometry(200, 200, 32, 32);
             planeGeometry.rotateX(- Math.PI / 2);
             const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa })
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            const plane = new THREE.Mesh(planeGeometry, floorMat);// planeMaterial);
             plane.position.y = -7;
             plane.receiveShadow = true;
             scene.add(plane);
 
-            ////Create a helper for the shadow camera (optional)
-            //const helper = new THREE.CameraHelper(light.shadow.camera);
+            //Create a helper for the shadow camera (optional)
+            //const helper = new THREE.CameraHelper(spotLight.shadow.camera);
             //scene.add(helper);
 
 
@@ -131,15 +217,15 @@
 
             const loader = new GLTFLoader();
 
-            loader.load('3D/models/Canoe.glb', function (gltf) {
+            loader.load('3D/models/canoePink.glb', function (gltf) {
 
                 mesh = gltf.scene.children[0];
                 mesh.rotateX(- Math.PI);
                 mesh.material = new THREE.MeshStandardMaterial({ color: 0x7F550D });
                 mesh.scale.set(0.03, 0.03, 0.03);
+                mesh.position.y = 4;
                 mesh.castShadow = true;
-                scene.add(mesh);
-
+                scene.add(gltf.scene);
 
             });
 
@@ -159,8 +245,8 @@
 
             requestAnimationFrame(animate);
 
-            renderer.render(scene, camera);
-
+            //renderer.render(scene, camera);
+            composer.render();
             stats.update();
 
         }
