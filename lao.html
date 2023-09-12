@@ -33,7 +33,7 @@
 
         const container = document.getElementById('container');
 
-        let renderer, scene, camera, stats, composer, renderScene, bloomPass;
+        let renderer, scene, camera, stats, composer, renderScene, bloomPass, bulbLight;
         let mesh;
         let raycaster;
 
@@ -94,7 +94,7 @@
 
 
             const bulbGeometry = new THREE.SphereGeometry(0.22, 16, 8);
-            let bulbLight = new THREE.PointLight(0xffee88, 100, 100, 2);
+            bulbLight = new THREE.PointLight(0xffee88, 100, 100, 2);
 
             let bulbMat = new THREE.MeshStandardMaterial({
                 emissive: 0xffffff,
@@ -105,6 +105,7 @@
             bulbLight.add(new THREE.Mesh(bulbGeometry, bulbMat));
             bulbLight.position.set(0, 3, 0);
             bulbLight.castShadow = true;
+
             scene.add(bulbLight);
 
 
@@ -186,7 +187,8 @@
 
 
 
-            loadLeePerrySmith();
+            loadLeePerrySmith(0, 3, 0, 0);
+            loadLeePerrySmith(3, 3, 3, 1.2);
 
 
             mouseHelper = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 10), new THREE.MeshNormalMaterial());
@@ -213,7 +215,7 @@
 
         }
 
-        function loadLeePerrySmith() {
+        function loadLeePerrySmith(x, y, z, r) {
 
             const loader = new GLTFLoader();
 
@@ -223,7 +225,8 @@
                 mesh.rotateX(- Math.PI);
                 mesh.material = new THREE.MeshStandardMaterial({ color: 0x7F550D });
                 mesh.scale.set(0.03, 0.03, 0.03);
-                mesh.position.y = 4;
+                mesh.position.set(x, y, z);
+                mesh.rotateY(r);
                 mesh.castShadow = true;
                 scene.add(gltf.scene);
 
@@ -241,10 +244,13 @@
 
         }
 
+
         function animate() {
+            var date = new Date();
 
             requestAnimationFrame(animate);
-
+            var t = performance.now() * 0.0002;
+            bulbLight.position.set(3 + 3 * Math.sin(t), 3 + Math.sin(t), 5 * Math.cos(t));
             //renderer.render(scene, camera);
             composer.render();
             stats.update();
