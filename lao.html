@@ -23,14 +23,14 @@
 
     <script type="module">
 
-        import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-        import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module.js'
-        import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
-        import { GLTFLoader } from 'https://unpkg.com/three/examples/jsm/loaders/GLTFLoader.js';
-        import { RenderPass } from 'https://unpkg.com/three/examples/jsm/postprocessing/RenderPass.js';
-        import { EffectComposer } from 'https://unpkg.com/three/examples/jsm/postprocessing/EffectComposer.js';
-        import { UnrealBloomPass } from 'https://unpkg.com/three/examples/jsm/postprocessing/UnrealBloomPass.js';
-        import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
+        import * as THREE from 'https://unpkg.com/three@0.156.1/build/three.module.js'
+        import Stats from 'https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js'
+        import { OrbitControls } from 'https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js';
+        import { GLTFLoader } from 'https://unpkg.com/three@0.156.1/examples/jsm/loaders/GLTFLoader.js';
+        import { RenderPass } from 'https://unpkg.com/three@0.156.1/examples/jsm/postprocessing/RenderPass.js';
+        import { EffectComposer } from 'https://unpkg.com/three@0.156.1/examples/jsm/postprocessing/EffectComposer.js';
+        import { UnrealBloomPass } from 'https://unpkg.com/three@0.156.1/examples/jsm/postprocessing/UnrealBloomPass.js';
+        //import { VRButton } from 'https://unpkg.com/three/examples@0.156.1/jsm/webxr/VRButton.js';
 
         const container = document.getElementById('container');
 
@@ -62,11 +62,11 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.shadowMap.enabled = true;
-            renderer.xr.enabled = true;
+            //renderer.xr.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.body.appendChild(renderer.domElement);
-            //container.appendChild(renderer.domElement);
-            document.body.appendChild(VRButton.createButton(renderer));
+            container.appendChild(renderer.domElement);
+            //document.body.appendChild(VRButton.createButton(renderer));
 
             stats = new Stats();
             document.body.appendChild(stats.dom);
@@ -110,28 +110,6 @@
             bulbLight.castShadow = true;
 
             scene.add(bulbLight);
-
-
-            //const spotLight = new THREE.SpotLight(0xffffff, 60);
-            //spotLight.angle = Math.PI / 5;
-            //spotLight.penumbra = 0.2;
-            //spotLight.position.set(0, 3, 0);
-            //spotLight.castShadow = true;
-            //spotLight.shadow.camera.near = 0.5;
-            //spotLight.shadow.camera.far = 50;
-            //spotLight.shadow.camera.right = 50 // default
-            //spotLight.shadow.camera.left = -50 // default
-            //spotLight.shadow.camera.top = -50 // default
-            //spotLight.shadow.camera.bottom = 200 // default
-            //spotLight.shadow.mapSize.width = 1024;
-            //spotLight.shadow.mapSize.height = 1024;
-            //scene.add(spotLight);
-
-
-            //const light = new THREE.DirectionalLight(0xffffff, 1);
-            //light.position.set(0, 20, 0); //default; light shining from top
-            //light.castShadow = true; // default false
-            //scene.add(light);
 
             //Create a plane that receives shadows (but does not cast them)
 
@@ -261,8 +239,9 @@
 
             var t = performance.now() * 0.0002;
             bulbLight.position.set(3 + 3 * Math.sin(t), 3 + Math.sin(t), 5 * Math.cos(t));
-            renderer.render(scene, camera);
-            //composer.render();
+            //renderer.xr.updateCamera(camera); //maybe not necessary?
+            //renderer.render(scene, camera);
+            composer.render();
             stats.update();
         }
 
