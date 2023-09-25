@@ -1,4 +1,287 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>three.js webgl - materials - video - webcam</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--<link type="text/css" rel="stylesheet" href="main.css">-->
+</head>
+<body>
+
+    <video id="video" style="display:none" autoplay playsinline></video>
+
+    <!-- Import maps polyfill -->
+    <!-- Remove this when import maps will be widely supported -->
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/"
+            }
+        }
+    </script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+        uniform sampler2D texturePosition;
+        uniform sampler2D textureVelocity;
+
+        varying vec2 vUv;
+
+        void main() {
+            vUv = uv;
+
+            gl_Position =   projectionMatrix *
+                            modelViewMatrix *
+                            vec4(position,1.0);
+        }
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        uniform sampler2D texture1;
+
+        varying vec2 vUv;
+
+        void main() {
+            gl_FragColor = texture2D(texture1, vUv);
+
+        }
+    </script>
+
+    <script id="fragmentShaderPosition" type="x-shader/x-fragment">
+        uniform int width;
+        uniform sampler2D videoTexture;
+
+        void main()	{
+            vec2 uv = gl_FragCoord.xy / resolution.xy;
+            vec4 tmpPos = texture2D( textureVelocity, uv );
+            vec4 videoimage = texture2D( videoTexture, vec2(0.5, gl_FragCoord.y / resolution.y)  );
+            uv = (gl_FragCoord.xy + vec2(1,0))/ resolution.xy;
+            if (int(gl_FragCoord.x) < width-1) gl_FragColor = texture2D( textureVelocity, uv );
+            else gl_FragColor = videoimage;
+        }
+    </script>
+
+    <script id="fragmentShaderVelocity" type="x-shader/x-fragment">
+
+        uniform sampler2D videoTexture;
+        uniform int width;
+
+        void main() {
+
+            vec2 uv = gl_FragCoord.xy / resolution.xy;
+            //vec4 selfVelocity = texture2D( texturePosition, uv );
+            vec4 videoimage = texture2D( videoTexture, vec2(0.5, gl_FragCoord.y / resolution.y) );
+            if (int(gl_FragCoord.x) < width-1) gl_FragColor = texture2D( texturePosition, uv );
+            else gl_FragColor = videoimage;
+
+        }
+
+    </script>
+
+    <script type="module">
+
+        import * as THREE from 'three';
+
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js';
+
+        const WIDTH = 1920 / 2;
+        const HEIGHT = 1080 / 1;
+
+        let camera, scene, renderer, video, mesh;
+        let gpuCompute;
+        let velocityVariable;
+        let positionVariable;
+        let positionUniforms;
+        let velocityUniforms;
+        let uniforms;
+
+        init();
+        animate();
+
+        function init() {
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+            //camera.position.z = -2;
+
+            scene = new THREE.Scene();
+
+            video = document.getElementById('video');
+            const texture = new THREE.VideoTexture(video);
+            texture.colorSpace = THREE.SRGBColorSpace;
+
+            const geometry = new THREE.PlaneGeometry(16, 9);
+            geometry.scale(1, 0.5, 1);
+
+            //new chunk
+            var vertShader = document.getElementById('vertexShader').innerHTML;
+            var fragShader = document.getElementById('fragmentShader').innerHTML;
+
+            uniforms = {
+                texture1: { type: "t", value: texture },
+                texturePosition: { type: "t", value: null },
+                textureVelocity: { type: "t", value: null }
+            };
+
+            var material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: vertShader,
+                fragmentShader: fragShader
+            });
+
+            //const material = new THREE.MeshBasicMaterial({ map: texture });
+
+
+            mesh = new THREE.Mesh(geometry, material);
+            mesh.position.z = -7;
+            //mesh.lookAt(camera.position);
+            scene.add(mesh);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            initComputeRenderer(texture);
+            //const controls = new OrbitControls(camera, renderer.domElement);
+            //controls.enableZoom = false;
+            //controls.enablePan = false;
+
+            window.addEventListener('resize', onWindowResize);
+
+            //
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+
+                const constraints = { video: { width: 1280, height: 720, facingMode: 'user' } };
+
+                navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+
+                    // apply the stream to the video element used in the texture
+
+                    video.srcObject = stream;
+                    video.play();
+
+                }).catch(function (error) {
+
+                    console.error('Unable to access the camera/webcam.', error);
+
+                });
+
+            } else {
+
+                console.error('MediaDevices interface not available.');
+
+            }
+
+        }
+
+        function fillTextureVel(texture) {
+
+            const theArray = texture.image.data;
+
+            for (let k = 0, kl = theArray.length; k < kl; k += 4) {
+
+                theArray[k] = 1;
+                theArray[k + 1] = 1;// (k % WIDTH ) / WIDTH;
+                theArray[k + 2] = 1;
+                theArray[k + 3] = 1;
+
+            }
+
+        }
+
+        function fillTexturePos(texture) {
+
+            const theArray = texture.image.data;
+
+            for (let k = 0, kl = theArray.length; k < kl; k += 4) {
+
+                theArray[k] = 1;
+                theArray[k + 1] = 1;
+                theArray[k + 2] = 1;
+                theArray[k + 3] = 1;
+
+            }
+
+        }
+
+        function initComputeRenderer(texture) {
+
+            gpuCompute = new GPUComputationRenderer(WIDTH, HEIGHT, renderer);
+
+            if (renderer.capabilities.isWebGL2 === false) {
+
+                gpuCompute.setDataType(THREE.HalfFloatType);
+
+            }
+
+            const dtPosition = gpuCompute.createTexture();
+            const dtVelocity = gpuCompute.createTexture();
+            fillTexturePos(dtPosition); //how large are these?
+            fillTextureVel(dtVelocity);
+
+            velocityVariable = gpuCompute.addVariable('textureVelocity', document.getElementById('fragmentShaderVelocity').textContent, dtVelocity);
+            positionVariable = gpuCompute.addVariable('texturePosition', document.getElementById('fragmentShaderPosition').textContent, dtPosition);
+
+            gpuCompute.setVariableDependencies(velocityVariable, [positionVariable, velocityVariable]);
+            gpuCompute.setVariableDependencies(positionVariable, [positionVariable, velocityVariable]);
+
+            positionUniforms = positionVariable.material.uniforms;
+            velocityUniforms = velocityVariable.material.uniforms;
+
+            positionUniforms['videoTexture'] = { type: "t", value: texture };
+            velocityUniforms['videoTexture'] = { type: "t", value: texture };
+            positionUniforms['width'] = { type: "int", value: WIDTH };
+            velocityUniforms['width'] = { type: "int", value: WIDTH };
+
+            // velocityVariable.material.defines.BOUNDS = BOUNDS.toFixed(2);
+
+            velocityVariable.wrapS = THREE.RepeatWrapping;
+            velocityVariable.wrapT = THREE.RepeatWrapping;
+            positionVariable.wrapS = THREE.RepeatWrapping;
+            positionVariable.wrapT = THREE.RepeatWrapping;
+
+            const error = gpuCompute.init();
+
+            if (error !== null) {
+
+                console.error(error);
+
+            }
+
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            gpuCompute.compute();
+
+            uniforms['texture1'].value = gpuCompute.getCurrentRenderTarget(positionVariable).texture;
+
+            renderer.render(scene, camera);
+
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,12 +299,12 @@
     </style>
 </head>
 
-<body>
-    <!--<div id="container">
-        <video autoplay="true" id="videoElement">
-        </video>
-    </div>-->
-    <canvas id="myCanvas"></canvas>
+<body>-->
+<!--<div id="container">
+    <video autoplay="true" id="videoElement">
+    </video>
+</div>-->
+<!--<canvas id="myCanvas"></canvas>
     <script>
 
         var VIDEO = null;
@@ -56,7 +339,7 @@
                 var min = Math.min(VIDEO.videoWidth, VIDEO.videoHeight);
                 var sx = (VIDEO.videoWidth - min) / 2;
                 var sy = (VIDEO.videoHeight - min) / 2;
-                console.log(VIDEO.videoWidth + " " + VIDEO.videoHeight);
+                console.log(VIDEO.videoWidth + " " + VIDEO.videoHeight + ", framerate " + VIDEO.frameRate);
                 ctx.drawImage(VIDEO, 0, 0);// sx, sy, min, min, 0, 0, SIZEX, SIZEY);
                 timeTrace(ctx);
             }
@@ -97,7 +380,6 @@
                 VIDEO = document.createElement("video");
                 VIDEO.srcObject = signal;
                 VIDEO.play();
-
             }).catch(function (err) {
                 alert("Camera Error");
             });
@@ -106,4 +388,4 @@
         main();
     </script>
 </body>
-</html>
+</html>-->
