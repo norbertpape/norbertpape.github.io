@@ -36,7 +36,6 @@
 
         let renderer, scene, camera, stats, composer, renderScene, bloomPass, bulbLight;
         let mesh;
-        let raycaster;
 
         const intersection = {
             intersects: false,
@@ -65,7 +64,7 @@
             //renderer.xr.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.body.appendChild(renderer.domElement);
-            container.appendChild(renderer.domElement);
+            //container.appendChild(renderer.domElement);
             //document.body.appendChild(VRButton.createButton(renderer));
 
             stats = new Stats();
