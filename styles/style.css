@@ -134,13 +134,14 @@ span {
 }
 
 .about {
-        width: 70%;
-        height: auto;
-        text-align: left;
-        object-fit: contain;
-        margin-left: auto;
-        margin-right: auto;
-        font-color: white;
+    width: 70%;
+    height: auto;
+    text-align: left;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+    font-color: white;
+    font-size: 20px;
 }
 
 .box-main {
@@ -258,8 +259,11 @@ img.logo {
   
     .news {
         width: 100%;
+    }
+    .about {
+        width: 100%;
+        font-size: 15px;
     }   
-
     .logo-banner {
         flex-direction: row;
     }
