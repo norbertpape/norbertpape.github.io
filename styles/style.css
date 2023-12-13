@@ -123,7 +123,8 @@ span {
 	position: fixed;
 	overflow: hidden;
 	top: 50%;
-	left: 50%
+	left: 50%;
+	min-width: 100%;
 	width: auto;
 	transform: TranslateX(-50%) TranslateY(-50%);
 	z-index: -10;
