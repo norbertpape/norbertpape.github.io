@@ -13,9 +13,10 @@
       <div class="overlay-content">\
             <h1 style="color:rgb(210,210,210)"> Selected works </h1>\
             <h2 style="color:rgb(210,210,210)"> &#8210; Art, Tech and Science&#8210; </h2>\
-            <a href="visiondelmonte.html">Robotics: Visi&oacute;n del Monte</a>\
-            <a href="queue.html">XR: Queue (Work in Progress)</a>\
-            <a href="digital.html">XR: Digit(al) - on touching Clouds</a>\
+            <a href="dreamstones.html">Dream Stones</a>\
+            <a href="visiondelmonte.html">Visi&oacute;n del Monte</a>\
+            <a href="queue.html">Queue (Work in Progress)</a>\
+            <a href="digital.html">Digit(al) - on touching Clouds</a>\
             <a href="jacki.html">Combinatorics: Grasping the Jaki Liebezeit Set</a>\
             <h2 style="color:rgb(210,210,210)"> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
