@@ -1,0 +1,618 @@
+// The scene is built around the point (0,0,0)
+// Starting position and starting orientation defines
+// the place where the visitor will stand in the virtual world
+// after putting on the headset, as well as the direction she
+// will be looking in.
+// Example:
+// starting position = (1.0,0.0,-2.0)
+// starting rotation = 180.0
+// The center of the space will be two meters behind the visitor,
+// one meter to her right
+
+starting position
+0.0,0.0,2.0
+
+starting orientation
+180.0
+
+// dialogue orientation turns the dialogue scene around the center of the space
+
+dialogue orientation
+90
+
+// right,up,back
+dialogue placement Remember
+0.0,1.5,3.0
+
+// rotation around center of the space
+dialogue rotation Remember
+0.0
+
+// right,up,back
+dialogue placement Imagine
+0.0,1.5,3.0
+
+// rotation around center of the space
+dialogue rotation Imagine
+180.0
+
+river orientation
+-90
+
+cylinder radius
+3.0
+
+// this defines the normalized (0. to 1.) color values (red, green, blue) of all the text in the app 
+// examples
+// red (1.,0.,0.)
+// gray (0.8,0.8,0.8)
+// light blue (0.5, 0.5, 1.0)
+
+text color
+1.0,1.0,1.0
+
+//the following define the timings of the scenes and of the events happening therein
+
+duration transition scene
+40.0
+
+time until credits in transition scene
+14.0
+
+time until start outer maze in maze scene
+60.0
+
+duration cylinder scene
+150.0
+
+time until QandA Cylinder scene
+90.0
+
+number of lines QandA during Cylinder scene
+7
+
+time until Ghost trace in cylinder scene
+60.0
+
+duration river scene
+120.0
+
+duration HoldMe scene
+165.0
+
+time until QandA HoldMe scene
+0.0
+
+number of lines QandA during HoldMe scene
+5
+
+time until second QandA HoldMe scene
+144.0
+
+number of lines second QandA during HoldMe scene
+11
+
+duration outro scene
+90.0
+
+time until outro text in outro scene
+30.0
+
+time until QandA Transition scene
+0.0
+
+number of lines QandA during Transition scene
+0
+
+credits scroll duration
+35.0
+time after credits until intro
+25.0
+
+time after headset mounted before intro
+10.0
+
+// the LUTs define the passthrough coloring
+
+LUT color transition
+neutral
+LUT color intro
+neutral
+LUT color maze
+neutral
+LUT color dialogue
+green
+LUT color cylinder
+green
+LUT color river
+blue
+LUT color hold me
+red
+LUT color outro
+neutral
+
+
+
+// transition time from the LUT of the previous scene to the LUT of the current scene
+// recommendation: use 0 if the previous scene has the same LUT
+
+LUT transition time intro
+0.0
+LUT transition time maze
+0.0
+LUT transition time dialogue
+0.0
+LUT transition time cylinder
+5.0
+LUT transition time river
+10.0
+LUT transition time hold me
+2.0
+LUT transition time outro
+10.0
+LUT transition time transition
+0.0
+
+
+// this paramater can be used to dim the environment.
+// warning: it reduces the overall contrast, which makes it dull
+
+general opacity level
+1.0
+
+// scene opacity levels ([0,1] in terms of percent of the general opacity level) and transition times
+
+opacity during transition scene
+1.0
+opacity during intro scene
+0.6
+opacity during maze scene
+0.6
+opacity during dialogue scene
+0.7
+opacity during cylinder scene
+0.15
+opacity during river scene
+0.3
+opacity during hold me scene
+0.5
+opacity during outro scene
+0.6
+opacity transition time during transition scene
+2.0
+opacity transition time during intro scene
+4.0
+opacity transition time during maze scene
+3.0
+opacity transition time during dialogue scene
+6.0
+opacity transition time during cylinder scene
+2.0
+opacity transition time during river scene
+3.0
+opacity transition time during hold me scene
+4.0
+opacity transition time during outro scene
+10.0
+
+
+scene: intro text
+track 1;
+1368 87;
+456 104;
+267 101;
+274 110;
+309 32;
+60 116;
+319 104;
+318 101;
+586 32;
+733 112;
+227 105;
+231 108;
+431 101;
+587 115;
+295 32;
+203 102;
+146 111;
+238 114;
+179 32;
+77 116;
+249 104;
+410 101;
+536 32;
+815 117;
+256 110;
+252 105;
+309 118;
+233 101;
+237 114;
+301 115;
+169 105;
+309 116;
+277 121;
+469 32;
+73 108;
+225 105;
+312 98;
+877 114;
+525 97;
+477 114;
+335 121;
+260 32;
+257 102;
+111 111;
+268 117;
+250 110;
+178 100;
+217 97;
+112 116;
+381 105;
+90 111;
+632 110;
+389 115;
+398 32;
+291 119;
+364 101;
+84 114;
+200 101;
+1821 13;
+2669 98;
+381 101;
+142 105;
+307 110;
+300 103;
+392 32;
+190 100;
+294 114;
+84 105;
+1182 118;
+270 101;
+117 110;
+236 32;
+73 105;
+315 110;
+212 32;
+283 97;
+155 116;
+370 32;
+64 110;
+373 105;
+360 103;
+88 104;
+520 116;
+980 44;
+3071 32;
+318 116;
+263 104;
+96 101;
+112 32;
+271 115;
+116 117;
+405 114;
+183 114;
+452 111;
+260 117;
+237 110;
+267 100;
+117 105;
+265 110;
+310 103;
+220 32;
+139 104;
+316 111;
+232 117;
+124 115;
+217 101;
+228 115;
+2295 127;
+223 127;
+216 127;
+216 127;
+207 127;
+228 127;
+960 98;
+322 117;
+62 105;
+374 108;
+264 100;
+162 105;
+253 110;
+250 103;
+494 115;
+845 32;
+266 119;
+75 111;
+250 117;
+261 108;
+317 100;
+719 13;
+2042 115;
+109 104;
+148 97;
+268 107;
+113 101;
+904 46;
+3049 32;
+1052 72;
+636 105;
+233 108;
+250 100;
+284 101;
+229 103;
+172 97;
+140 114;
+260 100;
+764 32;
+808 115;
+166 111;
+218 111;
+358 110;
+246 32;
+214 103;
+358 111;
+700 116;
+320 32;
+66 117;
+129 115;
+224 101;
+245 100;
+174 32;
+81 116;
+527 111;
+1188 32;
+56 116;
+232 104;
+98 101;
+185 32;
+293 101;
+257 97;
+90 114;
+246 116;
+423 104;
+398 32;
+724 113;
+262 117;
+406 97;
+83 107;
+221 105;
+241 110;
+225 103;
+998 46;
+2344 32;
+2616 65;
+398 115;
+907 13;
+2378 114;
+110 101;
+252 97;
+225 100;
+335 105;
+256 108;
+430 121;
+354 32;
+683 97;
+56 115;
+711 32;
+309 105;
+567 102;
+664 32;
+400 115;
+306 104;
+223 101;
+237 32;
+264 104;
+103 97;
+309 100;
+132 32;
+288 98;
+189 101;
+346 101;
+324 110;
+679 32;
+325 115;
+293 101;
+191 99;
+248 114;
+269 101;
+86 116;
+458 108;
+352 121;
+364 32;
+257 108;
+269 111;
+332 110;
+251 103;
+316 105;
+224 110;
+415 103;
+959 32;
+969 102;
+209 111;
+267 114;
+156 32;
+250 105;
+310 116;
+184 32;
+371 97;
+138 108;
+217 108;
+310 32;
+69 116;
+311 104;
+438 101;
+299 32;
+297 116;
+429 105;
+267 109;
+1134 101;
+2502 13;
+3174 97;
+289 110;
+270 100;
+490 32;
+790 97;
+102 108;
+257 111;
+264 110;
+287 103;
+282 32;
+334 119;
+101 105;
+326 116;
+318 104;
+886 32;
+321 116;
+253 104;
+120 101;
+139 32;
+309 108;
+229 111;
+329 110;
+255 103;
+310 105;
+242 110;
+318 103;
+288 32;
+234 102;
+126 111;
+244 114;
+174 32;
+230 99;
+133 104;
+180 97;
+145 110;
+501 103;
+578 101;
+609 32;
+462 104;
+178 97;
+404 100;
+484 32;
+589 97;
+582 99;
+272 104;
+309 105;
+397 101;
+85 118;
+216 101;
+1026 100;
+489 32;
+401 97;
+93 110;
+977 13;
+2177 97;
+260 108;
+337 116;
+139 101;
+91 114;
+166 101;
+286 100;
+229 32;
+950 115;
+64 116;
+172 97;
+225 116;
+410 101;
+1137 46;
+10901 32;
+end;
+
+scene: maze outer
+/imagine
+remember
+human
+brain
+trust
+fear
+touch
+truth
+thought 
+silence
+home
+future
+taxes
+ART
+change
+loop 
+pause
+storm
+power
+conversation
+notification
+texture
+voice
+river
+face
+paper
+pixel
+darkness
+
+scene: dialogue
+//speaker (0 or 1) : text : time : pause (in seconds)
+1: /imagine being trapped in a loop of endless notifications. : 8 : 1
+0: /remember the silence that follows the storm. : 7 : 0
+1: /imagine disconnecting for just one day. : 6 : 0
+0: /remember the texture of real conversations. : 6.4 : 1.5
+1: /imagine all voices could be heard equally. : 5 : 0
+0: /remember when we used to meet face to face? : 6 : 0
+1: /imagine you could mute the world. : 5 : 0
+0: /remember to log off sometimes. : 5 : 0
+1: /imagine the art of missing out. : 4 : 6
+0: /remember the days before 'online' was a place. : 6 : 0
+1: /imagine a world where 'search' meant wandering in the woods. : 7 : 0.5
+0: /remember the feel of leaf between your fingers. : 6 : 0
+1: /imagine if every pixel carried a piece of the truth. : 7 : 0.5
+0: /remember these people are all acting. : 6 : 0
+1: /whisper the names of those forgotten by history. : 6 : 0
+0: /whisper the words that bring us closer in the dark. : 8 : 0
+
+scene: river
+Catch me if you can!
+Catch me, catch me if you can<br><size=18>Tanks</size=18> bursting, <size=18>rockets</size=18> soaring,<br><size=18>hurricanes</size=18> battering, Biden walking<br>through debris.
+<size=18>Time will tell</size=18> why booster why arms mechanical<br>why rockets soaring separating second stage<br>daring flight daring heights 70 kilometers 40 miles<br>separation return landing
+Hours later more violations more attacks<br>more <size=18>tanks</size=18> tanks Merkava tanks <size=18>destroying</size=18> gates<br>breaking gates breaking dawn gates forced open<br>for <size=18>reasons</size=18> forever <size=18>unknown</size=18>.
+help! help!
+And Milton yes Milton not the poet but the <size=18>storm</size=18><br>and Biden thundering Biden Marine One<br>thundering along debris scattered roofs scattered baseball<br>baseball shredded roofs <size=18>debris</size=18> islands roads debris sky houses gone<br>floodwaters rising Milton second <size=18>hurricane</size=18> two hurricanes<br>as Helene came and left and Milton came and stayed<br>and 17 dead piles of debris scattered couches siding<br>microwaves <size=18>memories</size=18> mattresses couches <size=18>broken</size=18><br>pastel colors broken piles broken help help in letters.
+houses gone
+Nigeria overturned overturned tanker<br>driver lost control lost control<br>spilled <size=18>petrol exploded</size=18> exploded<br>at least 147 dead 147 killed<br>worst accident worst in recent times<br>Jigawa widespread security threats<br>widespread <size=18>crisis</size=18> crisis cost of living exploded<br>reasons lost control.
+Catch me if you can!
+Meanwhile in <size=18>London</size=18> corporate <size=18>women</size=18> leaders<br>first time in eight years reversing backwards backwards<br><size=18>unacceptable</size=18> unacceptable<br>five generations delay delay delay<br><size=18>gender</size=18> parity slipping slipping<br>from 33% to 32%<br>a small drop a sharp disconnect. 
+Institutions growing <size=18>weaker</size=18> weaker weaker<br>support for democracy down down down<br>everywhere U.S. Europe all-time low low low down<br><size=18>dictatorship</size=18>democracy support fading fading<br>institutions failing democracies underperforming underachieving<br>unable to provide good governance<br>unable to limit <size=18>inequality</size=18><br>unable to rise to promises of prosperity<br>of justice of fairness <size=18>reasons unknown</size=18><br>but time will tell if they reclaim<br>reclaim the high ground<br>reclaim better governance control corruption control<br>promises time will tell reasons but time is ticking ticking ticking.
+Heartstroke
+Art is for Saturday morning said parents<br>parents who saw no point in <size=18>painting</size=18><br>no point in creativity<br>dropped as a child as a teenager<br><size=18>decades of regret</size=18> regret regret<br>unfulfilled but then the news <br>the biggest gift gift of a lifetime<br>an exhibition at Yorkshire Sculpture Park<br>art school at 66 at 66 pursuing art pursuing dreams<br>returning to art returning to the dream<br>buried buried under <size=18>layers</size=18> of time<br> layers of unspoken potential
+gender representation <size=18>backward</size=18> unacceptable unacceptable<br>moving backward five generations <size=18>reasons unknown</size=18><br>fix fix fix <size=18>fix</size=18> cultures fix
+Accusations violations own violations the cries<br>over <size=18>tanks</size=18> bursting gates through and over forcefully<br>entering dawn beyond dawn breaking and Netanyahu<br>the prime minister <size=18>Netanyahu</size=18> who called war cries tanks<br>still tanks and still combat and still Netanyahu caught in the UN<br>bursting through gates while breaks.
+
+scene: outro
+I never looked at what kind of tree it was.<br>It didn’t have a species name, it was as if<br>I was more amazed by the will to live of a<br>tree as such rather than that of a birch or a<br>maple. Perhaps that’s how I look at people<br>too – the conditions are impossible yet the<br>person lives. Their name or where they’re<br>from seems secondary. It’s as if there’s<br>neither tree nor person if they don’t force<br>their way through rubble and circumstances.
+
+scene: credits
+<br><br>Authors<br>LIIS VARES, TAAVET JANSEN<br><br>Mixed Reality Solution<br>NORBERT PAPE<br><br>Sound Design<br>MIHKEL TOMBERG<br><br>Graphic Design<br>JAAN EVART<br><br>Room Design<br>MARI MÖLDRE<br><br>Photographer<br>ALISSA ŠNAIDER<br><br>Producer<br>ANU ALMIK, elektron.art<br><br>Intro and Outro texts<br>ENE MIHKELSON “Apartment”, Tallinn, 1985<br>
+Translation from Estonian<br>MIRIAM ANNE MCILFARICK-KSENOFONTOV<br><br>Whispers, chat, dialogue<br>AUDIENCE interaction from the Held in Human I<br>EKA Gallery, Tallinn, 2023<br>remixed with ChatGPT<br><br>Supporters<br>Estonian Ministry of Culture, Cultural Endowment of Estonia,<br> Tallinn City, Dortmund Academy of Theater and Digitality,<br> Estonian Academy of Arts (through the ACuTe project),<br> Erasmus Program, VARES Valga Architecture Residency,<br> University of Tartu<br><br>vares.digital 2024<br><br>
+
+scene: maze inner
+road
+tree;1,2,6,7
+boots
+bones;1,7
+r,a,d,i,s,h
+carrot
+Lucky
+stone;1,2,4,5,6,7
+hat
+god
+eyes
+feet
+hair
+TIME;1,7
+leaf
+leaf
+leaf
+leaf
+leaf
+whisper
+whisper
+whisper
+/remember
+/imagine
