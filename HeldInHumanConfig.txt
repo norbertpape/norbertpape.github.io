@@ -616,3 +616,29 @@ whisper
 whisper
 /remember
 /imagine
+
+scene: QandA
+Please walk towards the cross on the floor:-1:0
+Have you noticed how the walls don't meet the ceilings here?:9:0
+Do you think thoughts wander in and out?:6:0
+:3:0
+Do you remember what it was like to think freely?:7:0
+:2:0
+Are you here?:5:0
+Do you see me?:6:0
+Things have changed here since yesterday, haven't they?:6:0
+:1:0
+Did you notice the little leaf on the floor?:7:0
+:2:0
+Did you touch it?:3:0
+How long have we been here, do you think?:6:4
+Will it end?:3:2.5
+Does it matter?:3:2
+:20:0
+Is the tree still here?:5:0
+:1:0
+Do you recognise it?:4:0
+:46.5:0
+Well? Shall we go?:4.5:0
+:2:0
+Yes, Let's go.:3:0
