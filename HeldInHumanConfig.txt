@@ -36,6 +36,14 @@ dialogue placement Imagine
 dialogue rotation Imagine
 180.0
 
+// right,up,back
+intro text position
+0.2,1.7,2.2
+
+// rotation around center of the space
+intro text orientation
+0.0
+
 river orientation
 -90
 
