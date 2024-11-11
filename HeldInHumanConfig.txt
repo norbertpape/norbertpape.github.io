@@ -26,7 +26,7 @@ dialogue placement Remember
 
 // rotation around center of the space
 dialogue rotation Remember
-0.0
+90.0
 
 // right,up,back
 dialogue placement Imagine
@@ -34,7 +34,7 @@ dialogue placement Imagine
 
 // rotation around center of the space
 dialogue rotation Imagine
-180.0
+270.0
 
 // right,up,back
 intro text position
@@ -45,7 +45,7 @@ intro text orientation
 0.0
 
 river orientation
--90
+0
 
 cylinder radius
 3.0
