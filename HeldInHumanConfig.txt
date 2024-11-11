@@ -120,6 +120,12 @@ time after credits until intro
 time after headset mounted before intro
 10.0
 
+time until maze sound fade out in dialogue
+30.0
+
+duration of maze sound fade out in dialogue
+60.0
+
 // the LUTs define the passthrough coloring
 
 LUT color transition
