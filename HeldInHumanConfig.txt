@@ -10,35 +10,35 @@
 // one meter to her right
 
 starting position
-0.0,0.0,2.0
+0.0,0.0,-2.0
 
 starting orientation
-180.0
+0.0
 
 // dialogue orientation turns the dialogue scene around the center of the space
 
 dialogue orientation
-90
+0.0
 
 // right,up,back
 dialogue placement Remember
-0.0,1.5,3.0
+0.0,4.0,15.0
 
 // rotation around center of the space
 dialogue rotation Remember
-90.0
+340.0
 
 // right,up,back
 dialogue placement Imagine
-0.0,1.5,3.0
+0.0,1.7,8.0
 
 // rotation around center of the space
 dialogue rotation Imagine
-270.0
+50.0
 
 // right,up,back
 intro text position
-0.2,1.7,2.2
+0.2,1.8,1.4
 
 // rotation around center of the space
 intro text orientation
@@ -48,7 +48,7 @@ river orientation
 0
 
 cylinder radius
-3.0
+2.55
 
 // this defines the normalized (0. to 1.) color values (red, green, blue) of all the text in the app 
 // examples
@@ -65,7 +65,7 @@ duration transition scene
 40.0
 
 time until credits in transition scene
-14.0
+7.0
 
 time until start outer maze in maze scene
 60.0
@@ -632,7 +632,7 @@ whisper
 /imagine
 
 scene: QandA
-Please walk towards the cross on the floor:-1:0
+Please walk towards the stairs in front of you.:-1:0
 Have you noticed how the walls don't meet the ceilings here?:9:0
 Do you think thoughts wander in and out?:6:0
 :3:0
