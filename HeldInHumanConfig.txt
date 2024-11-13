@@ -15,18 +15,13 @@ starting position
 starting orientation
 0.0
 
-// dialogue orientation turns the dialogue scene around the center of the space
-
-dialogue orientation
-0.0
-
 // right,up,back
 dialogue placement Remember
-0.0,4.0,15.0
+0.0,3.5,10.0
 
 // rotation around center of the space
 dialogue rotation Remember
-340.0
+330.0
 
 // right,up,back
 dialogue placement Imagine
@@ -38,11 +33,15 @@ dialogue rotation Imagine
 
 // right,up,back
 intro text position
-0.2,1.8,1.4
+0.0,1.8,1.4
 
 // rotation around center of the space
 intro text orientation
 0.0
+
+//anchor point for holdme
+holdme anchorpoint
+0.0,1.3,-0.5
 
 river orientation
 0
@@ -602,7 +601,7 @@ scene: outro
 I never looked at what kind of tree it was.<br>It didn’t have a species name, it was as if<br>I was more amazed by the will to live of a<br>tree as such rather than that of a birch or a<br>maple. Perhaps that’s how I look at people<br>too – the conditions are impossible yet the<br>person lives. Their name or where they’re<br>from seems secondary. It’s as if there’s<br>neither tree nor person if they don’t force<br>their way through rubble and circumstances.
 
 scene: credits
-<br><br>Authors<br>LIIS VARES, TAAVET JANSEN<br><br>Mixed Reality Solution<br>NORBERT PAPE<br><br>Sound Design<br>MIHKEL TOMBERG<br><br>Graphic Design<br>JAAN EVART<br><br>Room Design<br>MARI MÖLDRE<br><br>Photographer<br>ALISSA ŠNAIDER<br><br>Producer<br>ANU ALMIK, elektron.art<br><br>Intro and Outro texts<br>ENE MIHKELSON “Apartment”, Tallinn, 1985<br>
+<br><br>Authors<br>LIIS VARES, TAAVET JANSEN<br><br>Mixed Reality Design and Coding<br>NORBERT PAPE<br><br>Sound Design<br>MIHKEL TOMBERG<br><br>Graphic Design<br>JAAN EVART<br><br>Room Design<br>MARI MÖLDRE<br><br>Photographer<br>ALISSA ŠNAIDER<br><br>Producer<br>ANU ALMIK, elektron.art<br><br>Intro and Outro texts<br>ENE MIHKELSON “Apartment”, Tallinn, 1985<br>
 Translation from Estonian<br>MIRIAM ANNE MCILFARICK-KSENOFONTOV<br><br>Whispers, chat, dialogue<br>AUDIENCE interaction from the Held in Human I<br>EKA Gallery, Tallinn, 2023<br>remixed with ChatGPT<br><br>Supporters<br>Estonian Ministry of Culture, Cultural Endowment of Estonia,<br> Tallinn City, Dortmund Academy of Theater and Digitality,<br> Estonian Academy of Arts (through the ACuTe project),<br> Erasmus Program, VARES Valga Architecture Residency,<br> University of Tartu<br><br>vares.digital 2024<br><br>
 
 scene: maze inner
