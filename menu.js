@@ -19,9 +19,7 @@
             <a href="smallmovements.html">Small movements Big questions</a>\
             <a href="dreamstones.html">Dream Stones</a>\
             <a href="visiondelmonte.html">Visi&oacute;n del Monte</a>\
-            <a href="queue.html">Queue (Work in Progress)</a>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
-            <a href="jacki.html">Combinatorics: Grasping the Jaki Liebezeit Set</a>\
             <h2 style="color:rgb(210,210,210)"> &#8210; as choreographer &#8210; </h2>\
             <a href="digital.html">Digit(al) - on touching Clouds</a>\
             <a href="O2.html">O &#35;2</a>\
