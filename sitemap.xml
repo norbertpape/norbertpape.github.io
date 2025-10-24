@@ -1,63 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-  <loc>https://norbertpape.github.io/news.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/about.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/index.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/digital.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/visiondelmonte.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/jacki.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/O.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/dreamstones.html</loc>
-  <lastmod>2023-08-07T14:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://norbertpape.github.io/turbulence.html</loc>
-  <lastmod>2025-10-24T22:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-<url>
-  <loc>https://norbertpape.github.io/S210.html</loc>
-  <lastmod>2025-10-24T21:16:16+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+	<url>
+		<loc>https://norbertpape.github.io/</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>1.00</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/news.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/about.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/digital.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/visiondelmonte.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/O.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/dreamstones.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/turbulence.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://norbertpape.github.io/S210.html</loc>
+		<lastmod>2025-10-24T22:16:16+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	
 </urlset>
