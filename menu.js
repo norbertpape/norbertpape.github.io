@@ -3,7 +3,7 @@
       <div class="overlay-content">\
         <a href="index.html">Home</a>\
         <a href="news.html">News</a>\
-        <a onclick="openNav2();closeNav()">Archive</a>\
+        <a onclick="openNav2();closeNav()">Works</a>\
         <a href="about.html">About</a>\
         <a href="contact.html">Contact</a>\
       </div>\
