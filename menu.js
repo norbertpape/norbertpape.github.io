@@ -38,6 +38,7 @@
             <a href="https://www.numeridanse.tv/en/dance-videotheque/removing">Removing</a>\
             <a href="https://www.fondationlouisvuitton.fr/en/events/noe-soulier-movement-materials">Movement Materials</a>\
             <h2 style="color:rgb(210,210,210)"> &#8210; publications &#8210; </h2>\
+            <a href="/images/GTf_VirturealBodies.pdf">Virtu(re)al Bodies</a>\
             <a href="/images/interview.pdf">Interview by Jean‑Louis Georget</a>\
             <a href="/images/colleagues.pdf">Dear colleagues and friends</a>\
             <a href="/images/foe.pdf">The Future of Education</a>\
