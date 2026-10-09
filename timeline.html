@@ -1,26 +1,143 @@
 <!doctype html>
 <html>
-  <head>
-<!-- 1. TimelineJS default CSS -->
-  <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+<head>
+    <!-- 1. TimelineJS CSS -->
+    <link rel="stylesheet" href="timeline.css">
 
-  <!-- 2. Your custom CSS overrides -->
-  <style>
-    .tl-slidenav-title, 
-    .tl-headline {
-      color: #1A365D !important;
-    }
+    <!-- 2. Your custom CSS overrides -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff; /* Sets default text color to white for readability */
+            margin: 0; /* Removes default browser page margins */
+        }
+        /* Ensure the container has height */
+        #timeline-embed {
+            width: 100%;
+            height: 900px;
+        }
 
-    .tl-text-content-container p {
-      color: #2D3748 !important;
-    }
+        /* ==========================================================================
+   TimelineJS Master CSS Overrides
+   ========================================================================== */
 
-    .tl-timenav {
-      background-color: #F7FAFC !important;
-    }
-  </style>
-  </head>
-  <body>
-    <iframe src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vRACtuCI4jSYuw3v-gZmu1x2r1ObMaxcxP0GOY8JfxKvCTeNSuuU5naukecmRTDoOCvt4iC2it2i1Z3&font=Default&lang=en&initial_zoom=2&width=100%25&height=650' width='100%' height='650' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe>
-  </body>
+        /* 1. Root & Containers */
+        /*.tl-timeline {
+            background-color: #121212 !important;
+        }
+
+        .tl-storyslider {
+            background-color: #000000 !important;
+        }*/
+
+        /* 2. Slide Content & Typography */
+        /*.tl-headline {
+            color: #ffffff !important;*/
+            /*font-size: 28px !important;*/
+        /*}
+
+        .tl-headline-date {
+            color: #ff0000 !important;
+        }
+
+        .tl-text-content-container p {
+            color: #dddddd !important;
+            font-size: 32px !important;
+            line-height: 1.6 !important;
+        }
+
+        .tl-caption,
+        .tl-credit {
+            color: #888888 !important;
+        }*/
+
+        /* 3. Navigation Arrows */
+        /*.tl-slidenav-previous .tl-slidenav-title,
+        .tl-slidenav-next .tl-slidenav-title {
+            color: #ffffff !important;
+        }
+
+        .tl-slidenav-icon {
+            color: #0070f3 !important;
+        }*/
+
+        /* 4. Bottom Navigation Axis (TimeNav) */
+        /*.tl-timenav {
+            background-color: #000000 !important;
+            border-top: 2px solid #333333 !important;
+        }*/
+
+/*        .tl-timeaxis-tick-text {
+            color: #888888 !important;
+        }*/
+
+        /*.tl-timeaxis-tick {
+            box-shadow: inset -1px 0 0 0 #333333 !important;*/ /* Tick lines */
+        /*}*/
+
+        /* 5. Markers / Event Flags */
+        /*.tl-marker {
+            background-color: #222222 !important;
+            border-radius: 4px !important;
+        }*/
+
+        /* 1. UNSELECTED EVENT MARKERS */
+        /* Set the default background color for all unselected event markers */
+        /*.tl-marker .tl-marker-content {
+            background-color: #000000 !important;*/ /* Change to your unselected color */
+            /*border-color: #ff0000 !important;*/ /* Keeps border matching the background */
+        /*}*/
+
+        /* Change default text color inside unselected markers */
+        /*.tl-marker .tl-marker-title {
+            color: #FFFF00 !important;
+        }*/
+
+        /* 2. SELECTED / ACTIVE EVENT MARKER */
+        /* Set the background color for the currently selected event marker */
+        /*.tl-marker.tl-marker-active .tl-marker-content {
+            background-color: #E53E3E !important;*/ /* Change to your active/selected color */
+            /*border-color: #E53E3E !important;
+        }*/
+
+        /* Change text color inside the selected marker */
+        /*.tl-marker.tl-marker-active .tl-marker-title {
+            color: #FF00FF !important;
+        }*/
+
+        /* 3. VERTICAL CONNECTING LINE (Optional) */
+        /* Changes the vertical line connecting the marker flag to the date axis */
+        /*.tl-marker-line {
+            background-color: #CBD5E0 !important;
+        }*/
+
+        /* 6. Menubar / Zoom Controls */
+        /*.tl-menubar {
+            background-color: #222222 !important;
+        }*/
+    </style>
+</head>
+<body>
+
+    <!-- 3. Timeline container -->
+    <div id='timeline-embed'></div>
+
+    <!-- 4. TimelineJS JS library -->
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+
+    <!-- 5. Instantiate TimelineJS -->
+    <script type="text/javascript">
+      // Options match your original URL parameters
+      var options = {
+        font: 'Default',
+        lang: 'en',
+        initial_zoom: 1
+      };
+
+      // Source URL decoded from your original iframe src
+      var source = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRACtuCI4jSYuw3v-gZmu1x2r1ObMaxcxP0GOY8JfxKvCTeNSuuU5naukecmRTDoOCvt4iC2it2i1Z3/pubhtml';
+
+      window.timeline = new TL.Timeline('timeline-embed', source, options);
+    </script>
+</body>
 </html>
