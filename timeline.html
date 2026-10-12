@@ -16,105 +16,6 @@
             width: 100%;
             height: 900px;
         }
-
-        /* ==========================================================================
-   TimelineJS Master CSS Overrides
-   ========================================================================== */
-
-        /* 1. Root & Containers */
-        /*.tl-timeline {
-            background-color: #121212 !important;
-        }
-
-        .tl-storyslider {
-            background-color: #000000 !important;
-        }*/
-
-        /* 2. Slide Content & Typography */
-        /*.tl-headline {
-            color: #ffffff !important;*/
-            /*font-size: 28px !important;*/
-        /*}
-
-        .tl-headline-date {
-            color: #ff0000 !important;
-        }
-
-        .tl-text-content-container p {
-            color: #dddddd !important;
-            font-size: 32px !important;
-            line-height: 1.6 !important;
-        }
-
-        .tl-caption,
-        .tl-credit {
-            color: #888888 !important;
-        }*/
-
-        /* 3. Navigation Arrows */
-        /*.tl-slidenav-previous .tl-slidenav-title,
-        .tl-slidenav-next .tl-slidenav-title {
-            color: #ffffff !important;
-        }
-
-        .tl-slidenav-icon {
-            color: #0070f3 !important;
-        }*/
-
-        /* 4. Bottom Navigation Axis (TimeNav) */
-        /*.tl-timenav {
-            background-color: #000000 !important;
-            border-top: 2px solid #333333 !important;
-        }*/
-
-/*        .tl-timeaxis-tick-text {
-            color: #888888 !important;
-        }*/
-
-        /*.tl-timeaxis-tick {
-            box-shadow: inset -1px 0 0 0 #333333 !important;*/ /* Tick lines */
-        /*}*/
-
-        /* 5. Markers / Event Flags */
-        /*.tl-marker {
-            background-color: #222222 !important;
-            border-radius: 4px !important;
-        }*/
-
-        /* 1. UNSELECTED EVENT MARKERS */
-        /* Set the default background color for all unselected event markers */
-        /*.tl-marker .tl-marker-content {
-            background-color: #000000 !important;*/ /* Change to your unselected color */
-            /*border-color: #ff0000 !important;*/ /* Keeps border matching the background */
-        /*}*/
-
-        /* Change default text color inside unselected markers */
-        /*.tl-marker .tl-marker-title {
-            color: #FFFF00 !important;
-        }*/
-
-        /* 2. SELECTED / ACTIVE EVENT MARKER */
-        /* Set the background color for the currently selected event marker */
-        /*.tl-marker.tl-marker-active .tl-marker-content {
-            background-color: #E53E3E !important;*/ /* Change to your active/selected color */
-            /*border-color: #E53E3E !important;
-        }*/
-
-        /* Change text color inside the selected marker */
-        /*.tl-marker.tl-marker-active .tl-marker-title {
-            color: #FF00FF !important;
-        }*/
-
-        /* 3. VERTICAL CONNECTING LINE (Optional) */
-        /* Changes the vertical line connecting the marker flag to the date axis */
-        /*.tl-marker-line {
-            background-color: #CBD5E0 !important;
-        }*/
-
-        /* 6. Menubar / Zoom Controls */
-        /*.tl-menubar {
-            background-color: #222222 !important;
-        }*/
     </style>
 </head>
 <body>
@@ -131,7 +32,11 @@
       var options = {
         font: 'Default',
         lang: 'en',
-        initial_zoom: 1
+          initial_zoom: 0,
+          scale_factor: 0.6,
+          marker_height_max : 10,
+          timenav_stack: true,// 3. Set minimum marker height and padding so stacked flags fit neatly
+          timenav_height_percentage: 70
       };
 
       // Source URL decoded from your original iframe src

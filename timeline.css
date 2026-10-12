@@ -872,7 +872,7 @@
 			text-transform: uppercase;
 			margin-top: 7.5px;
 			margin-bottom: 7.5px;
-			text-shadow: 1px 1px 1px #FFF;
+			/*text-shadow: 1px 1px 1px #FFF*/;
 		}
 
 			.tl-message .tl-message-container .tl-message-content strong,
@@ -2070,7 +2070,7 @@
 .tl-slide.tl-full-image-background,
 .tl-slide.tl-full-color-background {
 	color: #FFF !important;
-	text-shadow: 1px 1px 1px #000 !important;
+	/*text-shadow: 1px 1px 1px #000 !important;*/
 }
 
 	.tl-slide.tl-full-image-background p,
@@ -2088,8 +2088,8 @@
 	.tl-slide.tl-full-image-background h6,
 	.tl-slide.tl-full-color-background h6 {
 		color: #FFF !important;
-		text-shadow: 1px 1px 1px #000 !important;
-	}
+/*		text-shadow: 1px 1px 1px #000 !important;
+*/	}
 
 	.tl-slide.tl-full-image-background a,
 	.tl-slide.tl-full-color-background a,
@@ -2101,7 +2101,7 @@
 	.tl-slide.tl-full-color-background blockquote,
 	.tl-slide.tl-full-image-background blockquote p,
 	.tl-slide.tl-full-color-background blockquote p {
-		text-shadow: 1px 1px 1px #000;
+		/*text-shadow: 1px 1px 1px #000;*/
 		color: #ffffff;
 	}
 
@@ -2116,7 +2116,7 @@
 	.tl-slide.tl-full-image-background .tl-credit,
 	.tl-slide.tl-full-color-background .tl-credit {
 		color: #FFF !important;
-		text-shadow: 1px 1px 1px #000 !important;
+		/*text-shadow: 1px 1px 1px #000 !important;*/
 	}
 
 	.tl-slide.tl-full-image-background .tl-media-twitter blockquote,
@@ -2124,7 +2124,7 @@
 	.tl-slide.tl-full-image-background .tl-media-blockquote blockquote,
 	.tl-slide.tl-full-color-background .tl-media-blockquote blockquote {
 		color: #FFF !important;
-		text-shadow: 1px 1px 1px #000 !important;
+		/*text-shadow: 1px 1px 1px #000 !important;*/
 	}
 
 		.tl-slide.tl-full-image-background .tl-media-twitter blockquote p,
@@ -2132,7 +2132,7 @@
 		.tl-slide.tl-full-image-background .tl-media-blockquote blockquote p,
 		.tl-slide.tl-full-color-background .tl-media-blockquote blockquote p {
 			color: #FFF !important;
-			text-shadow: 1px 1px 1px #000 !important;
+			/*text-shadow: 1px 1px 1px #000 !important;*/
 		}
 
 	.tl-slide.tl-full-image-background .vcard a,
@@ -2151,7 +2151,7 @@
 	-o-background-size: cover;
 	background-size: cover;
 	background-position: center 25%;
-	text-shadow: 1px 1px 2px #000;
+	/*text-shadow: 1px 1px 2px #000;*/
 }
 
 	.tl-slide.tl-full-image-background p,
@@ -2161,22 +2161,22 @@
 	.tl-slide.tl-full-image-background h4,
 	.tl-slide.tl-full-image-background h5,
 	.tl-slide.tl-full-image-background h6 {
-		text-shadow: 1px 1px 2px #000;
+		/*text-shadow: 1px 1px 2px #000;*/
 	}
 
 	.tl-slide.tl-full-image-background .tl-caption,
 	.tl-slide.tl-full-image-background .tl-credit {
-		text-shadow: 1px 1px 2px #000;
+		/*text-shadow: 1px 1px 2px #000;*/
 	}
 
 	.tl-slide.tl-full-image-background .tl-media-twitter blockquote,
 	.tl-slide.tl-full-image-background .tl-media-blockquote blockquote {
-		text-shadow: 1px 1px 2px #000 !important;
+		/*text-shadow: 1px 1px 2px #000 !important;*/
 	}
 
 		.tl-slide.tl-full-image-background .tl-media-twitter blockquote p,
 		.tl-slide.tl-full-image-background .tl-media-blockquote blockquote p {
-			text-shadow: 1px 1px 2px #000 !important;
+			/*text-shadow: 1px 1px 2px #000 !important;*/
 		}
 /* Color Background
 ================================================== */
