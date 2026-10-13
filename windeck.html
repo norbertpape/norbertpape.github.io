@@ -2,6 +2,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>GLB Model Cycler</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #111;
+            font-family: sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Simple styling for the switch button */
+        #next-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background-color: #ffffff;
+            color: #111;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+            #next-btn:hover {
+                background-color: #ddd;
+            }
+
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            font-size: 14px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 12px;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
+    <button id="next-btn">Next Model 🔄</button>
+
+    <!-- Import Three.js, OrbitControls, and GLTFLoader via CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // 1. List your .glb files here
+        const modelFiles = [
+            'Untitled_2.glb',
+            '261013_H1_1.glb',
+            '261013_H1_2.glb',
+            '261013_H1_3.glb',
+            '261013_H1_4.glb'
+        ];
+        let currentIndex = 0;
+        let currentModel = null;
+
+        // 2. Scene, Camera, Renderer Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 3. Add Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        directionalLight.position.set(5, 10, 7);
+        scene.add(directionalLight);
+
+        // 4. Enable Mouse Controls (Rotate, Pan, Zoom)
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        // 5. Function to Load a Model by Index
+        const loader = new GLTFLoader();
+
+        function loadModel(index) {
+            // Remove previous model if it exists
+            if (currentModel) {
+                scene.remove(currentModel);
+                currentModel = null;
+            }
+
+            const fileName = modelFiles[index];
+            document.getElementById('model-name').innerText = fileName;
+
+            loader.load(fileName, (gltf) => {
+                currentModel = gltf.scene;
+                scene.add(currentModel);
+
+                // Automatically center and scale camera to fit the model
+                const box = new THREE.Box3().setFromObject(currentModel);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+
+                controls.target.copy(center);
+
+                // Position camera based on model size
+                const maxDim = Math.max(size.x, size.y, size.z);
+                camera.position.set(center.x, center.y, center.z + maxDim * 2.0);
+                controls.update();
+            }, undefined, (error) => {
+                console.error('Error loading ' + fileName, error);
+                document.getElementById('model-name').innerText = fileName + ' (Error Loading)';
+            });
+        }
+
+        // 6. Button Event Listener to Cycle Models
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % modelFiles.length;
+            loadModel(currentIndex);
+        });
+
+        // Load the first model on startup
+        loadModel(currentIndex);
+
+        camera.position.z = 5;
+
+        // 7. Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle Window Resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>3D Model Viewer</title>
     <style>
         body {
@@ -15,10 +179,9 @@
         }
     </style>
 </head>
-<body>
-
-    <!-- Import Three.js and OrbitControls via CDN -->
-    <script type="importmap">
+<body>-->
+<!-- Import Three.js and OrbitControls via CDN -->
+<!--<script type="importmap">
         {
             "imports": {
                 "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -83,4 +246,4 @@
         });
     </script>
 </body>
-</html>
+</html>-->
