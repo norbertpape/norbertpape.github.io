@@ -73,52 +73,35 @@
 
         // 1. List your .glb files here
         const modelFiles = [
-            'models/Untitled_2.glb',
-            'models/261013_H1_1.glb',
-            'models/261013_H1_2.glb',
-            'models/261013_H1_3.glb',
-            'models/261013_H1_4.glb',
-            'models/261013_H1_5.glb',
-            'models/261013_H1_6.glb',
-            'models/261013_H2_1.glb',
-            'models/261013_H2_2.glb',
-            'models/261013_H2_3.glb',
-            'models/261013_H2_4.glb',
-            'models/261013_H2_5.glb',
-            'models/261013_H3_1.glb',
-            'models/261013_H3_2.glb',
-            'models/261013_H3_3.glb',
-            'models/261013_H4_1.glb',
-            'models/261013_H4_2.glb',
-            'models/261013_H5_1.glb',
-            'models/261013_H5_2.glb',
-            'models/261013_HN1_1.glb',
-            'models/261013_HN1_2.glb',
-            'models/261014_H1_1.glb',
-            'models/261014_H1_2.glb',
-            'models/261014_H2_1.glb',
-            'models/261014_H2_2.glb',
-            'models/261014_H2_3.glb',
-            'models/261014_H3_1.glb',
-            'models/261014_H3_2.glb',
-            'models/261014_H4_1.glb',
-            'models/261014_H4_2.glb',
-            'models/261014_H4_3.glb',
-            'models/261014_H4_4.glb',
-            'models/261014_H4_5.glb',
-            'models/261014_H5_1.glb',
-            'models/261014_H5_2.glb',
-            'models/261014_H5_3.glb',
-            'models/261014_H5_4.glb',
-            'models/261014_H6_1.glb',
-            'models/261014_H6_2.glb'
+            'models/261014_H5_2.glb', //schwarz very good
+            'models/261014_H4_4.glb', //recenter schwarz
+            'models/261014_H5_1.glb', //schwarz recenter very good
+            'models/261013_H1_2.glb',//schwarz
+            'models/261013_H1_3.glb',//schwarz
+            'models/261013_H1_5.glb', //schwarz
+            'models/261013_H2_2.glb', //schwarz
+            'models/261013_H3_1.glb',//schwarz
+            'models/261013_H4_2.glb',//schwarz
+            'models/261013_H5_1.glb', //schwarz
+            'models/261013_H5_2.glb', //schwarz
+            'models/261013_HN1_2.glb', //schwarz
+            'models/261014_H2_2.glb', //schwarz
+            'models/261014_H4_1.glb', //recenter schwarz
+            'models/261013_H2_1.glb', //pink
+            'models/261014_H1_1.glb', //pink
+            'models/261014_H1_2.glb', //pink
+            'models/261014_H3_1.glb', //pink
+            'models/261014_H3_2.glb', //pink?
+            'models/261014_H5_3.glb', //pink
+            'models/261014_H5_4.glb', //pink recenter
+            'models/261014_H6_2.glb' //pink
         ];
         let currentIndex = 0;
         let currentModel = null;
 
         // 2. Scene, Camera, Renderer Setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf4b8ff);
+        scene.background = new THREE.Color(0x000000);
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -170,7 +153,7 @@
 
                 // Position camera based on model size
                 const maxDim = Math.max(size.x, size.y, size.z);
-                camera.position.set(center.x, center.y, center.z + maxDim * 2.0);
+                camera.position.set(center.x, center.y, center.z + maxDim * 1.1);
                 controls.update();
             }, undefined, (error) => {
                 console.error('Error loading ' + fileName, error);
@@ -182,6 +165,9 @@
         document.getElementById('next-btn').addEventListener('click', () => {
             currentIndex = (currentIndex + 1) % modelFiles.length;
             loadModel(currentIndex);
+            if (currentIndex > 13 ) {
+                scene.background = new THREE.Color(0xf4b8ff);
+            } else scene.background = new THREE.Color(0x000000);
         });
 
         // Load the first model on startup
@@ -291,3 +277,44 @@
     </script>
 </body>
 </html>-->
+<!--         const modelFiles = [
+            'models/Untitled_2.glb',
+            'models/261013_H1_1.glb',
+            'models/261013_H1_2.glb',//schwarz
+            'models/261013_H1_3.glb',//schwarz
+            'models/261013_H1_4.glb',
+            'models/261013_H1_5.glb', //schwarz
+            'models/261013_H1_6.glb',
+            'models/261013_H2_1.glb', //pink
+            'models/261013_H2_2.glb', //schwarz
+            'models/261013_H2_3.glb',
+            'models/261013_H2_4.glb',
+            'models/261013_H2_5.glb',
+            'models/261013_H3_1.glb',//schwarz
+            'models/261013_H3_2.glb',
+            'models/261013_H3_3.glb',
+            'models/261013_H4_1.glb',
+            'models/261013_H4_2.glb',//schwarz
+            'models/261013_H5_1.glb', //schwarz
+            'models/261013_H5_2.glb', //schwarz
+            'models/261013_HN1_1.glb',
+            'models/261013_HN1_2.glb', //schwarz
+            'models/261014_H1_1.glb', //pink
+            'models/261014_H1_2.glb', //pink
+            'models/261014_H2_1.glb',
+            'models/261014_H2_2.glb', //schwarz
+            'models/261014_H2_3.glb',
+            'models/261014_H3_1.glb', //pink
+            'models/261014_H3_2.glb', //pink?
+            'models/261014_H4_1.glb', //recenter schwarz
+            'models/261014_H4_2.glb',
+            'models/261014_H4_3.glb',
+            'models/261014_H4_4.glb', //recenter schwarz
+            'models/261014_H4_5.glb',
+            'models/261014_H5_1.glb', //schwarz recenter very good
+            'models/261014_H5_2.glb', //schwarz very good
+            'models/261014_H5_3.glb', //pink
+            'models/261014_H5_4.glb', //pink recenter
+            'models/261014_H6_1.glb',
+            'models/261014_H6_2.glb' //pink
+        ]; -->
