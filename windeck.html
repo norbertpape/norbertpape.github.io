@@ -118,17 +118,27 @@
 
         // 2. Scene, Camera, Renderer Setup
         const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // 3. Add Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        // 2. Bright, Multi-directional Lighting Setup
+        // Strong ambient light to illuminate all sides evenly
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
         scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-        directionalLight.position.set(5, 10, 7);
-        scene.add(directionalLight);
+
+        // Key light from the front-top-right
+        const frontLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        frontLight.position.set(5, 10, 7);
+        scene.add(frontLight);
+
+        // Fill light from the opposite side to eliminate harsh dark shadows
+        const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        backLight.position.set(-5, -5, -5);
+        scene.add(backLight);
 
         // 4. Enable Mouse Controls (Rotate, Pan, Zoom)
         const controls = new OrbitControls(camera, renderer.domElement);
