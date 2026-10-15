@@ -69,7 +69,7 @@
             color: white;
             padding: 12px 18px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -83,7 +83,7 @@
 </head>
 <body>
 
-    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
+    <!--<div id="info">Current Model: <span id="model-name">Loading...</span></div>-->
     <div id="audio-overlay">🔊 Musik starten (MP3)</div>
 
     <!-- Button Container -->
@@ -115,7 +115,7 @@
             'models/261013_H1_2.glb',//schwarz
             'models/261013_H1_3.glb',//schwarz
             'models/261013_H1_5.glb', //schwarz
-            'models/261013_H2_2.glb', //schwarz
+            'models/261013_H2_2_edited.glb', //schwarz
             'models/261013_H3_1.glb',//schwarz
             'models/261013_H4_2.glb',//schwarz
             'models/261013_H5_1.glb', //schwarz
@@ -200,7 +200,7 @@
             }
 
             const fileName = modelFiles[index];
-            document.getElementById('model-name').innerText = fileName;
+            //document.getElementById('model-name').innerText = fileName;
 
             loader.load(fileName, (gltf) => {
                 currentModel = gltf.scene;
@@ -218,7 +218,7 @@
                 controls.update();
             }, undefined, (error) => {
                 console.error('Fehler beim Laden von ' + fileName, error);
-                document.getElementById('model-name').innerText = fileName + ' (Fehler beim Laden)';
+/*                document.getElementById('model-name').innerText = fileName + ' (Fehler beim Laden)';*/
             });
         }
 
