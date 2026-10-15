@@ -151,7 +151,7 @@
         const audioLoader = new THREE.AudioLoader();
 
         // Passe 'music.mp3' an den Namen deiner MP3-Datei an
-        audioLoader.load('sound.mp3', (buffer) => {
+        audioLoader.load('models/sound.mp3', (buffer) => {
             backgroundSound.setBuffer(buffer);
             backgroundSound.setLoop(true);
             backgroundSound.setVolume(0.5);
