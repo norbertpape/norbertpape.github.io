@@ -64,6 +64,7 @@
 <body>
 
     <div id="info">Current Model: <span id="model-name">Loading...</span></div>
+    <div id="audio-overlay">🔊 Click to Enable/Play Audio</div>
 
     <!-- Button Container -->
     <div class="button-container">
@@ -120,6 +121,39 @@
         const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+
+        // 3. Audio Setup (Supports MP3 / compatible audio formats)
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        const backgroundSound = new THREE.Audio(listener);
+        const audioLoader = new THREE.AudioLoader();
+
+        // Change 'sound.mp3' to your file name (Note: standard browsers natively parse .mp3/.ogg/WAV. If using raw tracker formats like .mo3, ensure it's converted to .mp3 or played via an HTML5 audio element source).
+        audioLoader.load('models/sound.mp3', (buffer) => {
+            backgroundSound.setBuffer(buffer);
+            backgroundSound.setLoop(true);
+            backgroundSound.setVolume(0.5);
+
+            // Try to play automatically
+            backgroundSound.play();
+        }, undefined, (err) => {
+            console.log('Audio file not found or waiting for interaction.');
+        });
+
+        // User interaction fallback to force-start audio if browser blocks autoplay
+        document.getElementById('audio-overlay').addEventListener('click', () => {
+            if (listener.context.state === 'suspended') {
+                listener.context.resume();
+            }
+            if (!backgroundSound.isPlaying) {
+                backgroundSound.play();
+                document.getElementById('audio-overlay').innerText = '🔊 Audio Playing';
+            } else {
+                backgroundSound.pause();
+                document.getElementById('audio-overlay').innerText = '🔇 Audio Paused';
+            }
+        });
 
         // 3. Add Lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
