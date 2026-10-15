@@ -2,6 +2,286 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>GLB Model Cycler with MP3 & HD Snapshot</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #FFF;
+            font-family: sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Button Container für die Steuerung unten in der Mitte */
+        .button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        /* Styling für die Buttons */
+        .ui-btn {
+            padding: 12px 20px;
+            background-color: #ffffff;
+            color: #111;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+            .ui-btn:hover {
+                background-color: #ddd;
+            }
+
+            .ui-btn:active {
+                transform: scale(0.96);
+            }
+
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            font-size: 14px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 12px;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        #audio-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 20;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: background 0.2s;
+        }
+
+            #audio-overlay:hover {
+                background: rgba(40,40,40,0.9);
+            }
+    </style>
+</head>
+<body>
+
+    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
+    <div id="audio-overlay">🔊 Musik starten (MP3)</div>
+
+    <!-- Button Container -->
+    <div class="button-container">
+        <button class="ui-btn" id="next-btn">Next Model 🔄</button>
+        <button class="ui-btn" id="print-btn">HD Snapshot 📸</button>
+    </div>
+
+    <!-- Import Three.js, OrbitControls, und GLTFLoader via CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // 1. Liste deiner .glb-Dateien
+        const modelFiles = [
+            'models/261014_H5_2.glb', //schwarz very good
+            'models/261014_H4_4.glb', //recenter schwarz
+            'models/261014_H5_1.glb', //schwarz recenter very good
+            'models/261013_H1_2.glb',//schwarz
+            'models/261013_H1_3.glb',//schwarz
+            'models/261013_H1_5.glb', //schwarz
+            'models/261013_H2_2.glb', //schwarz
+            'models/261013_H3_1.glb',//schwarz
+            'models/261013_H4_2.glb',//schwarz
+            'models/261013_H5_1.glb', //schwarz
+            'models/261013_H5_2.glb', //schwarz
+            'models/261013_HN1_2.glb', //schwarz
+            'models/261014_H2_2.glb', //schwarz
+            'models/261014_H4_1.glb', //recenter schwarz
+            'models/261013_H2_1.glb', //pink
+            'models/261014_H1_1.glb', //pink
+            'models/261014_H1_2.glb', //pink
+            'models/261014_H3_1.glb', //pink
+            'models/261014_H3_2.glb', //pink?
+            'models/261014_H5_3.glb', //pink
+            'models/261014_H5_4.glb', //pink recenter
+            'models/261014_H6_2.glb' //pink
+        ];
+        let currentIndex = 0;
+        let currentModel = null;
+
+        // 2. Scene, Camera, Renderer Setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 3. MP3 Audio Setup
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        const backgroundSound = new THREE.Audio(listener);
+        const audioLoader = new THREE.AudioLoader();
+
+        // Passe 'music.mp3' an den Namen deiner MP3-Datei an
+        audioLoader.load('sound.mp3', (buffer) => {
+            backgroundSound.setBuffer(buffer);
+            backgroundSound.setLoop(true);
+            backgroundSound.setVolume(0.5);
+        }, undefined, (err) => {
+            console.log('Audio-Ladehinweis: music.mp3 im Ordner prüfen.', err);
+        });
+
+        // Klick-Handler für den Browser-Autoplay-Schutz auf dem PC
+        const audioOverlay = document.getElementById('audio-overlay');
+        audioOverlay.addEventListener('click', () => {
+            if (listener.context.state === 'suspended') {
+                listener.context.resume();
+            }
+            if (!backgroundSound.isPlaying) {
+                backgroundSound.play();
+                audioOverlay.innerText = '🔊 Musik läuft (Klicken zum Pausieren)';
+            } else {
+                backgroundSound.pause();
+                audioOverlay.innerText = '🔇 Musik pausiert (Klicken zum Abspielen)';
+            }
+        });
+
+        // 4. Beleuchtung
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
+        scene.add(ambientLight);
+
+        const frontLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        frontLight.position.set(5, 10, 7);
+        scene.add(frontLight);
+
+        const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        backLight.position.set(-5, -5, -5);
+        scene.add(backLight);
+
+        // 5. Maus-Steuerung (OrbitControls)
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        // 6. Funktion zum Laden des Modells
+        const loader = new GLTFLoader();
+
+        function loadModel(index) {
+            if (currentModel) {
+                scene.remove(currentModel);
+                currentModel = null;
+            }
+
+            const fileName = modelFiles[index];
+            document.getElementById('model-name').innerText = fileName;
+
+            loader.load(fileName, (gltf) => {
+                currentModel = gltf.scene;
+                scene.add(currentModel);
+
+                const box = new THREE.Box3().setFromObject(currentModel);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+
+                controls.target.copy(center);
+
+                // Startet von der diametral gegenüberliegenden Seite
+                const maxDim = Math.max(size.x, size.y, size.z);
+                camera.position.set(center.x, center.y, center.z - maxDim * 1.1);
+                controls.update();
+            }, undefined, (error) => {
+                console.error('Fehler beim Laden von ' + fileName, error);
+                document.getElementById('model-name').innerText = fileName + ' (Fehler beim Laden)';
+            });
+        }
+
+        // 7. Button zum Durchschalten der Modelle & Hintergrundfarbwechsel
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % modelFiles.length;
+            loadModel(currentIndex);
+            if (currentIndex > 13) {
+                scene.background = new THREE.Color(0xf4b8ff);
+            } else {
+                scene.background = new THREE.Color(0x000000);
+            }
+        });
+
+        // 8. HD Snapshot Button
+        document.getElementById('print-btn').addEventListener('click', () => {
+            const hdScale = 2.0;
+            const width = window.innerWidth * hdScale;
+            const height = window.innerHeight * hdScale;
+
+            renderer.setSize(width, height, false);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+
+            renderer.render(scene, camera);
+
+            const dataURL = renderer.domElement.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'model-hd-render.png';
+            link.href = dataURL;
+            link.click();
+
+            renderer.setSize(window.innerWidth, window.innerHeight, false);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Erstes Modell beim Start laden
+        loadModel(currentIndex);
+
+        camera.position.z = 5;
+
+        // 9. Animations-Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Fenster-Größenänderung verarbeiten
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>GLB Model Cycler with HD Snapshot</title>
     <style>
         body {
@@ -64,16 +344,14 @@
 <body>
 
     <div id="info">Current Model: <span id="model-name">Loading...</span></div>
-    <div id="audio-overlay">🔊 Click to Enable/Play Audio</div>
-
-    <!-- Button Container -->
-    <div class="button-container">
-        <button class="ui-btn" id="next-btn">Next Model 🔄</button>
-        <button class="ui-btn" id="print-btn">HD Snapshot 📸</button>
-    </div>
-
-    <!-- Import Three.js, OrbitControls, and GLTFLoader via CDN -->
-    <script type="importmap">
+    <div id="audio-overlay">🔊 Click to Enable/Play Audio</div>-->
+<!-- Button Container -->
+<!--<div class="button-container">
+    <button class="ui-btn" id="next-btn">Next Model 🔄</button>-->
+<!--<button class="ui-btn" id="print-btn">HD Snapshot 📸</button>-->
+<!--</div>-->
+<!-- Import Three.js, OrbitControls, and GLTFLoader via CDN -->
+<!--<script type="importmap">
         {
             "imports": {
                 "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
@@ -133,7 +411,7 @@
         audioLoader.load('models/sound.mp3', (buffer) => {
             backgroundSound.setBuffer(buffer);
             backgroundSound.setLoop(true);
-            backgroundSound.setVolume(0.5);
+            backgroundSound.setVolume(1.);
 
             // Try to play automatically
             backgroundSound.play();
@@ -217,18 +495,18 @@
         });
 
         // 7. HD Snapshot Button Event Listener
-        document.getElementById('print-btn').addEventListener('click', () => {
-            const hdScale = 2.0; // 2x High Definition resolution multiplier
-            const width = window.innerWidth * hdScale;
-            const height = window.innerHeight * hdScale;
+        //document.getElementById('print-btn').addEventListener('click', () => {
+        //    const hdScale = 2.0; // 2x High Definition resolution multiplier
+        //    const width = window.innerWidth * hdScale;
+        //    const height = window.innerHeight * hdScale;
 
-            // Temporarily resize renderer and camera aspect for high resolution
-            renderer.setSize(width, height, false);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
+        //    // Temporarily resize renderer and camera aspect for high resolution
+        //    renderer.setSize(width, height, false);
+        //    camera.aspect = width / height;
+        //    camera.updateProjectionMatrix();
 
-            // Render high-res frame
-            renderer.render(scene, camera);
+        //    // Render high-res frame
+        //    renderer.render(scene, camera);
 
             // Generate image file download
             const dataURL = renderer.domElement.toDataURL('image/png');
@@ -264,7 +542,7 @@
         });
     </script>
 </body>
-</html>
+</html>-->
 <!--<!DOCTYPE html>
 <html lang="en">
 <head>
