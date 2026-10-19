@@ -15,6 +15,48 @@
             display: block;
         }
 
+        /* Top Text Overlay (Shows for 3s on model load) */
+        #model-text-overlay {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Intro Instruction Overlay */
+        #intro-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 100;
+            transition: opacity 0.8s ease;
+            cursor: pointer;
+            padding: 20px;
+        }
+
         /* Button Container für die Steuerung unten in der Mitte */
         .button-container {
             position: absolute;
@@ -26,14 +68,14 @@
             z-index: 10;
         }
 
-        /* Styling für die Buttons */
+        /* Styling für die Buttons (Größer gemacht) */
         .ui-btn {
-            padding: 12px 20px;
+            padding: 18px 32px;
             background-color: #ffffff;
             color: #111;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -58,6 +100,7 @@
             padding: 8px 12px;
             border-radius: 5px;
             pointer-events: none;
+            display: none; /* Hidden as requested/replaced by top overlay */
         }
 
         #audio-overlay {
@@ -83,13 +126,17 @@
 </head>
 <body>
 
-    <!--<div id="info">Current Model: <span id="model-name">Loading...</span></div>-->
-    <div id="audio-overlay">🔊 Musik starten (MP3)</div>
+    <!-- Intro Instructions Screen (Dismisses on Touch/Click) -->
+    <div id="intro-overlay">Drehen und zoomen Sie<br>mit dem Touchscreen<br> oder der Maus</div>
+
+    <!-- Top Text Overlay for Figures -->
+    <div id="model-text-overlay">Yoga und Entspannen<br>im Sonnenschein</div>
+
+    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
 
     <!-- Button Container -->
     <div class="button-container">
         <button class="ui-btn" id="next-btn">Next Model 🔄</button>
-        <!--<button class="ui-btn" id="print-btn">HD Snapshot 📸</button>-->
     </div>
 
     <!-- Import Three.js, OrbitControls, und GLTFLoader via CDN -->
@@ -109,31 +156,62 @@
 
         // 1. Liste deiner .glb-Dateien
         const modelFiles = [
-            'models/261014_H5_2.glb', //schwarz very good
-            'models/261014_H4_4.glb', //recenter schwarz
-            'models/261014_H5_1.glb', //schwarz recenter very good
-            'models/261013_H1_2.glb',//schwarz
-            'models/261013_H1_3.glb',//schwarz
-            'models/261013_H1_5.glb', //schwarz
-            'models/261013_H2_2_edited.glb', //schwarz
-            'models/261013_H3_1.glb',//schwarz
-            'models/261013_H4_2.glb',//schwarz
-            'models/261013_H5_1.glb', //schwarz
-            'models/261013_H5_2.glb', //schwarz
-            'models/261013_HN1_2.glb', //schwarz
-            'models/261014_H2_2.glb', //schwarz
-            'models/261014_H4_1.glb', //recenter schwarz
-            'models/261013_H2_1.glb', //pink
-            'models/261014_H1_1.glb', //pink
-            'models/261014_H1_2.glb', //pink
-            'models/261014_H3_1.glb', //pink
-            'models/261014_H3_2.glb', //pink?
-            'models/261014_H5_3.glb', //pink
-            'models/261014_H5_4.glb', //pink recenter
-            'models/261014_H6_2.glb' //pink
+            'models/261014_H5_2rc.glb',
+            'models/261014_H4_4.glb',
+            'models/261014_H5_1.glb',
+            'models/261015_U8x.glb',
+            'models/261015_U10xs.glb',
+            'models/261015_U13.glb',
+            'models/261013_H1_2.glb',
+            'models/261013_H1_3.glb',
+            'models/261013_H1_5.glb',
+            'models/261013_H2_2_edited.glb',
+            'models/261013_H3_1.glb',
+            'models/261013_H4_2.glb',
+            'models/261013_H5_1.glb',
+            'models/261013_H5_2.glb',
+            'models/261013_HN1_2.glb',
+            'models/261014_H2_2.glb',
+            'models/261014_H4_1x.glb',
+            'models/261013_H2_1.glb',
+            'models/261014_H1_1.glb',
+            'models/261014_H1_2.glb',
+            'models/261014_H3_1.glb',
+            'models/261014_H3_2.glb',
+            'models/261014_H5_3.glb',
+            'models/261014_H6_2.glb'
+        ];
+
+        const modelText = [
+            'Das wünsche ich Shekiba, in ein paar Jahren.',
+            '',
+            '',
+            'Enter the house',
+            '',
+            'Buehnenbild für Vibe Tribe',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'Drei Freundinnen',
+            '',
+            '',
+            'Yoga und Entspannen im Sonnenschein',
+            'Mensch auf dem Mond, Erde, Saturn',
+            'Leonies große Liebe',
+            'Fine beim Frisör',
+            '',
+            'Das Gemalte von Malou',
         ];
         let currentIndex = 0;
         let currentModel = null;
+        let audioStarted = false;
+        let textTimeout = null;
 
         // 2. Scene, Camera, Renderer Setup
         const scene = new THREE.Scene();
@@ -150,28 +228,12 @@
         const backgroundSound = new THREE.Audio(listener);
         const audioLoader = new THREE.AudioLoader();
 
-        // Passe 'music.mp3' an den Namen deiner MP3-Datei an
         audioLoader.load('models/sound.mp3', (buffer) => {
             backgroundSound.setBuffer(buffer);
             backgroundSound.setLoop(true);
             backgroundSound.setVolume(0.5);
         }, undefined, (err) => {
             console.log('Audio-Ladehinweis: music.mp3 im Ordner prüfen.', err);
-        });
-
-        // Klick-Handler für den Browser-Autoplay-Schutz auf dem PC
-        const audioOverlay = document.getElementById('audio-overlay');
-        audioOverlay.addEventListener('click', () => {
-            if (listener.context.state === 'suspended') {
-                listener.context.resume();
-            }
-            if (!backgroundSound.isPlaying) {
-                backgroundSound.play();
-                audioOverlay.innerText = '🔊 Musik läuft (Klicken zum Pausieren)';
-            } else {
-                backgroundSound.pause();
-                audioOverlay.innerText = '🔇 Musik pausiert (Klicken zum Abspielen)';
-            }
         });
 
         // 4. Beleuchtung
@@ -190,6 +252,29 @@
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
 
+        // Function to trigger the 3-second top text overlay
+        function showModelTextOverlay() {
+            const overlay = document.getElementById('model-text-overlay');
+            const t = modelText[currentIndex];
+            if (!t || t.trim() === "") {
+                overlay.style.opacity = '0';
+                overlay.style.display = 'none';
+                return;
+            }
+            overlay.style.display = 'block';
+            overlay.innerHTML = t;
+            // Clear any existing timeout if a model loads quickly
+            if (textTimeout) clearTimeout(textTimeout);
+
+            // Show text
+            overlay.style.opacity = '1';
+
+            // Hide after 3 seconds
+            textTimeout = setTimeout(() => {
+                overlay.style.opacity = '0';
+            }, 3000);
+        }
+
         // 6. Funktion zum Laden des Modells
         const loader = new GLTFLoader();
 
@@ -200,10 +285,14 @@
             }
 
             const fileName = modelFiles[index];
-            //document.getElementById('model-name').innerText = fileName;
+            document.getElementById('model-name').innerText = fileName;
+
+            // Trigger text display whenever a new model starts loading
+            showModelTextOverlay();
 
             loader.load(fileName, (gltf) => {
                 currentModel = gltf.scene;
+                currentModel.updateMatrixWorld(true);
                 scene.add(currentModel);
 
                 const box = new THREE.Box3().setFromObject(currentModel);
@@ -212,53 +301,63 @@
 
                 controls.target.copy(center);
 
-                // Startet von der diametral gegenüberliegenden Seite
                 const maxDim = Math.max(size.x, size.y, size.z);
-                camera.position.set(center.x, center.y, center.z - maxDim * 1.1);
+                if (maxDim > 0) {
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraDistance = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                    cameraDistance *= 1.8;
+
+                    camera.position.set(center.x, center.y, center.z + cameraDistance);
+                    camera.near = maxDim / 100;
+                    camera.far = maxDim * 100;
+                    camera.updateProjectionMatrix();
+                }
+
                 controls.update();
             }, undefined, (error) => {
                 console.error('Fehler beim Laden von ' + fileName, error);
-/*                document.getElementById('model-name').innerText = fileName + ' (Fehler beim Laden)';*/
             });
         }
 
-        // 7. Button zum Durchschalten der Modelle & Hintergrundfarbwechsel
-        document.getElementById('next-btn').addEventListener('click', () => {
+        // Shared function to switch to the next model and update background
+        function nextModel() {
             currentIndex = (currentIndex + 1) % modelFiles.length;
             loadModel(currentIndex);
-            if (currentIndex > 13) {
-                scene.background = new THREE.Color(0xf4b8ff);
+            if (currentIndex > 16) {
+                scene.background = new THREE.Color().setHSL(Math.random(), 0.5, 0.75);
             } else {
-                scene.background = new THREE.Color(0x000000);
+                scene.background = new THREE.Color().setHSL(Math.random(), 0.5, 0.005);
             }
+        }
+
+        // 7. Button zum Durchschalten der Modelle & Hintergrundfarbwechsel (Manual override)
+        document.getElementById('next-btn').addEventListener('click', () => {
+            nextModel();
         });
 
-        // 8. HD Snapshot Button
-        //document.getElementById('print-btn').addEventListener('click', () => {
-        //    const hdScale = 2.0;
-        //    const width = window.innerWidth * hdScale;
-        //    const height = window.innerHeight * hdScale;
+        // Intro Overlay interaction to dismiss & start audio
+        const introOverlay = document.getElementById('intro-overlay');
+        introOverlay.addEventListener('pointerdown', () => {
+            introOverlay.style.display = 'none';
+            if (!audioStarted) {
+                audioStarted = true;
+                if (listener.context.state === 'suspended') {
+                    listener.context.resume();
+                }
+                if (backgroundSound.buffer && !backgroundSound.isPlaying) {
+                    backgroundSound.play();
+                }
+            }
 
-        //    renderer.setSize(width, height, false);
-        //    camera.aspect = width / height;
-        //    camera.updateProjectionMatrix();
-
-        //    renderer.render(scene, camera);
-
-        //    const dataURL = renderer.domElement.toDataURL('image/png');
-        //    const link = document.createElement('a');
-        //    link.download = 'model-hd-render.png';
-        //    link.href = dataURL;
-        //    link.click();
-
-        //    renderer.setSize(window.innerWidth, window.innerHeight, false);
-        //    camera.aspect = window.innerWidth / window.innerHeight;
-        //    camera.updateProjectionMatrix();
-        //});
+            //// Fade out intro overlay
+            //introOverlay.style.opacity = '0';
+            //setTimeout(() => {
+            //    introOverlay.style.display = 'none';
+            //}, 800);
+        });
 
         // Erstes Modell beim Start laden
         loadModel(currentIndex);
-
         camera.position.z = 5;
 
         // 9. Animations-Loop
@@ -278,587 +377,3 @@
     </script>
 </body>
 </html>
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GLB Model Cycler with HD Snapshot</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #FFF;
-            font-family: sans-serif;
-        }
-
-        canvas {
-            display: block;
-        }
-
-        /* Button Container to hold multiple buttons neatly at the bottom center */
-        .button-container {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 10;
-        }
-
-        /* Styling for buttons */
-        .ui-btn {
-            padding: 12px 20px;
-            background-color: #ffffff;
-            color: #111;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: background 0.2s, transform 0.1s;
-        }
-
-            .ui-btn:hover {
-                background-color: #ddd;
-            }
-
-            .ui-btn:active {
-                transform: scale(0.96);
-            }
-
-        #info {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #fff;
-            font-size: 14px;
-            background: rgba(0,0,0,0.6);
-            padding: 8px 12px;
-            border-radius: 5px;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
-    <div id="audio-overlay">🔊 Click to Enable/Play Audio</div>-->
-<!-- Button Container -->
-<!--<div class="button-container">
-    <button class="ui-btn" id="next-btn">Next Model 🔄</button>-->
-<!--<button class="ui-btn" id="print-btn">HD Snapshot 📸</button>-->
-<!--</div>-->
-<!-- Import Three.js, OrbitControls, and GLTFLoader via CDN -->
-<!--<script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-        // 1. List your .glb files here
-        const modelFiles = [
-            'models/261014_H5_2.glb', //schwarz very good
-            'models/261014_H4_4.glb', //recenter schwarz
-            'models/261014_H5_1.glb', //schwarz recenter very good
-            'models/261013_H1_2.glb',//schwarz
-            'models/261013_H1_3.glb',//schwarz
-            'models/261013_H1_5.glb', //schwarz
-            'models/261013_H2_2.glb', //schwarz
-            'models/261014_H3_2.glb', //schwarz
-            'models/261013_H3_1.glb',//schwarz
-            'models/261013_H4_2.glb',//schwarz
-            'models/261013_H5_1.glb', //schwarz
-            'models/261013_H5_2.glb', //schwarz
-            'models/261013_HN1_2.glb', //schwarz
-            'models/261014_H2_2.glb', //schwarz
-            'models/261014_H4_1.glb', //recenter schwarz
-            'models/261013_H2_1.glb', //pink
-            'models/261014_H1_1.glb', //pink
-            'models/261014_H1_2.glb', //pink
-            'models/261014_H3_1.glb', //pink
-            'models/261014_H5_3.glb', //pink
-            'models/261014_H6_2.glb' //pink
-        ];
-        let currentIndex = 0;
-        let currentModel = null;
-
-        // 2. Scene, Camera, Renderer Setup (preserveDrawingBuffer added for snapshot export)
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // 3. Audio Setup (Supports MP3 / compatible audio formats)
-        const listener = new THREE.AudioListener();
-        camera.add(listener);
-
-        const backgroundSound = new THREE.Audio(listener);
-        const audioLoader = new THREE.AudioLoader();
-
-        // Change 'sound.mp3' to your file name (Note: standard browsers natively parse .mp3/.ogg/WAV. If using raw tracker formats like .mo3, ensure it's converted to .mp3 or played via an HTML5 audio element source).
-        audioLoader.load('models/sound.mp3', (buffer) => {
-            backgroundSound.setBuffer(buffer);
-            backgroundSound.setLoop(true);
-            backgroundSound.setVolume(1.);
-
-            // Try to play automatically
-            backgroundSound.play();
-        }, undefined, (err) => {
-            console.log('Audio file not found or waiting for interaction.');
-        });
-
-        // User interaction fallback to force-start audio if browser blocks autoplay
-        document.getElementById('audio-overlay').addEventListener('click', () => {
-            if (listener.context.state === 'suspended') {
-                listener.context.resume();
-            }
-            if (!backgroundSound.isPlaying) {
-                backgroundSound.play();
-                document.getElementById('audio-overlay').innerText = '🔊 Audio Playing';
-            } else {
-                backgroundSound.pause();
-                document.getElementById('audio-overlay').innerText = '🔇 Audio Paused';
-            }
-        });
-
-        // 3. Add Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
-        scene.add(ambientLight);
-
-        const frontLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        frontLight.position.set(5, 10, 7);
-        scene.add(frontLight);
-
-        const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        backLight.position.set(-5, -5, -5);
-        scene.add(backLight);
-
-        // 4. Enable Mouse Controls (Rotate, Pan, Zoom)
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-
-        // 5. Function to Load a Model by Index
-        const loader = new GLTFLoader();
-
-        function loadModel(index) {
-            // Remove previous model if it exists
-            if (currentModel) {
-                scene.remove(currentModel);
-                currentModel = null;
-            }
-
-            const fileName = modelFiles[index];
-            document.getElementById('model-name').innerText = fileName;
-
-            loader.load(fileName, (gltf) => {
-                currentModel = gltf.scene;
-                scene.add(currentModel);
-
-                // Automatically center and scale camera to fit the model
-                const box = new THREE.Box3().setFromObject(currentModel);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-
-                controls.target.copy(center);
-
-                // Position camera based on model size
-                const maxDim = Math.max(size.x, size.y, size.z);
-                camera.position.set(center.x, center.y, center.z - maxDim * 1.1);
-                controls.update();
-            }, undefined, (error) => {
-                console.error('Error loading ' + fileName, error);
-                document.getElementById('model-name').innerText = fileName + ' (Error Loading)';
-            });
-        }
-
-        // 6. Button Event Listener to Cycle Models
-        document.getElementById('next-btn').addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % modelFiles.length;
-            loadModel(currentIndex);
-            if (currentIndex > 14) {
-                scene.background = new THREE.Color(0xf4b8ff);
-            } else {
-                scene.background = new THREE.Color(0x000000);
-            }
-        });
-
-        // 7. HD Snapshot Button Event Listener
-        //document.getElementById('print-btn').addEventListener('click', () => {
-        //    const hdScale = 2.0; // 2x High Definition resolution multiplier
-        //    const width = window.innerWidth * hdScale;
-        //    const height = window.innerHeight * hdScale;
-
-        //    // Temporarily resize renderer and camera aspect for high resolution
-        //    renderer.setSize(width, height, false);
-        //    camera.aspect = width / height;
-        //    camera.updateProjectionMatrix();
-
-        //    // Render high-res frame
-        //    renderer.render(scene, camera);
-
-            // Generate image file download
-            const dataURL = renderer.domElement.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = 'model-hd-render.png';
-            link.href = dataURL;
-            link.click();
-
-            // Restore normal screen resolution and view
-            renderer.setSize(window.innerWidth, window.innerHeight, false);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-
-        // Load the first model on startup
-        loadModel(currentIndex);
-
-        camera.position.z = 5;
-
-        // 8. Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle Window Resizing
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
-</html>-->
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GLB Model Cycler</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #FFF;
-            font-family: sans-serif;
-        }
-
-        canvas {
-            display: block;
-        }
-
-        /* Simple styling for the switch button */
-        #next-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            background-color: #ffffff;
-            color: #111;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 10;
-            transition: background 0.2s;
-        }
-
-            #next-btn:hover {
-                background-color: #ddd;
-            }
-
-        #info {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #fff;
-            font-size: 14px;
-            background: rgba(0,0,0,0.6);
-            padding: 8px 12px;
-            border-radius: 5px;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
-    <button id="next-btn">Next Model 🔄</button>-->
-<!-- Import Three.js, OrbitControls, and GLTFLoader via CDN -->
-<!--<script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-        // 1. List your .glb files here
-        const modelFiles = [
-            'models/261014_H5_2.glb', //schwarz very good
-            'models/261014_H4_4.glb', //recenter schwarz
-            'models/261014_H5_1.glb', //schwarz recenter very good
-            'models/261013_H1_2.glb',//schwarz
-            'models/261013_H1_3.glb',//schwarz
-            'models/261013_H1_5.glb', //schwarz
-            'models/261013_H2_2.glb', //schwarz
-            'models/261013_H3_1.glb',//schwarz
-            'models/261013_H4_2.glb',//schwarz
-            'models/261013_H5_1.glb', //schwarz
-            'models/261013_H5_2.glb', //schwarz
-            'models/261013_HN1_2.glb', //schwarz
-            'models/261014_H2_2.glb', //schwarz
-            'models/261014_H4_1.glb', //recenter schwarz
-            'models/261013_H2_1.glb', //pink
-            'models/261014_H1_1.glb', //pink
-            'models/261014_H1_2.glb', //pink
-            'models/261014_H3_1.glb', //pink
-            'models/261014_H3_2.glb', //pink?
-            'models/261014_H5_3.glb', //pink
-            'models/261014_H5_4.glb', //pink recenter
-            'models/261014_H6_2.glb' //pink
-        ];
-        let currentIndex = 0;
-        let currentModel = null;
-
-        // 2. Scene, Camera, Renderer Setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // 3. Add Lighting
-        // 2. Bright, Multi-directional Lighting Setup
-        // Strong ambient light to illuminate all sides evenly
-        const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
-        scene.add(ambientLight);
-
-        // Key light from the front-top-right
-        const frontLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        frontLight.position.set(5, 10, 7);
-        scene.add(frontLight);
-
-        // Fill light from the opposite side to eliminate harsh dark shadows
-        const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        backLight.position.set(-5, -5, -5);
-        scene.add(backLight);
-
-        // 4. Enable Mouse Controls (Rotate, Pan, Zoom)
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-
-        // 5. Function to Load a Model by Index
-        const loader = new GLTFLoader();
-
-        function loadModel(index) {
-            // Remove previous model if it exists
-            if (currentModel) {
-                scene.remove(currentModel);
-                currentModel = null;
-            }
-
-            const fileName = modelFiles[index];
-            document.getElementById('model-name').innerText = fileName;
-
-            loader.load(fileName, (gltf) => {
-                currentModel = gltf.scene;
-                scene.add(currentModel);
-
-                // Automatically center and scale camera to fit the model
-                const box = new THREE.Box3().setFromObject(currentModel);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-
-                controls.target.copy(center);
-
-                // Position camera based on model size
-                const maxDim = Math.max(size.x, size.y, size.z);
-                camera.position.set(center.x, center.y, center.z + maxDim * 1.1);
-                controls.update();
-            }, undefined, (error) => {
-                console.error('Error loading ' + fileName, error);
-                document.getElementById('model-name').innerText = fileName + ' (Error Loading)';
-            });
-        }
-
-        // 6. Button Event Listener to Cycle Models
-        document.getElementById('next-btn').addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % modelFiles.length;
-            loadModel(currentIndex);
-            if (currentIndex > 13 ) {
-                scene.background = new THREE.Color(0xf4b8ff);
-            } else scene.background = new THREE.Color(0x000000);
-        });
-
-        // Load the first model on startup
-        loadModel(currentIndex);
-
-        camera.position.z = 5;
-
-        // 7. Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle Window Resizing
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
-</html>-->
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>3D Model Viewer</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #111;
-        }
-
-        canvas {
-            display: block;
-        }
-    </style>
-</head>
-<body>-->
-<!-- Import Three.js and OrbitControls via CDN -->
-<!--<script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-        // 1. Scene, Camera, Renderer Setup
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // 2. Add Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-        directionalLight.position.set(5, 10, 7);
-        scene.add(directionalLight);
-
-        // 3. Enable Mouse Controls (Rotate, Pan, Zoom)
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // Smooth motion
-
-        // 4. Load your 3D Model (Change 'model.glb' to your converted file path)
-        const loader = new GLTFLoader();
-        loader.load("models/Untitled_2.glb", (gltf) => {
-            scene.add(gltf.scene);
-
-            // Automatically center and scale camera to fit model
-            const box = new THREE.Box3().setFromObject(gltf.scene);
-            const center = box.getCenter(new THREE.Vector3());
-            controls.target.copy(center);
-            camera.position.set(center.x, center.y, center.z + 5);
-            controls.update();
-        }, undefined, (error) => {
-            console.error('An error occurred loading the model:', error);
-        });
-
-        camera.position.z = 5;
-
-        // 5. Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle Window Resizing
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
-</html>-->
-<!--         const modelFiles = [
-            'models/Untitled_2.glb',
-            'models/261013_H1_1.glb',
-            'models/261013_H1_2.glb',//schwarz
-            'models/261013_H1_3.glb',//schwarz
-            'models/261013_H1_4.glb',
-            'models/261013_H1_5.glb', //schwarz
-            'models/261013_H1_6.glb',
-            'models/261013_H2_1.glb', //pink
-            'models/261013_H2_2.glb', //schwarz
-            'models/261013_H2_3.glb',
-            'models/261013_H2_4.glb',
-            'models/261013_H2_5.glb',
-            'models/261013_H3_1.glb',//schwarz
-            'models/261013_H3_2.glb',
-            'models/261013_H3_3.glb',
-            'models/261013_H4_1.glb',
-            'models/261013_H4_2.glb',//schwarz
-            'models/261013_H5_1.glb', //schwarz
-            'models/261013_H5_2.glb', //schwarz
-            'models/261013_HN1_1.glb',
-            'models/261013_HN1_2.glb', //schwarz
-            'models/261014_H1_1.glb', //pink
-            'models/261014_H1_2.glb', //pink
-            'models/261014_H2_1.glb',
-            'models/261014_H2_2.glb', //schwarz
-            'models/261014_H2_3.glb',
-            'models/261014_H3_1.glb', //pink
-            'models/261014_H3_2.glb', //pink?
-            'models/261014_H4_1.glb', //recenter schwarz
-            'models/261014_H4_2.glb',
-            'models/261014_H4_3.glb',
-            'models/261014_H4_4.glb', //recenter schwarz
-            'models/261014_H4_5.glb',
-            'models/261014_H5_1.glb', //schwarz recenter very good
-            'models/261014_H5_2.glb', //schwarz very good
-            'models/261014_H5_3.glb', //pink
-            'models/261014_H5_4.glb', //pink recenter
-            'models/261014_H6_1.glb',
-            'models/261014_H6_2.glb' //pink
-        ]; -->
