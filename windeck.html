@@ -127,16 +127,16 @@
 <body>
 
     <!-- Intro Instructions Screen (Dismisses on Touch/Click) -->
-    <div id="intro-overlay">Drehen und zoomen Sie<br>mit dem Touchscreen<br> oder der Maus</div>
+    <div id="intro-overlay">Drehen & Zoomen<br>per Touch<br> oder Maus</div>
 
     <!-- Top Text Overlay for Figures -->
     <div id="model-text-overlay">Yoga und Entspannen<br>im Sonnenschein</div>
 
-    <div id="info">Current Model: <span id="model-name">Loading...</span></div>
+    <!--<div id="info">Current Model: <span id="model-name">Loading...</span></div>-->
 
     <!-- Button Container -->
     <div class="button-container">
-        <button class="ui-btn" id="next-btn">Next Model 🔄</button>
+        <button class="ui-btn" id="next-btn">Nächste Szene 🔄</button>
     </div>
 
     <!-- Import Three.js, OrbitControls, und GLTFLoader via CDN -->
@@ -207,6 +207,60 @@
             'Fine beim Frisör',
             '',
             'Das Gemalte von Malou',
+        ];
+
+        const modelAngles = [
+            0,
+            180,
+            -90,
+            -90,
+            0,
+            -60,
+            90,
+            180,
+            90,
+            180,
+            180, //Rackete
+            0,
+            0,
+            0,
+            0,
+            -45,
+            17,
+            0,
+            -90,
+            -90,
+            0,
+            180,
+            90,
+            -70
+        ];
+
+        const modelDist = [
+            1.,
+            0.5,
+            0.5,
+            1.4,
+            1.4,
+            1.,
+            1.2,
+            0.1,
+            1.2,
+            1.6,
+            0.8,
+            1.,
+            1.8,
+            1.8,
+            0.2,
+            1.3,
+            1.8,
+            1.5,
+            1.2,
+            1.2,
+            1.2,
+            0.1,
+            1.,
+            1.2
         ];
         let currentIndex = 0;
         let currentModel = null;
@@ -305,9 +359,23 @@
                 if (maxDim > 0) {
                     const fov = camera.fov * (Math.PI / 180);
                     let cameraDistance = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                    cameraDistance *= 1.8;
+                    cameraDistance *= modelDist[index];
 
-                    camera.position.set(center.x, center.y, center.z + cameraDistance);
+                    const angleInDegrees = modelAngles[index];
+                    const angleInRadians = angleInDegrees * (Math.PI / 180);
+
+                    // Berechne die neue X- und Z-Position im Kreis um den Mittelpunkt herum
+                    const offsetX = Math.sin(angleInRadians) * cameraDistance;
+                    const offsetZ = Math.cos(angleInRadians) * cameraDistance;
+
+                    // Setze die Kamera-Position (Verschiebung um den Center-Punkt)
+                    camera.position.set(
+                        center.x + offsetX,
+                        center.y,
+                        center.z + offsetZ
+                    );
+
+                    //camera.position.set(center.x, center.y, center.z + cameraDistance);
                     camera.near = maxDim / 100;
                     camera.far = maxDim * 100;
                     camera.updateProjectionMatrix();
