@@ -136,7 +136,7 @@
 
     <!-- Button Container -->
     <div class="button-container">
-        <button class="ui-btn" id="next-btn">Nächste Szene 🔄</button>
+        <button class="ui-btn" id="next-btn">Nächste Szene</button>
     </div>
 
     <!-- Import Three.js, OrbitControls, und GLTFLoader via CDN -->
@@ -339,7 +339,7 @@
             }
 
             const fileName = modelFiles[index];
-            document.getElementById('model-name').innerText = fileName;
+            //document.getElementById('model-name').innerText = fileName;
 
             // Trigger text display whenever a new model starts loading
             showModelTextOverlay();
@@ -416,12 +416,6 @@
                     backgroundSound.play();
                 }
             }
-
-            //// Fade out intro overlay
-            //introOverlay.style.opacity = '0';
-            //setTimeout(() => {
-            //    introOverlay.style.display = 'none';
-            //}, 800);
         });
 
         // Erstes Modell beim Start laden
