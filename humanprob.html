@@ -105,15 +105,38 @@
             startWebcam();
         }
 
-        function startWebcam() {
-            navigator.mediaDevices.getUserMedia({
-                video: { width: { ideal: 1280 }, height: { ideal: 720 } }
-            }).then((stream) => {
-                video.srcObject = stream;
-                video.addEventListener("loadeddata", () => {
-                    predictWebcam();
-                });
-            });
+        async function startWebcam() {
+            // First attempt to grab the rear-facing camera on mobile devices ("environment")
+            let constraints = {
+                video: {
+                    facingMode: { exact: "environment" },
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            };
+
+            try {
+                let stream = await navigator.mediaDevices.getUserMedia(constraints);
+                setupStream(stream, false); // false = do not mirror rear camera
+            } catch (err) {
+                console.log("[INFO] Rear camera not available or restricted. Falling back to default/front camera.");
+
+                // Fallback constraint for laptops or single-camera devices
+                constraints = {
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+
+                try {
+                    let fallbackStream = await navigator.mediaDevices.getUserMedia(constraints);
+                    setupStream(fallbackStream, true); // true = mirror front-facing webcam
+                } catch (fallbackErr) {
+                    alert("Could not access camera. Please check camera permissions.");
+                    console.error(fallbackErr);
+                }
+            }
         }
 
         let lastVideoTime = -1;
