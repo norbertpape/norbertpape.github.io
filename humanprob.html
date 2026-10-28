@@ -105,37 +105,38 @@
             startWebcam();
         }
 
+        // Single-Prompt Universal Camera Loader
         async function startWebcam() {
-            // First attempt to grab the rear-facing camera on mobile devices ("environment")
-            let constraints = {
-                video: {
-                    facingMode: { exact: "environment" },
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            };
-
             try {
-                let stream = await navigator.mediaDevices.getUserMedia(constraints);
-                setupStream(stream, false); // false = do not mirror rear camera
-            } catch (err) {
-                console.log("[INFO] Rear camera not available or restricted. Falling back to default/front camera.");
-
-                // Fallback constraint for laptops or single-camera devices
-                constraints = {
+                // 'ideal: environment' prefers the rear camera on phones, 
+                // but gracefully defaults to the PC webcam on computers with ONLY ONE prompt.
+                const stream = await navigator.mediaDevices.getUserMedia({
                     video: {
+                        facingMode: { ideal: "environment" },
                         width: { ideal: 1280 },
                         height: { ideal: 720 }
                     }
-                };
+                });
 
-                try {
-                    let fallbackStream = await navigator.mediaDevices.getUserMedia(constraints);
-                    setupStream(fallbackStream, true); // true = mirror front-facing webcam
-                } catch (fallbackErr) {
-                    alert("Could not access camera. Please check camera permissions.");
-                    console.error(fallbackErr);
+                video.srcObject = stream;
+
+                // Automatically check if it's a front camera or PC webcam to apply mirroring
+                const track = stream.getVideoTracks()[0];
+                const settings = track.getSettings();
+
+                // If it's a PC webcam or phone front camera, mirror it for a natural view
+                if (!settings.facingMode || settings.facingMode === "user") {
+                    video.classList.add("mirror");
+                    canvasElement.classList.add("mirror");
                 }
+
+                video.addEventListener("loadeddata", () => {
+                    predictWebcam();
+                });
+
+            } catch (err) {
+                alert("Could not access camera. Ensure no other application is using your webcam and permissions are allowed.");
+                console.error(err);
             }
         }
 
