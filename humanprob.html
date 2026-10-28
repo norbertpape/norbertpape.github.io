@@ -141,6 +141,7 @@
         }
 
         let lastVideoTime = -1;
+
         async function predictWebcam() {
             // Automatically sync canvas internal resolution to actual video stream size
             if (canvasElement.width !== video.videoWidth || canvasElement.height !== video.videoHeight) {
@@ -161,6 +162,7 @@
                         const landmarks = results.landmarks[0];
 
                         const coreIndices = [0, 11, 12, 23, 24];
+
                         let totalScore = 0;
                         coreIndices.forEach(idx => {
                             const lm = landmarks[idx];
@@ -170,8 +172,7 @@
                             }
                         });
 
-                        const avgConfidence = totalScore / coreIndices.length;
-                        const probability = Math.min(Math.max(Math.round((avgConfidence * 0.88 + (Math.random() * 0.08)) * 100), 45), 99);
+                        const probability = Math.round(100. * totalScore / coreIndices.length);
 
                         probText.innerText = `Probability: ${probability}%`;
                         if (probability > 45) {
