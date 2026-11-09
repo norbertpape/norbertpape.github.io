@@ -65,10 +65,10 @@
     <div id="container">
         <video id="webcam" autoplay playsinline></video>
         <canvas id="output_canvas"></canvas>
-        <div id="overlay-ui">
+        <!--<div id="overlay-ui">
             <h3 id="probText">Probability: 0%</h3>
             <p id="statusText">Status: Searching...</p>
-        </div>
+        </div>-->
     </div>
 
     <!-- Load MediaPipe Vision WASM libraries -->
@@ -174,18 +174,18 @@
 
                         const probability = Math.round(100. * totalScore / coreIndices.length);
 
-                        probText.innerText = `Probability: ${probability}%`;
-                        if (probability > 45) {
-                            statusText.innerText = "Status: Human Recognized";
-                            statusText.style.color = "#0f0";
-                        } else {
-                            statusText.innerText = "Status: Uncertain Subject";
-                            statusText.style.color = "orange";
-                        }
+                        //probText.innerText = `Probability: ${probability}%`;
+                        //if (probability > 45) {
+                        //    statusText.innerText = "Status: Human Recognized";
+                        //    statusText.style.color = "#0f0";
+                        //} else {
+                        //    statusText.innerText = "Status: Uncertain Subject";
+                        //    statusText.style.color = "orange";
+                        //}
 
                         // Draw Connection Lines (Bones)
-                        canvasCtx.strokeStyle = "#f57342";
-                        canvasCtx.lineWidth = 4;
+                        canvasCtx.strokeStyle = "#ffffff";//"#f57342";
+                        canvasCtx.lineWidth = 2;
                         CONNECTIONS.forEach(([startIdx, endIdx]) => {
                             const p1 = landmarks[startIdx];
                             const p2 = landmarks[endIdx];
@@ -198,18 +198,19 @@
                         });
 
                         // Draw Joint Points (Circles)
-                        canvasCtx.fillStyle = "#f542d4";
+                        canvasCtx.fillStyle = "#ffffff";// "#f542d4";
                         landmarks.forEach(lm => {
                             canvasCtx.beginPath();
-                            canvasCtx.arc(lm.x * canvasElement.width, lm.y * canvasElement.height, 6, 0, 2 * Math.PI);
+                            canvasCtx.arc(lm.x * canvasElement.width, lm.y * canvasElement.height, 3, 0, 2 * Math.PI);
                             canvasCtx.fill();
                         });
 
-                    } else {
-                        probText.innerText = `Probability: 0%`;
-                        statusText.innerText = "Status: Searching for Subject...";
-                        statusText.style.color = "red";
                     }
+                    //    else {
+                    //    probText.innerText = `Probability: 0%`;
+                    //    statusText.innerText = "Status: Searching for Subject...";
+                    //    statusText.style.color = "red";
+                    //}
                 }
             }
             window.requestAnimationFrame(predictWebcam);
